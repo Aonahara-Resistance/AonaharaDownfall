@@ -11,6 +11,7 @@ func _ready() -> void:
 
 
 func _state_logic(delta) -> void:
+	print(parent.velocity)
 	parent.move(delta)
 	parent.apply_dash()
 	parent.sprite_control()

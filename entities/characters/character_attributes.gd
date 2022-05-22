@@ -1,6 +1,25 @@
 extends Resource
 class_name CharacterAttributes
 
+var stateful_attributes = {
+	"hp": 0,
+	"stamina": 0,
+}
+
+var stateless_attributes = {
+	"stamina_regen": 0.0,
+	"acceleration": 0,
+	"max_hp": 0,
+	"extra_hp": 0,
+	"max_speed": 0,
+	"max_stamina": 0,
+	"base_damage": 0,
+	"stamina_regen_rate": 0,
+	"dash_duration": 0.0,
+	"friction": 0.0,
+	"receives_knockback": false,
+}
+
 
 func _init(
 	hp: int,
@@ -30,23 +49,3 @@ func _init(
 	stateless_attributes.dash_duration = dash_duration
 	stateless_attributes.friction = friction
 	stateless_attributes.receives_knockback = receives_knockback
-
-
-var stateful_attributes = {
-	"hp": 0,
-	"stamina": 0,
-}
-
-var stateless_attributes = {
-	"stamina_regen": 0.0,
-	"acceleration": 0,
-	"max_hp": 0,
-	"extra_hp": 0,
-	"max_speed": 0,
-	"max_stamina": 0,
-	"base_damage": 0,
-	"stamina_regen_rate": 0,
-	"dash_duration": 0.0,
-	"friction": 0.0,
-	"receives_knockback": false,
-}

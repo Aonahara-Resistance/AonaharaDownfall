@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://common/modifiers/modifier.tscn" type="PackedScene" id=1]
+[ext_resource path="res://status/modifiers/burn/burn_icon.png" type="Texture" id=2]
+[ext_resource path="res://status/modifiers/burn/burning.gd" type="Script" id=3]
+
+[node name="Burning" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+type = 1
+buff_name = "Burning"
+buff_icon = ExtResource( 2 )
+buff_description = "You are burning xd"
+duration = 10.0

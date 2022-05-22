@@ -25,7 +25,9 @@ export var character_icon: Resource
 export var mirrored_sprite: bool = true
 
 var is_alive: bool = true
-var attributes: CharacterAttributes
+var inf_stamina: bool = false
+var inf_health: bool = false
+var attributes
 export var hp: int
 export var stamina: int
 export var stamina_regen: float
@@ -164,12 +166,11 @@ func move(delta: float) -> void:
 
 	# * Using Linear Interpolation to simulate friction
 	velocity = move_and_slide(velocity)
-	velocity += get_attribute("acceleration") * input_direction * delta * 60
+	velocity += (get_attribute("acceleration") * input_direction * delta * 60)
 	velocity = lerp(velocity, Vector2.ZERO, get_attribute("friction"))
 	velocity = velocity.clamped(get_attribute("max_speed"))
 
 
-# warning-ignore:unsafe_method_access
 func listen_to_dash() -> void:
 	if Input.is_action_just_pressed("dash") && is_in_control:
 		if !dash.get_can_dash():
@@ -178,13 +179,15 @@ func listen_to_dash() -> void:
 		if !dash.cooldown_finished():
 			Hud.show_info("Knees weak")
 			return
-		set_attribute("stamina", get_attribute("stamina") - 1)
+		if inf_stamina:
+			set_attribute("stamina", get_attribute("stamina") - 1 * 0)
+		else:
+			set_attribute("stamina", get_attribute("stamina") - 1)
 		set_stamina_regen_timer(get_attribute("stamina"))
 		stamina_timer.start()
 		dash.start_dash(sprite, get_attribute("dash_duration"), get_input_direction())
 
 
-# warning-ignore:unsafe_method_access
 # Why the fuck is the actual dash function is on character??
 func apply_dash() -> void:
 	if dash.is_dashing():
@@ -225,13 +228,14 @@ func apply_knockback(direction, strength) -> void:
 	knockback = (direction.direction_to(self.global_position) * strength)
 
 
-func _on_Hurtbox_area_entered(hitbox: Hitbox) -> void:
-	set_is_in_battle(false)
-	blinker.start_blinking(sprite, 1.0)
-	_whiten_sprite(0.3)
-	_take_damage(hitbox.damage)
-	apply_knockback(hitbox.global_position, hitbox.knockback_strength)
-	_enable_iframes(1.0)
+func _on_Hurtbox_area_entered(hitbox) -> void:
+	if hitbox is WeaponHitbox:
+		set_is_in_battle(false)
+		blinker.start_blinking(sprite, 1.0)
+		_whiten_sprite(0.3)
+		_take_damage(hitbox.damage)
+		apply_knockback(hitbox.global_position, hitbox.knockback_strength)
+		_enable_iframes(1.0)
 
 
 func regenerate_stamina() -> void:
@@ -256,7 +260,10 @@ func set_stamina_regen_timer(current_stamina) -> void:
 
 
 func _take_damage(damage: int) -> void:
-	set_attribute("hp", get_attribute("hp") - damage)
+	if inf_health:
+		set_attribute("hp", get_attribute("hp") - damage * 0)
+	else:
+		set_attribute("hp", get_attribute("hp") - damage)
 	if get_attribute("hp") < 0:
 		set_attribute("hp", 0)
 	_die_check(get_attribute("hp"))
@@ -277,6 +284,11 @@ func die() -> void:
 	is_alive = false
 	Party.tactical_character_hiding(Party.current_character())
 	Party.switch_to_available_member()
+
+
+func reset_stats() -> void:
+	set_attribute("hp", attributes.stateless_attributes.max_hp)
+	set_attribute("stamina", attributes.stateless_attributes.max_stamina)
 
 
 func _on_BattleTimer_timeout():
@@ -307,9 +319,20 @@ func set_attribute(attribute: String, new_value):
 
 
 func apply_modifier(new_modifier: Modifier) -> void:
+	var modifier_list: Array = get_modifiers()
+	for modifier in modifier_list:
+		if modifier.buff_name == new_modifier.buff_name:
+			modifier.reset_duration()
+			return
 	modifiers.add_child(new_modifier)
 	modifier_tick()
 	new_modifier.modify_stateful(self)
+
+
+func reset_modifier() -> void:
+	var modifier_list: Array = get_modifiers()
+	for modifier in modifier_list:
+		modifier.get_parent().remove_child(modifier)
 
 
 func get_modifiers() -> Array:

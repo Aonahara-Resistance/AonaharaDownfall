@@ -1,37 +1,29 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://entities/NPCs/test_npc.gd" type="Script" id=2]
-[ext_resource path="res://levels/testto.gd" type="Script" id=3]
+[ext_resource path="res://scenes/warp/warp_interaction.gd" type="Script" id=1]
+[ext_resource path="res://scenes/warp/warp.gd" type="Script" id=2]
 [ext_resource path="res://common/interactions/intraction_component_ui.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=35]
 extents = Vector2( 24.6757, 14.5397 )
 
-[sub_resource type="Animation" id=36]
-length = 0.3
-loop = true
-
-[node name="Warp" type="Area2D"]
-position = Vector2( 197.508, 97.3511 )
+[node name="Warp" type="StaticBody2D"]
+collision_layer = 32
+collision_mask = 0
 script = ExtResource( 2 )
 
 [node name="WarpArea" type="CollisionShape2D" parent="."]
 position = Vector2( 2.71411, 7.26512 )
 shape = SubResource( 35 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "idle"
-anims/idle = SubResource( 36 )
-
 [node name="Interaction" type="Node" parent="."]
-script = ExtResource( 3 )
+script = ExtResource( 1 )
 ui_component_path = NodePath("../InteractionComponentUI")
-path = "res://levels/firing_range/firing_range.tscn"
 
 [node name="InteractionComponentUI" parent="." instance=ExtResource( 4 )]
-margin_left = -19.0794
-margin_top = -16.6203
-margin_right = 108.921
-margin_bottom = -0.620275
+margin_left = -33.0
+margin_top = -9.0
+margin_right = 95.0004
+margin_bottom = 7.00002
 rect_scale = Vector2( 0.5, 0.5 )
 interaction_component_nodepath = NodePath(".")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://entities/characters/nom_nom/skills/get_excited/excited/excited.gd" type="Script" id=1]
-[ext_resource path="res://common/modifier/modifier.tscn" type="PackedScene" id=2]
+[ext_resource path="res://common/modifiers/modifier.tscn" type="PackedScene" id=2]
 
 [node name="Excited" instance=ExtResource( 2 )]
 script = ExtResource( 1 )

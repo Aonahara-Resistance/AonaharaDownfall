@@ -1,38 +1,11 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://levels/test_world/firing_range.tres" type="TileSet" id=1]
+[ext_resource path="res://levels/test_world/test_world.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/miscs/taishiisama.png" type="Texture" id=2]
 [ext_resource path="res://assets/place_holder/light.png" type="Texture" id=3]
 [ext_resource path="res://scenes/pause_layer/pause_layer.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/miscs/yuka.png" type="Texture" id=5]
-[ext_resource path="res://levels/testto.gd" type="Script" id=6]
 [ext_resource path="res://levels/test_world/test_world.gd" type="Script" id=7]
-[ext_resource path="res://entities/NPCs/test_npc.gd" type="Script" id=8]
-[ext_resource path="res://common/interactions/intraction_component_ui.tscn" type="PackedScene" id=9]
-[ext_resource path="res://assets/place_holder/enemies/goblin/goblin_idle_spritesheet.png" type="Texture" id=10]
-[ext_resource path="res://assets/place_holder/nitsub.png" type="Texture" id=12]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 6.9314, 36.3997 )
-
-[sub_resource type="Animation" id=2]
-length = 0.3
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ 1, 2, 4 ]
-}
-
-[sub_resource type="RectangleShape2D" id=13]
-extents = Vector2( 8.08754, 7.11526 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 7 )
@@ -92,56 +65,6 @@ energy = 0.68
 range_height = -503.9
 
 [node name="YSort" type="YSort" parent="."]
-
-[node name="KinematicBody2D2" type="KinematicBody2D" parent="YSort"]
-position = Vector2( 197.508, 97.3511 )
-collision_layer = 33
-collision_mask = 0
-script = ExtResource( 8 )
-
-[node name="Sprite" type="Sprite" parent="YSort/KinematicBody2D2"]
-texture = ExtResource( 10 )
-hframes = 6
-frame = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/KinematicBody2D2"]
-position = Vector2( 0, 29.1251 )
-shape = SubResource( 1 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="YSort/KinematicBody2D2"]
-autoplay = "idle"
-anims/idle = SubResource( 2 )
-
-[node name="Interaction" type="Node" parent="YSort/KinematicBody2D2"]
-script = ExtResource( 6 )
-ui_component_path = NodePath("../InteractionComponentUI")
-
-[node name="spawn_point" type="RigidBody2D" parent="YSort/KinematicBody2D2/Interaction"]
-collision_mask = 3
-gravity_scale = 0.0
-contact_monitor = true
-linear_damp = 53.874
-angular_damp = 34.309
-
-[node name="Sprite" type="Sprite" parent="YSort/KinematicBody2D2/Interaction/spawn_point"]
-position = Vector2( 0.14726, -0.686347 )
-scale = Vector2( 0.101787, 0.0325839 )
-texture = ExtResource( 12 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/KinematicBody2D2/Interaction/spawn_point"]
-position = Vector2( -0.0320597, -0.00365639 )
-shape = SubResource( 13 )
-
-[node name="InteractionComponentUI" parent="YSort/KinematicBody2D2" instance=ExtResource( 9 )]
-margin_left = -19.0794
-margin_top = -16.6203
-margin_right = 108.921
-margin_bottom = -0.620275
-rect_scale = Vector2( 0.5, 0.5 )
-interaction_component_nodepath = NodePath(".")
-
-[node name="RichTextLabel" parent="YSort/KinematicBody2D2/InteractionComponentUI/HBoxContainer" index="1"]
-text = "Spawn Enemy"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 position = Vector2( -106.112, -46.3835 )
@@ -221,5 +144,3 @@ text = "PUT REGEN HERE"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[editable path="YSort/KinematicBody2D2/InteractionComponentUI"]
