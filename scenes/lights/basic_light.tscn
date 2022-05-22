@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/place_holder/light.png" type="Texture" id=1]
+
+[node name="Light2D" type="Light2D"]
+position = Vector2( 45.7447, 354.854 )
+texture = ExtResource( 1 )
+color = Color( 0.666667, 0.796078, 0.498039, 1 )

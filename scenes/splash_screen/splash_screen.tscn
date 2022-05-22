@@ -1,0 +1,342 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://assets/logos/Aonahara_bg.png" type="Texture" id=1]
+[ext_resource path="res://assets/logos/aonahara_logo.png" type="Texture" id=2]
+[ext_resource path="res://assets/logos/aonahara_resistance_logo.png" type="Texture" id=3]
+[ext_resource path="res://assets/sounds/splash_audio.mp3" type="AudioStream" id=4]
+[ext_resource path="res://scenes/splash_screen/splash_screen.gd" type="Script" id=5]
+[ext_resource path="res://assets/logos/aonahara_kanji.png" type="Texture" id=6]
+[ext_resource path="res://assets/sounds/boom.wav" type="AudioStream" id=7]
+[ext_resource path="res://common/particles/simple_splash/splash_screen_splash.tres" type="Material" id=8]
+
+[sub_resource type="PhysicsMaterial" id=1]
+bounce = 0.8
+
+[sub_resource type="PhysicsMaterial" id=2]
+absorbent = true
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 42.8997
+
+[sub_resource type="PhysicsMaterial" id=5]
+absorbent = true
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 73.4242, 26.9808 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 272.681, 10 )
+
+[sub_resource type="Animation" id=8]
+length = 10.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("bg:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 10 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 500, 0 ) ]
+}
+
+[node name="SplashScreen" type="Node2D"]
+position = Vector2( 1, 0 )
+script = ExtResource( 5 )
+
+[node name="bg" type="Node2D" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="bg"]
+margin_right = 320.0
+margin_bottom = 180.0
+rect_pivot_offset = Vector2( -1126.48, -131.212 )
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="bg"]
+margin_left = -302.328
+margin_right = 17.6718
+margin_bottom = 180.0
+rect_pivot_offset = Vector2( -824.15, -131.212 )
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect3" type="TextureRect" parent="bg"]
+margin_left = -604.215
+margin_right = -284.215
+margin_bottom = 180.0
+rect_pivot_offset = Vector2( -522.263, -131.212 )
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect4" type="TextureRect" parent="bg"]
+margin_left = -905.754
+margin_right = -585.754
+margin_bottom = 180.0
+rect_pivot_offset = Vector2( -220.724, -131.212 )
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect5" type="TextureRect" parent="bg"]
+margin_left = -1207.64
+margin_right = -887.641
+margin_bottom = 180.0
+rect_pivot_offset = Vector2( 81.1623, -131.212 )
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect6" type="TextureRect" parent="bg"]
+margin_left = 37.7472
+margin_top = -140.675
+margin_right = 357.747
+margin_bottom = 39.3249
+rect_pivot_offset = Vector2( -133.064, 140.675 )
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect7" type="TextureRect" parent="bg"]
+margin_left = -263.581
+margin_top = -140.675
+margin_right = 56.419
+margin_bottom = 39.3249
+rect_pivot_offset = Vector2( 169.264, 140.675 )
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect8" type="TextureRect" parent="bg"]
+margin_left = -566.468
+margin_top = -140.675
+margin_right = -246.468
+margin_bottom = 39.3249
+rect_pivot_offset = Vector2( 471.151, 140.675 )
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect9" type="TextureRect" parent="bg"]
+margin_left = -868.007
+margin_top = -140.675
+margin_right = -548.007
+margin_bottom = 39.3249
+rect_pivot_offset = Vector2( 772.69, 140.675 )
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect10" type="TextureRect" parent="bg"]
+margin_left = -1169.89
+margin_top = -140.675
+margin_right = -849.893
+margin_bottom = 39.3249
+rect_pivot_offset = Vector2( 1074.58, 140.675 )
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect11" type="TextureRect" parent="bg"]
+margin_left = 38.7472
+margin_top = 141.479
+margin_right = 358.747
+margin_bottom = 321.479
+rect_pivot_offset = Vector2( -133.064, 140.675 )
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect12" type="TextureRect" parent="bg"]
+margin_left = -263.581
+margin_top = 141.479
+margin_right = 56.419
+margin_bottom = 321.479
+rect_pivot_offset = Vector2( 169.264, 140.675 )
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect13" type="TextureRect" parent="bg"]
+margin_left = -565.468
+margin_top = 141.479
+margin_right = -245.468
+margin_bottom = 321.479
+rect_pivot_offset = Vector2( 471.151, 140.675 )
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect14" type="TextureRect" parent="bg"]
+margin_left = -867.007
+margin_top = 141.479
+margin_right = -547.007
+margin_bottom = 321.479
+rect_pivot_offset = Vector2( 772.69, 140.675 )
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect15" type="TextureRect" parent="bg"]
+margin_left = -1168.89
+margin_top = 141.479
+margin_right = -848.893
+margin_bottom = 321.479
+rect_pivot_offset = Vector2( 1074.58, 140.675 )
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Aonares" type="RigidBody2D" parent="."]
+position = Vector2( 147.196, -324.306 )
+collision_layer = 33
+physics_material_override = SubResource( 1 )
+contacts_reported = 1
+contact_monitor = true
+
+[node name="Sprite" type="Sprite" parent="Aonares"]
+scale = Vector2( 0.061256, 0.061256 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Aonares"]
+position = Vector2( 0, 0.264893 )
+polygon = PoolVector2Array( -20.8828, -40.3708, 0.44397, -41.2126, 22.6126, -33.9166, 31.5923, -19.6052, 36.0821, -6.69693, 35.2403, 5.93077, 30.1892, 20.5228, 26.8218, 22.7677, 43.9394, 35.9566, 38.0464, 41.5689, 23.735, 28.0994, 18.4034, 32.8698, 8.02058, 38.4822, -5.44896, 41.5689, -23.4083, 37.9209, -39.684, 26.6963, -45.577, 13.5074, -46.6994, 4.8083, -43.6127, 11.2625, -32.6687, 8.4563, -26.2145, 10.9818, -22.8471, 7.89507, -16.6736, 5.08891, -19.1991, -13.9929, -26.4951, -15.9572, -30.1431, -27.7431 )
+
+[node name="Particles2D" type="Particles2D" parent="Aonares"]
+show_behind_parent = true
+position = Vector2( -4.76221, 40.8756 )
+scale = Vector2( 3, 3 )
+emitting = false
+amount = 50
+one_shot = true
+explosiveness = 1.0
+randomness = 0.78
+local_coords = false
+process_material = ExtResource( 8 )
+
+[node name="boom" type="AudioStreamPlayer" parent="Aonares"]
+stream = ExtResource( 7 )
+volume_db = -15.0
+
+[node name="Aonahara" type="RigidBody2D" parent="."]
+position = Vector2( 86.1447, 89.9103 )
+collision_layer = 513
+collision_mask = 513
+physics_material_override = SubResource( 2 )
+gravity_scale = 0.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Aonahara"]
+scale = Vector2( 0.05, 0.05 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Aonahara"]
+shape = SubResource( 3 )
+
+[node name="Aonahara3" type="RigidBody2D" parent="."]
+position = Vector2( 202.463, 90.9365 )
+collision_layer = 513
+collision_mask = 513
+physics_material_override = SubResource( 5 )
+gravity_scale = 0.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Aonahara3"]
+scale = Vector2( 0.0955245, 0.0955245 )
+texture = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Aonahara3"]
+shape = SubResource( 6 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="Aonahara3"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -15.0
+autoplay = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1366.0
+margin_bottom = 768.0
+rect_scale = Vector2( 0.235162, 0.235845 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 32
+collision_mask = 32
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 168.38, 140.762 )
+shape = SubResource( 7 )
+
+[node name="asdsa" type="StaticBody2D" parent="."]
+collision_layer = 524288
+collision_mask = 524288
+
+[node name="Sprite" type="Sprite" parent="asdsa"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="asdsa"]
+position = Vector2( 168.38, 252.762 )
+shape = SubResource( 7 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "slide"
+anims/slide = SubResource( 8 )
+
+[node name="ModulateTween" type="Tween" parent="."]
+pause_mode = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 160, 90 )
+scale = Vector2( -3.71182, 3.30072 )
+current = true
+
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
+[connection signal="body_entered" from="Aonares" to="." method="_on_Aonares_body_entered"]
+[connection signal="screen_exited" from="Aonahara3/VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="tween_completed" from="ModulateTween" to="." method="_on_ModulateTween_tween_completed"]

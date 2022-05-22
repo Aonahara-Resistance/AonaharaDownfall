@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://common/particles/simple_splash/splash_particles.tres" type="Material" id=1]
+
+[node name="Particles2D" type="Particles2D"]
+show_behind_parent = true
+emitting = false
+amount = 16
+one_shot = true
+explosiveness = 0.95
+randomness = 0.48
+process_material = ExtResource( 1 )

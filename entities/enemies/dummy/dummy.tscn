@@ -1,0 +1,88 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://entities/enemies/enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/enemies/dummy/dummy.gd" type="Script" id=2]
+[ext_resource path="res://entities/enemies/dummy/dummy_sprite.png" type="Texture" id=3]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 7.56803
+height = 9.10874
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "hurt"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "idle"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 8.27338
+height = 10.748
+
+[node name="Dummy" instance=ExtResource( 1 )]
+collision_layer = 4
+collision_mask = 10
+script = ExtResource( 2 )
+
+[node name="Sprite" parent="." index="2"]
+texture = ExtResource( 3 )
+hframes = 4
+vframes = 2
+
+[node name="CollisionShape2D" parent="." index="4"]
+position = Vector2( -0.265167, -0.252601 )
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" parent="." index="5"]
+autoplay = "idle"
+anims/RESET = SubResource( 3 )
+anims/hurt = SubResource( 5 )
+anims/idle = SubResource( 4 )
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2( -0.353554, 0 )
+shape = SubResource( 2 )
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]

@@ -1,0 +1,98 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://common/skill/skill.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/characters/emuwaa/skills/big_destructive_summon_meteor/big_destructive_summon_meteor.gd" type="Script" id=2]
+[ext_resource path="res://entities/characters/emuwaa/skills/big_destructive_summon_meteor/BDSM.png" type="Texture" id=3]
+[ext_resource path="res://entities/characters/emuwaa/skills/big_destructive_summon_meteor/meteor_drop.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/place_holder/ui_elements/AoE_circle.png" type="Texture" id=5]
+[ext_resource path="res://common/particles/spawning_circle_aura.tres" type="Material" id=6]
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpawningCircle:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpawningCircle:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpawningCircle:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpawningCircle:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.9 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[node name="BigDestructiveSummonMeteor" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+skill_name = "Big Destructive Summon Meteor"
+skill_description = "Emuwaa unleashes her BDSM to destroy everything in her path. Due to the impact of BDSM on their lives, enemies hit will be stunned for 2 seconds.\"I will put an end to this pitiful world using this meteor of mine!\""
+skill_icon = ExtResource( 3 )
+cooldown_duration = 30.0
+cast_duration = 3.0
+meteor = ExtResource( 4 )
+
+[node name="CooldownTimer" parent="." index="0"]
+one_shot = true
+
+[node name="CastTimer" type="Timer" parent="." index="1"]
+one_shot = true
+
+[node name="SpawningCircle" type="Sprite" parent="." index="2"]
+visible = false
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 5 )
+
+[node name="SpawningParticle" type="Particles2D" parent="SpawningCircle" index="0"]
+visible = false
+scale = Vector2( 0.666667, 0.666667 )
+amount = 35
+local_coords = false
+process_material = ExtResource( 6 )
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="." index="3"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+anims/RESET = SubResource( 2 )
+anims/fade = SubResource( 1 )
+
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
+[connection signal="timeout" from="CastTimer" to="." method="_on_CastTimer_timeout"]

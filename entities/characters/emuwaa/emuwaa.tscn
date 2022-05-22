@@ -1,0 +1,289 @@
+[gd_scene load_steps=37 format=2]
+
+[ext_resource path="res://entities/characters/character.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/characters/emuwaa/sprites/emu_spritesheet.png" type="Texture" id=2]
+[ext_resource path="res://assets/place_holder/effects (new)/explosion_anim_f1.png" type="Texture" id=3]
+[ext_resource path="res://entities/characters/emuwaa/emu_state_machine.gd" type="Script" id=4]
+[ext_resource path="res://objects/weapons/staves/parseids_staff/parseids_staff.tscn" type="PackedScene" id=5]
+[ext_resource path="res://entities/characters/emuwaa/sprites/emu_head.png" type="Texture" id=6]
+[ext_resource path="res://entities/characters/emuwaa/skills/golden_shower/golden_shower.tscn" type="PackedScene" id=7]
+[ext_resource path="res://entities/characters/emuwaa/skills/big_destructive_summon_meteor/big_destructive_summon_meteor.tscn" type="PackedScene" id=8]
+[ext_resource path="res://common/blessings/devil_blessing/devil_blessing.tscn" type="PackedScene" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 3.58169, 3.04918 )
+
+[sub_resource type="CircleShape2D" id=59]
+radius = 3.97549
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Weapon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=55]
+resource_name = "after_cast"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 40, 41, 42, 43 ]
+}
+
+[sub_resource type="Animation" id=36]
+resource_name = "casting"
+length = 0.7
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 32, 33, 34, 35, 36, 37, 38, 39 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "idle"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "idle_left"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 16, 17, 18, 19, 20, 21, 22, 23, 24 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "move"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 9, 10, 11, 12, 13, 14, 15 ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "move_left"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 25, 26, 27, 28, 29, 30, 30 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=56]
+animation = "after_cast"
+
+[sub_resource type="AnimationNodeAnimation" id=37]
+animation = "casting"
+
+[sub_resource type="AnimationNodeAnimation" id=38]
+animation = "casting"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id=39]
+blend_point_0/node = SubResource( 37 )
+blend_point_0/pos = 1.0
+blend_point_1/node = SubResource( 38 )
+blend_point_1/pos = -1.0
+
+[sub_resource type="AnimationNodeAnimation" id=42]
+animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=43]
+animation = "idle_left"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id=44]
+blend_point_0/node = SubResource( 42 )
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource( 43 )
+blend_point_1/pos = -0.1
+
+[sub_resource type="AnimationNodeAnimation" id=53]
+animation = "move"
+
+[sub_resource type="AnimationNodeAnimation" id=54]
+animation = "move_left"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id=49]
+blend_point_0/node = SubResource( 53 )
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource( 54 )
+blend_point_1/pos = -0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=47]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=50]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=51]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=52]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=57]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=58]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachine" id=16]
+states/after_cast/node = SubResource( 56 )
+states/after_cast/position = Vector2( 186.325, 214.32 )
+states/casting/node = SubResource( 39 )
+states/casting/position = Vector2( 379.806, 237.32 )
+states/idle/node = SubResource( 44 )
+states/idle/position = Vector2( 300.806, 116 )
+states/walk/node = SubResource( 49 )
+states/walk/position = Vector2( 467.806, 116 )
+transitions = [ "idle", "casting", SubResource( 47 ), "idle", "walk", SubResource( 50 ), "walk", "idle", SubResource( 51 ), "walk", "casting", SubResource( 52 ), "casting", "after_cast", SubResource( 57 ), "after_cast", "idle", SubResource( 58 ) ]
+start_node = "idle"
+graph_offset = Vector2( 79.325, 64.32 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=15]
+
+[node name="Emuwaa" instance=ExtResource( 1 )]
+collision_mask = 1
+character_name = "Emuwaa"
+character_icon = ExtResource( 6 )
+mirrored_sprite = false
+hp = 3
+stamina = 3
+stamina_regen = 2.0
+acceleration = 100
+max_hp = 3
+max_speed = 300
+max_stamina = 3
+base_damage = 10
+stamina_regen_rate = 1
+dash_duration = 0.2
+friction = 0.2
+
+[node name="StateMachine" parent="." index="0"]
+script = ExtResource( 4 )
+
+[node name="GoldenShower" parent="Skills" index="0" instance=ExtResource( 7 )]
+position = Vector2( 9.45283, -0.420448 )
+
+[node name="BigDestructiveSummonMeteor" parent="Skills" index="1" instance=ExtResource( 8 )]
+character_path = NodePath("../..")
+
+[node name="DevilBlessing" parent="Blessing" index="0" instance=ExtResource( 9 )]
+position = Vector2( 0.997029, 0 )
+
+[node name="ParseidsStaff" parent="Weapon" index="0" instance=ExtResource( 5 )]
+
+[node name="ShadowSprite" parent="." index="9"]
+modulate = Color( 1, 1, 1, 0.333333 )
+position = Vector2( -1.19209e-07, 11.0249 )
+scale = Vector2( 0.729361, 0.260693 )
+texture = ExtResource( 3 )
+
+[node name="Sprite" parent="." index="10"]
+visible = false
+scale = Vector2( 1, 1 )
+texture = ExtResource( 2 )
+hframes = 8
+vframes = 6
+
+[node name="CollisionShape2D" parent="." index="11"]
+position = Vector2( -0.331211, 9.14386 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2( -0.373886, 9.14819 )
+scale = Vector2( 1, 1.0127 )
+shape = SubResource( 59 )
+
+[node name="AnimationPlayer" parent="." index="13"]
+anims/RESET = SubResource( 3 )
+anims/after_cast = SubResource( 55 )
+anims/casting = SubResource( 36 )
+anims/idle = SubResource( 4 )
+anims/idle_left = SubResource( 12 )
+anims/move = SubResource( 5 )
+anims/move_left = SubResource( 11 )
+
+[node name="AnimationTree" parent="." index="18"]
+tree_root = SubResource( 16 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 15 )
+parameters/casting/blend_position = 0.163293
+parameters/idle/blend_position = -0.00264549
+parameters/walk/blend_position = -0.0198367
+
+[editable path="Blinker"]
+[editable path="Dash"]
+[editable path="Hurtbox"]
+[editable path="InteractionComponent"]

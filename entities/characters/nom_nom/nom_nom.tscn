@@ -1,0 +1,149 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://entities/characters/character.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/characters/nom_nom/nom_nom.gd" type="Script" id=2]
+[ext_resource path="res://entities/characters/nom_nom/sprites/nom_spritesheet.png" type="Texture" id=3]
+[ext_resource path="res://entities/characters/nom_nom/nom_state_machine.gd" type="Script" id=4]
+[ext_resource path="res://assets/place_holder/effects (new)/explosion_anim_f1.png" type="Texture" id=5]
+[ext_resource path="res://entities/characters/nom_nom/skills/scrilspeokr/scrilspeokr.tscn" type="PackedScene" id=6]
+[ext_resource path="res://entities/characters/emuwaa/sprites/emu_head.png" type="Texture" id=7]
+[ext_resource path="res://objects/weapons/swords/cum_stained_sword/cum_stained_sword.tscn" type="PackedScene" id=8]
+[ext_resource path="res://entities/characters/nom_nom/skills/get_excited/get_excited.tscn" type="PackedScene" id=9]
+
+[sub_resource type="CapsuleShape2D" id=6]
+radius = 4.03739
+height = 0.0
+
+[sub_resource type="CircleShape2D" id=13]
+radius = 3.93763
+
+[sub_resource type="Animation" id=10]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 9, 10, 11, 12, 13, 14, 15 ]
+}
+
+[sub_resource type="AnimationNodeStateMachine" id=11]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=12]
+
+[node name="NomNom" instance=ExtResource( 1 )]
+scale = Vector2( 1, 0.923192 )
+collision_mask = 17
+script = ExtResource( 2 )
+character_name = "Nom Nom"
+character_icon = ExtResource( 7 )
+hp = 5
+stamina = 4
+stamina_regen = 2.0
+acceleration = 80
+max_hp = 5
+max_speed = 100
+max_stamina = 4
+base_damage = 20
+stamina_regen_rate = 1
+dash_duration = 0.2
+friction = 0.2
+
+[node name="StateMachine" parent="." index="0"]
+script = ExtResource( 4 )
+
+[node name="GetExcited" parent="Skills" index="0" instance=ExtResource( 9 )]
+character_path = NodePath("../..")
+
+[node name="Scrilspeokr" parent="Skills" index="1" instance=ExtResource( 6 )]
+
+[node name="Weapon" parent="." index="5"]
+position = Vector2( 0.297298, -0.322042 )
+
+[node name="CumStainedSword" parent="Weapon" index="0" instance=ExtResource( 8 )]
+
+[node name="Vfx" parent="." index="7"]
+position = Vector2( 0.286123, 10.7679 )
+
+[node name="DustTrail" parent="Dash" index="2"]
+position = Vector2( -0.832449, 8.38362 )
+
+[node name="DustBurst" parent="Dash" index="3"]
+position = Vector2( -0.523373, 2.30857 )
+
+[node name="ShadowSprite" parent="." index="9"]
+modulate = Color( 1, 1, 1, 0.258824 )
+position = Vector2( 0.629961, 11.0885 )
+scale = Vector2( 0.611197, 0.285642 )
+texture = ExtResource( 5 )
+
+[node name="Sprite" parent="." index="10"]
+visible = false
+scale = Vector2( 1, 1 )
+texture = ExtResource( 3 )
+hframes = 8
+vframes = 2
+
+[node name="CollisionShape2D" parent="." index="11"]
+position = Vector2( 0.520279, 8.45346 )
+shape = SubResource( 6 )
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2( 0.556811, 8.50424 )
+shape = SubResource( 13 )
+
+[node name="AnimationPlayer" parent="." index="13"]
+anims/RESET = SubResource( 10 )
+anims/idle = SubResource( 8 )
+anims/move = SubResource( 9 )
+
+[node name="Camera2D" parent="." index="16"]
+scale = Vector2( 0.99061, 0.991114 )
+
+[node name="AnimationTree" parent="." index="18"]
+tree_root = SubResource( 11 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 12 )
+
+[editable path="Blinker"]
+[editable path="Dash"]
+[editable path="Hurtbox"]
+[editable path="InteractionComponent"]

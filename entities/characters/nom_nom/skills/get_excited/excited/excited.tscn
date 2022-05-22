@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://entities/characters/nom_nom/skills/get_excited/excited/excited.gd" type="Script" id=1]
+[ext_resource path="res://common/modifier/modifier.tscn" type="PackedScene" id=2]
+
+[node name="Excited" instance=ExtResource( 2 )]
+script = ExtResource( 1 )
+buff_name = "Excited"
+buff_description = "nom nom remembers last night's talk about something lewd and starts to become excited, boosting her stats and allowing her to swing faster. In addition to this, her stamina cooldown is temporarily decreased, but she becomes unable to regenerate stamina for some time after the skill duration ends. "
+duration = 10.0
+extra_hp = 1
+extra_max_hp = 1
+extra_damage = 15
+extra_acceleration = 15
+extra_max_speed = 15
+
+[connection signal="timeout" from="Duration" to="." method="_on_Duration_timeout"]

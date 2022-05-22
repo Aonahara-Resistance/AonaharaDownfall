@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="StreamTexture" id=1]
+load_path = "res://.import/stamina_fill.png-384c4fae3f2aeb3353d3efc3eaceadca.stex"
+
+[node name="StaminaFill" type="TextureRect"]
+margin_right = 16.0
+margin_bottom = 16.0
+texture = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

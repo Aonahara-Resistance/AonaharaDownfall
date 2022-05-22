@@ -1,0 +1,21 @@
+{
+	"color": "#ff3cf33f",
+	"description": "",
+	"display_name": "",
+	"display_name_bool": false,
+	"id": "character-1634983024.json",
+	"mirror_portraits": false,
+	"name": "test_npc",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 350,
+	"offset_y": 0,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": "res://assets/place_holder/enemies/goblin/goblin_idle_anim_f0.png"
+		}
+	],
+	"scale": 100,
+	"theme": "default-theme.cfg"
+}

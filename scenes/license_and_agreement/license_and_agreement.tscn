@@ -1,0 +1,117 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/fonts/m5x7.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scenes/license_and_agreement/license_and_agreement.gd" type="Script" id=2]
+[ext_resource path="res://assets/prosperosus_standard_theme.tres" type="Theme" id=3]
+[ext_resource path="res://assets/sprites/kiseki.png" type="Texture" id=4]
+[ext_resource path="res://assets/place_holder/effects (new)/hit_effect_anim_f0.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 11
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="Gradient" id=9]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=8]
+gradient = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=10]
+emission_shape = 2
+emission_box_extents = Vector3( 180, 1, 0 )
+flag_disable_z = true
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+color = Color( 0.505882, 0.596078, 1, 1 )
+color_ramp = SubResource( 8 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.180392, 0.192157, 0.254902, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.392157 )
+margin_left = 7.49155
+margin_right = 314.492
+margin_bottom = 307.0
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -147.0
+margin_top = -73.0
+margin_right = 148.0
+margin_bottom = 73.0
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 295.0
+margin_bottom = 146.0
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+margin_right = 295.0
+margin_bottom = 13.0
+theme = ExtResource( 3 )
+custom_constants/hseparation = 10
+text = "i andastand"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 295.0
+margin_bottom = 146.0
+mouse_filter = 2
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2"]
+margin_top = 42.0
+margin_right = 295.0
+margin_bottom = 104.0
+custom_fonts/font = SubResource( 1 )
+text = "by clicking the button below I understand that:
+- This is a derivative work of aonahara and is not canon in any way shape or form
+- Public distribution is not allowed due to \"borrowed\" stuff in the game
+- The button is actually on top
+"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 158.059, 181.832 )
+amount = 20
+lifetime = 5.0
+randomness = 1.0
+process_material = SubResource( 10 )
+texture = ExtResource( 5 )
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]

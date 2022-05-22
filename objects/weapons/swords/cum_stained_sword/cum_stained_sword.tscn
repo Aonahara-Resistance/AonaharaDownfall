@@ -1,0 +1,180 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://objects/weapons/swords/sword.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/weapons/swords/cum_stained_sword/cum_stained_sword.gd" type="Script" id=2]
+[ext_resource path="res://objects/weapons/swords/cum_stained_sword/sprites/cum_stained_sword.png" type="Texture" id=4]
+[ext_resource path="res://assets/place_holder/effects (new)/slash_effect_anim_spritesheet.png" type="Texture" id=5]
+
+[sub_resource type="CapsuleShape2D" id=7]
+radius = 1.65025
+height = 10.9225
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("WeaponContainer:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -97.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SoundEffect:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("WeaponContainer:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.8 ),
+"transitions": PoolRealArray( 1, 0.176777, 1 ),
+"update": 0,
+"values": [ -68.1, 108.8, -68.1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("WeaponContainer/Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "spin"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("WeaponContainer:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -68.1, -1510.97 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("WeaponContainer/Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("EffectSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("EffectSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("EffectSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 0.233258, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 25.468, 12.4358 ), Vector2( 29.1833, 14.9509 ), Vector2( 29.183, 14.951 ) ]
+}
+
+[node name="CumStainedSword" instance=ExtResource( 1 )]
+position = Vector2( 9.22342, 3.89646 )
+script = ExtResource( 2 )
+damage = 50
+heavy_cooldown_time = 3.0
+
+[node name="WeaponContainer" parent="." index="0"]
+position = Vector2( -0.00150087, -0.00423738 )
+rotation = -1.18857
+
+[node name="Sprite" parent="WeaponContainer" index="0"]
+position = Vector2( -0.387979, -0.0990992 )
+rotation = 2.23422
+texture = ExtResource( 4 )
+offset = Vector2( -8.5743, 0.0859971 )
+flip_h = true
+flip_v = true
+
+[node name="WeaponHitbox" parent="WeaponContainer" index="1"]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="WeaponContainer/WeaponHitbox" index="0"]
+position = Vector2( 7.00366, -8.97965 )
+rotation = 0.66024
+shape = SubResource( 7 )
+
+[node name="EffectSprite" parent="." index="1"]
+visible = false
+position = Vector2( 29.183, 14.951 )
+rotation = 0.667016
+scale = Vector2( 3, 3 )
+texture = ExtResource( 5 )
+hframes = 3
+frame = 2
+
+[node name="WeaponAnimation" parent="." index="2"]
+anims/RESET = SubResource( 5 )
+anims/attack = SubResource( 2 )
+anims/spin = SubResource( 6 )
+
+[node name="EffectAnimation" parent="." index="3"]
+anims/slash = SubResource( 3 )
+
+[node name="SoundEffect" parent="." index="4"]
+visible = false
+
+[editable path="WeaponContainer/WeaponHitbox"]

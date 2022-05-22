@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://objects/projectiles/piercings/piercing.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/weapons/staves/parseids_staff/rock_shard/rock_shard_3.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 6.28823
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 6.81016
+height = 0.0
+
+[node name="RockShard" instance=ExtResource( 1 )]
+speed = 400
+damage = 100
+
+[node name="Sprite" parent="." index="0"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource( 1 )
+
+[node name="Collision" parent="PiercingHitbox" index="0"]
+rotation = 1.57079
+shape = SubResource( 2 )
+
+[editable path="PiercingHitbox"]

@@ -1,0 +1,43 @@
+{
+	"events": [
+		{
+			"character": "character-1644933786.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Was that a dream?"
+		},
+		{
+			"character": "character-1644933786.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Why am I spinning?"
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Your journey is nearing its end"
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Final stop, [wave amp=50 freq=5]Aonahara![/wave]"
+		},
+		{
+			"character": "character-1644933786.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Ah! finally"
+		},
+		{
+			"emit_signal": "",
+			"event_id": "dialogic_040"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4",
+		"file": "timeline-1644933759.json",
+		"name": "train"
+	}
+}

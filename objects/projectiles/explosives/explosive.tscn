@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/projectiles/explosives/explosive.gd" type="Script" id=1]
+[ext_resource path="res://objects/projectiles/explosives/explosion_hitbox.tscn" type="PackedScene" id=2]
+
+[node name="Explosive" type="Area2D"]
+scale = Vector2( 1, 0.951626 )
+collision_layer = 8
+collision_mask = 4
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="LifeTime" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
+[node name="Particles2D" type="Particles2D" parent="."]
+
+[node name="ExplosionHitbox" parent="." instance=ExtResource( 2 )]
+detonator_path = NodePath("..")
+
+[connection signal="area_entered" from="." to="." method="_on_Explosive_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Explosive_body_entered"]
+[connection signal="timeout" from="LifeTime" to="." method="_on_LifeTime_timeout"]
+
+[editable path="ExplosionHitbox"]

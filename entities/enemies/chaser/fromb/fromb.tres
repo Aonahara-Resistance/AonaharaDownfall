@@ -1,0 +1,76 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=19 format=2]
+
+[sub_resource type="AnimationNodeAnimation" id=29]
+animation = "die_right"
+
+[sub_resource type="AnimationNodeAnimation" id=30]
+animation = "die_left"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id=26]
+blend_point_0/node = SubResource( 29 )
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource( 30 )
+blend_point_1/pos = -0.1
+
+[sub_resource type="AnimationNodeAnimation" id=20]
+animation = "explode_right"
+
+[sub_resource type="AnimationNodeAnimation" id=21]
+animation = "explode_left"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id=6]
+blend_point_0/node = SubResource( 20 )
+blend_point_0/pos = 0.1
+blend_point_1/node = SubResource( 21 )
+blend_point_1/pos = -0.1
+
+[sub_resource type="AnimationNodeAnimation" id=24]
+animation = "idle_right"
+
+[sub_resource type="AnimationNodeAnimation" id=25]
+animation = "idle_left"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id=7]
+resource_local_to_scene = true
+blend_point_0/node = SubResource( 24 )
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource( 25 )
+blend_point_1/pos = -0.1
+
+[sub_resource type="AnimationNodeAnimation" id=22]
+animation = "walk_right"
+
+[sub_resource type="AnimationNodeAnimation" id=23]
+animation = "walk_left"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id=8]
+blend_point_0/node = SubResource( 22 )
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource( 23 )
+blend_point_1/pos = -0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=9]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=10]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=11]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=27]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=28]
+
+[resource]
+resource_local_to_scene = true
+states/die/node = SubResource( 26 )
+states/die/position = Vector2( 372, -24 )
+states/explode/node = SubResource( 6 )
+states/explode/position = Vector2( 372, 150 )
+states/idle/node = SubResource( 7 )
+states/idle/position = Vector2( 290, 55 )
+states/walk/node = SubResource( 8 )
+states/walk/position = Vector2( 467, 55 )
+transitions = [ "idle", "walk", SubResource( 9 ), "walk", "idle", SubResource( 10 ), "walk", "explode", SubResource( 11 ), "idle", "explode", SubResource( 12 ), "idle", "die", SubResource( 27 ), "walk", "die", SubResource( 28 ) ]
+start_node = "idle"
+graph_offset = Vector2( 77, -34.912 )

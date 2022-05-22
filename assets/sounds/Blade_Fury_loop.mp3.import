@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Blade_Fury_loop.mp3-f5065b3336aa1a8107ff1ca14063a66e.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/Blade_Fury_loop.mp3"
+dest_files=[ "res://.import/Blade_Fury_loop.mp3-f5065b3336aa1a8107ff1ca14063a66e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

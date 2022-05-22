@@ -1,0 +1,228 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://objects/weapons/staves/staff.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/weapons/staves/parseids_staff/sprites/parseids_1.png" type="Texture" id=2]
+[ext_resource path="res://objects/weapons/staves/parseids_staff/sprites/rock_shard_2.png" type="Texture" id=3]
+[ext_resource path="res://objects/weapons/staves/parseids_staff/parseids_staff.gd" type="Script" id=4]
+[ext_resource path="res://assets/characters/hand.png" type="Texture" id=5]
+[ext_resource path="res://assets/place_holder/light.png" type="Texture" id=6]
+[ext_resource path="res://objects/weapons/staves/parseids_staff/shart/shart.tscn" type="PackedScene" id=7]
+[ext_resource path="res://objects/weapons/staves/parseids_staff/rock_pillar/rock_pillar.tscn" type="PackedScene" id=8]
+[ext_resource path="res://objects/weapons/staves/parseids_staff/rock_shard/rock_shard.tscn" type="PackedScene" id=10]
+
+[sub_resource type="Gradient" id=8]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 8 )
+
+[sub_resource type="ParticlesMaterial" id=10]
+resource_local_to_scene = true
+emission_shape = 1
+emission_sphere_radius = 7.53
+flag_disable_z = true
+gravity = Vector3( 0, 20, 0 )
+orbit_velocity = 1.0
+orbit_velocity_random = 0.0
+damping = 30.0
+angle = 715.8
+angle_random = 1.0
+color = Color( 0.572549, 0.572549, 0.572549, 1 )
+color_ramp = SubResource( 9 )
+
+[sub_resource type="Animation" id=6]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("WeaponContainer/ChargeParticle:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("WeaponContainer/ChargeLight:enabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "heavy_attack"
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 1 ],
+"method": "_spawn_projectile"
+} ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("HeavyCooldown")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "start"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("WeaponContainer/ChargeParticle:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("WeaponContainer/ChargeLight:enabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "heavy_charge"
+tracks/0/type = "value"
+tracks/0/path = NodePath("WeaponContainer/ChargeParticle:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("WeaponContainer/ChargeParticle:amount")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 5 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("WeaponContainer/ChargeLight:enabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "heavy_charge"
+} ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "light_attack"
+length = 0.5
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.001 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0 ],
+"method": "_spawn_projectile"
+} ]
+}
+
+[node name="ParseidsStaff" instance=ExtResource( 1 )]
+scale = Vector2( 0.725224, 0.725224 )
+script = ExtResource( 4 )
+heavy_cooldown_time = 5.0
+light_projectile = ExtResource( 10 )
+heavy_projectile = ExtResource( 7 )
+chargable_heavy = true
+holdable_light = true
+pillar = ExtResource( 8 )
+
+[node name="Sprite" parent="WeaponContainer" index="0"]
+scale = Vector2( 1, 1.02222 )
+texture = ExtResource( 2 )
+
+[node name="Hand" parent="WeaponContainer" index="1"]
+position = Vector2( 0.775812, 11.4265 )
+scale = Vector2( 1.2, 1.2 )
+texture = ExtResource( 5 )
+
+[node name="ChargeParticle" parent="WeaponContainer" index="2"]
+position = Vector2( 0, -6.48836 )
+scale = Vector2( 1, 0.948891 )
+emitting = false
+amount = 5
+process_material = SubResource( 10 )
+texture = ExtResource( 3 )
+
+[node name="ChargeLight" parent="WeaponContainer" index="3"]
+position = Vector2( 0, -5.01073 )
+enabled = false
+texture = ExtResource( 6 )
+color = Color( 1, 0.576471, 0.12549, 1 )
+energy = 0.5
+shadow_enabled = true
+
+[node name="WeaponAnimation" parent="." index="1"]
+anims/RESET = SubResource( 6 )
+anims/heavy_attack = SubResource( 11 )
+anims/heavy_charge = SubResource( 12 )
+anims/light_attack = SubResource( 13 )
+
+[node name="LightCooldown" parent="." index="4"]
+wait_time = 0.5

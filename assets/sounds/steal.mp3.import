@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/steal.mp3-4fd09cbe10adc0bac13a1c28a5e55ec9.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/steal.mp3"
+dest_files=[ "res://.import/steal.mp3-4fd09cbe10adc0bac13a1c28a5e55ec9.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

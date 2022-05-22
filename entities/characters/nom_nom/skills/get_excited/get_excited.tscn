@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://common/skill/skill.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/characters/nom_nom/skills/get_excited/get_excited.gd" type="Script" id=2]
+[ext_resource path="res://entities/characters/nom_nom/skills/get_excited/get_excited.png" type="Texture" id=3]
+
+[node name="GetExcited" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+skill_name = "Get Excited"
+skill_description = "nom nom remembers last night's talk about something lewd and starts to become excited, boosting her stats and allowing her to swing faster. In addition to this, her stamina cooldown is temporarily decreased, but she becomes unable to regenerate stamina for some time after the skill duration ends."
+skill_icon = ExtResource( 3 )
+cooldown_duration = 15.0
+
+[node name="CooldownTimer" parent="." index="0"]
+one_shot = true
+
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]

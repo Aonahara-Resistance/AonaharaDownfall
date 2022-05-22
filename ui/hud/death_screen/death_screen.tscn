@@ -1,0 +1,65 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/prosperosus_standard_theme.tres" type="Theme" id=1]
+[ext_resource path="res://ui/hud/death_screen/death_screen.gd" type="Script" id=2]
+
+[node name="DeathScreen" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.243137, 0.211765, 0.290196, 0.717647 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxOptions" type="VBoxContainer" parent="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -49.5
+margin_top = -64.5
+margin_right = 49.5
+margin_bottom = 64.5
+theme = ExtResource( 1 )
+custom_constants/separation = 10
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control/VBoxOptions"]
+margin_top = 26.0
+margin_right = 108.0
+margin_bottom = 33.0
+text = "Git gud"
+align = 1
+
+[node name="AreaCheckpoint" type="Button" parent="Control/VBoxOptions"]
+margin_top = 43.0
+margin_right = 108.0
+margin_bottom = 56.0
+text = "Respawn at area checkpoint"
+
+[node name="SavedCheckpoint" type="Button" parent="Control/VBoxOptions"]
+margin_top = 66.0
+margin_right = 108.0
+margin_bottom = 79.0
+text = "Respawn at your saved checkpoint"
+
+[node name="Exit" type="Button" parent="Control/VBoxOptions"]
+margin_top = 89.0
+margin_right = 108.0
+margin_bottom = 102.0
+text = "Get a life"
+
+[connection signal="pressed" from="Control/VBoxOptions/AreaCheckpoint" to="." method="_on_AreaCheckpoint_pressed"]

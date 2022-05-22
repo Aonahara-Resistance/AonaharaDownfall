@@ -1,0 +1,319 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://assets/sounds/boom.wav" type="AudioStream" id=2]
+[ext_resource path="res://objects/weapons/staves/parseids_staff/shart/shart.png" type="Texture" id=3]
+[ext_resource path="res://common/particles/probably_flame/probably_flame.tres" type="Material" id=4]
+[ext_resource path="res://objects/weapons/staves/parseids_staff/shart/shart.gd" type="Script" id=5]
+[ext_resource path="res://objects/weapons/staves/parseids_staff/shart/shart_explode.png" type="Texture" id=6]
+[ext_resource path="res://objects/projectiles/explosives/explosion_hitbox.gd" type="Script" id=7]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 11.8488
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "form"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.8 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "set_formed"
+} ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "swim"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 9, 10 ]
+}
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 75.9403
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:speed")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 200 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Audio:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "explode"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Particles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.25, 0.35, 0.45, 0.55, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../Sprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Audio:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Gradient" id=18]
+offsets = PoolRealArray( 0, 0.840741, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=19]
+gradient = SubResource( 18 )
+
+[sub_resource type="Curve" id=20]
+max_value = 100.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.0754717, 100 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=21]
+curve = SubResource( 20 )
+
+[sub_resource type="Curve" id=22]
+_data = [ Vector2( 0, 0.24089 ), 0.0, 0.0, 0, 0, Vector2( 0.176101, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.625786, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.497647 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=23]
+curve = SubResource( 22 )
+
+[sub_resource type="ParticlesMaterial" id=14]
+resource_local_to_scene = true
+emission_shape = 1
+emission_sphere_radius = 0.01
+flag_align_y = true
+flag_disable_z = true
+direction = Vector3( 0, 0.1, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+radial_accel = 50.0
+damping_curve = SubResource( 21 )
+scale = 5.0
+scale_random = 1.0
+scale_curve = SubResource( 23 )
+color = Color( 0.792157, 0.733333, 0.658824, 1 )
+color_ramp = SubResource( 19 )
+hue_variation = 0.04
+hue_variation_random = 0.66
+
+[node name="Shart" type="Area2D"]
+scale = Vector2( 1, 0.951626 )
+collision_layer = 8
+collision_mask = 4
+script = ExtResource( 5 )
+damage = 10
+knockback_strength = 300.0
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+hframes = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 13.6133, 2.25136 )
+scale = Vector2( 1.02195, 1 )
+shape = SubResource( 1 )
+
+[node name="LifeTime" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
+[node name="Particles2D" type="Particles2D" parent="."]
+visible = false
+amount = 50
+local_coords = false
+process_material = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "form"
+anims/RESET = SubResource( 6 )
+anims/form = SubResource( 5 )
+anims/swim = SubResource( 7 )
+
+[node name="ExplosionHitbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
+monitoring = false
+script = ExtResource( 7 )
+detonator_path = NodePath("..")
+
+[node name="Sprite" type="Sprite" parent="ExplosionHitbox"]
+visible = false
+texture = ExtResource( 6 )
+hframes = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionHitbox"]
+modulate = Color( 0.25098, 1, 0.541176, 1 )
+position = Vector2( 12.1307, 2.22708 )
+shape = SubResource( 2 )
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ExplosionHitbox"]
+anims/RESET = SubResource( 3 )
+anims/explode = SubResource( 4 )
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="ExplosionHitbox"]
+stream = ExtResource( 2 )
+
+[node name="Particles2D" type="Particles2D" parent="ExplosionHitbox"]
+position = Vector2( 12.1307, 2.22708 )
+scale = Vector2( 0.645215, 0.645215 )
+emitting = false
+amount = 300
+lifetime = 2.0
+one_shot = true
+speed_scale = 3.0
+explosiveness = 0.47
+process_material = SubResource( 14 )
+
+[connection signal="area_entered" from="." to="." method="_on_Explosive_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Explosive_body_entered"]
+[connection signal="timeout" from="LifeTime" to="." method="_on_LifeTime_timeout"]
+[connection signal="finished" from="ExplosionHitbox/Audio" to="." method="_on_Audio_finished"]

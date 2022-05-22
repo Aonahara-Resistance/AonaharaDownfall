@@ -1,0 +1,108 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://common/collisions/hurtbox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://common/dash/dash.tscn" type="PackedScene" id=2]
+[ext_resource path="res://common/state_machine/state_machine.gd" type="Script" id=3]
+[ext_resource path="res://entities/characters/character.gd" type="Script" id=4]
+[ext_resource path="res://common/shaders/whiten/whiten.gdshader" type="Shader" id=5]
+[ext_resource path="res://common/collisions/blinker.tscn" type="PackedScene" id=6]
+[ext_resource path="res://common/interactions/interaction_component.tscn" type="PackedScene" id=7]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 5 )
+shader_param/whiten = false
+shader_param/mix_weight = 0.6
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 9.44617, 19.4942 )
+
+[sub_resource type="AnimationRootNode" id=3]
+
+[node name="Character" type="KinematicBody2D"]
+scale = Vector2( 1.00298, 1 )
+collision_layer = 2
+collision_mask = 4
+script = ExtResource( 4 )
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="Blinker" parent="." instance=ExtResource( 6 )]
+
+[node name="Skills" type="Node" parent="."]
+
+[node name="Passive" type="Node2D" parent="."]
+
+[node name="Blessing" type="Node2D" parent="."]
+
+[node name="Weapon" type="Node2D" parent="."]
+visible = false
+z_index = 1
+
+[node name="Modifiers" type="Node2D" parent="."]
+
+[node name="Vfx" type="Node2D" parent="."]
+
+[node name="Dash" parent="." instance=ExtResource( 2 )]
+
+[node name="ShadowSprite" type="Sprite" parent="."]
+visible = false
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 1 )
+position = Vector2( -0.0215137, -0.161684 )
+scale = Vector2( 1, 0.923644 )
+offset = Vector2( 0.0215137, 0.175049 )
+hframes = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Hurtbox" parent="." instance=ExtResource( 1 )]
+collision_layer = 2
+collision_mask = 20
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="StaminaTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="BattleTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2( 0.990656, 1 )
+smoothing_enabled = true
+smoothing_speed = 10.0
+
+[node name="InteractionComponent" parent="." instance=ExtResource( 7 )]
+interaction_parent = NodePath("..")
+
+[node name="CollisionShape2D" parent="InteractionComponent" index="0"]
+position = Vector2( 9.42474, -0.420448 )
+shape = SubResource( 2 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 3 )
+
+[node name="StateLabel" type="Label" parent="."]
+visible = false
+margin_left = -4.441
+margin_top = -16.0
+margin_right = 35.559
+margin_bottom = -9.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="timeout" from="StaminaTimer" to="." method="_on_StaminaTimer_timeout"]
+[connection signal="timeout" from="BattleTimer" to="." method="_on_BattleTimer_timeout"]
+
+[editable path="Blinker"]
+[editable path="Dash"]
+[editable path="Hurtbox"]
+[editable path="InteractionComponent"]

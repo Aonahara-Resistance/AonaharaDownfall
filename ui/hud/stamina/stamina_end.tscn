@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="StreamTexture" id=1]
+load_path = "res://.import/stamina_end2.png-3a3d69941b40570d881c5ce7de1d226e.stex"
+
+[node name="StaminaEnd" type="TextureRect"]
+margin_right = 4.0
+margin_bottom = 16.0
+texture = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
