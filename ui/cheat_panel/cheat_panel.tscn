@@ -1,0 +1,167 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://assets/fonts/mx5x7.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/place_holder/GUI.png" type="Texture" id=2]
+[ext_resource path="res://assets/place_holder/props_itens/bomb_anim_f0.png" type="Texture" id=3]
+[ext_resource path="res://assets/place_holder/props_itens/bomb_anim_f5.png" type="Texture" id=4]
+[ext_resource path="res://ui/cheat_panel/cheat_panel.gd" type="Script" id=5]
+[ext_resource path="res://assets/fonts/m5x7.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://ui/modifier_selector/modifier_selector.tscn" type="PackedScene" id=7]
+
+[sub_resource type="Image" id=19]
+data = {
+"data": PoolByteArray( 0, 4, 0, 10, 0, 17, 0, 25, 0, 31, 0, 34, 0, 36, 0, 36, 0, 36, 0, 36, 0, 34, 0, 31, 0, 25, 0, 17, 0, 10, 0, 4, 0, 10, 0, 21, 0, 37, 0, 52, 0, 63, 0, 70, 0, 71, 0, 72, 0, 72, 0, 71, 0, 70, 0, 63, 0, 52, 0, 37, 0, 21, 0, 10, 0, 17, 0, 37, 63, 119, 90, 239, 86, 255, 86, 255, 86, 255, 86, 255, 86, 255, 86, 255, 86, 255, 86, 255, 90, 239, 63, 119, 0, 37, 0, 17, 0, 25, 0, 52, 89, 239, 72, 255, 68, 255, 67, 255, 67, 255, 67, 255, 67, 255, 67, 255, 67, 255, 68, 255, 72, 255, 89, 239, 0, 52, 0, 25, 0, 31, 0, 63, 84, 255, 67, 255, 67, 255, 67, 255, 67, 255, 67, 255, 67, 255, 67, 255, 67, 255, 67, 255, 67, 255, 84, 255, 0, 63, 0, 31, 0, 34, 0, 70, 82, 255, 66, 255, 66, 255, 66, 255, 66, 255, 66, 255, 66, 255, 66, 255, 66, 255, 66, 255, 66, 255, 82, 255, 0, 70, 0, 34, 0, 36, 0, 71, 81, 255, 64, 255, 64, 255, 64, 255, 64, 255, 64, 255, 64, 255, 64, 255, 64, 255, 64, 255, 64, 255, 81, 255, 0, 71, 0, 36, 0, 36, 0, 72, 79, 255, 63, 255, 63, 255, 63, 255, 63, 255, 63, 255, 63, 255, 63, 255, 63, 255, 63, 255, 63, 255, 79, 255, 0, 72, 0, 36, 0, 36, 0, 72, 77, 255, 62, 255, 62, 255, 62, 255, 62, 255, 62, 255, 62, 255, 62, 255, 62, 255, 62, 255, 62, 255, 77, 255, 0, 72, 0, 36, 0, 36, 0, 71, 76, 255, 61, 255, 61, 255, 61, 255, 61, 255, 61, 255, 61, 255, 61, 255, 61, 255, 61, 255, 61, 255, 76, 255, 0, 71, 0, 36, 0, 34, 0, 70, 74, 255, 59, 255, 59, 255, 59, 255, 59, 255, 59, 255, 59, 255, 59, 255, 59, 255, 59, 255, 59, 255, 74, 255, 0, 70, 0, 34, 0, 31, 0, 63, 73, 255, 58, 255, 58, 255, 58, 255, 58, 255, 58, 255, 58, 255, 58, 255, 58, 255, 58, 255, 58, 255, 73, 255, 0, 63, 0, 31, 0, 25, 0, 52, 75, 239, 61, 255, 57, 255, 57, 255, 57, 255, 57, 255, 57, 255, 57, 255, 57, 255, 57, 255, 61, 255, 75, 239, 0, 52, 0, 25, 0, 17, 0, 37, 53, 119, 74, 239, 71, 255, 70, 255, 70, 255, 70, 255, 70, 255, 70, 255, 70, 255, 71, 255, 74, 237, 53, 119, 0, 37, 0, 17, 0, 10, 0, 21, 0, 37, 0, 52, 0, 63, 0, 70, 0, 71, 0, 72, 0, 72, 0, 71, 0, 70, 0, 63, 0, 52, 0, 37, 0, 21, 0, 10, 0, 4, 0, 10, 0, 17, 0, 25, 0, 31, 0, 34, 0, 36, 0, 36, 0, 36, 0, 36, 0, 34, 0, 31, 0, 25, 0, 17, 0, 10, 0, 4 ),
+"format": "LumAlpha8",
+"height": 16,
+"mipmaps": false,
+"width": 16
+}
+
+[sub_resource type="ImageTexture" id=2]
+flags = 4
+flags = 4
+image = SubResource( 19 )
+size = Vector2( 16, 16 )
+
+[sub_resource type="StyleBoxTexture" id=3]
+content_margin_left = 6.0
+content_margin_right = 6.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+texture = SubResource( 2 )
+region_rect = Rect2( 0, 0, 16, 16 )
+margin_left = 4.0
+margin_right = 4.0
+margin_top = 4.0
+margin_bottom = 4.0
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id=6]
+
+[sub_resource type="StyleBoxTexture" id=14]
+texture = ExtResource( 2 )
+region_rect = Rect2( 0.814825, 80.6822, 14.5219, 14.3934 )
+margin_left = 2.18471
+margin_right = 2.45785
+margin_top = 2.31322
+margin_bottom = 4.36941
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id=10]
+content_margin_left = 6.0
+content_margin_right = 6.0
+content_margin_top = 3.0
+content_margin_bottom = 3.0
+texture = ExtResource( 2 )
+region_rect = Rect2( 0.645775, 80.7946, 14.5219, 14.3934 )
+margin_left = 2.51405
+margin_right = 2.38554
+margin_top = 2.15661
+margin_bottom = 4.34132
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id=11]
+content_margin_left = 6.0
+content_margin_right = 6.0
+content_margin_top = 3.0
+content_margin_bottom = 3.0
+texture = ExtResource( 2 )
+region_rect = Rect2( 16.7743, 81.8471, 14.3934, 13.2368 )
+margin_left = 2.20083
+margin_right = 2.20083
+margin_top = 2.20083
+margin_bottom = 3.2128
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="DynamicFont" id=18]
+size = 4
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 6 )
+
+[sub_resource type="Theme" id=16]
+default_font = SubResource( 18 )
+Button/colors/font_color = Color( 0.607843, 0.788235, 0.776471, 1 )
+Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+Button/colors/font_color_focus = Color( 0.403922, 0.564706, 1, 1 )
+Button/colors/font_color_hover = Color( 0.403922, 0.564706, 1, 1 )
+Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/constants/hseparation = 9
+Button/fonts/font = ExtResource( 1 )
+Button/styles/disabled = SubResource( 3 )
+Button/styles/focus = SubResource( 6 )
+Button/styles/hover = SubResource( 14 )
+Button/styles/normal = SubResource( 10 )
+Button/styles/pressed = SubResource( 11 )
+CheckBox/icons/checked = ExtResource( 4 )
+CheckBox/icons/unchecked = ExtResource( 3 )
+ProgressBar/fonts/font = null
+
+[node name="CheatPanel" type="CanvasLayer"]
+script = ExtResource( 5 )
+modifier_selector_scene = ExtResource( 7 )
+
+[node name="CheatUi" type="Control" parent="."]
+visible = false
+anchor_bottom = 1.0
+theme = SubResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CheatUi"]
+anchor_bottom = 1.0
+margin_right = 54.0
+custom_constants/separation = 6
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ModifierSelector" type="Button" parent="CheatUi/VBoxContainer"]
+margin_top = 36.0
+margin_right = 69.0
+margin_bottom = 49.0
+text = "Modifier Selector"
+
+[node name="ResetModifier" type="Button" parent="CheatUi/VBoxContainer"]
+margin_top = 55.0
+margin_right = 69.0
+margin_bottom = 68.0
+text = "Reset Modifier"
+
+[node name="ResetStats" type="Button" parent="CheatUi/VBoxContainer"]
+margin_top = 74.0
+margin_right = 69.0
+margin_bottom = 87.0
+text = "Reset stats"
+
+[node name="InfHealth" type="CheckBox" parent="CheatUi/VBoxContainer"]
+margin_top = 93.0
+margin_right = 69.0
+margin_bottom = 115.0
+text = "inf health"
+
+[node name="InfStamina" type="CheckBox" parent="CheatUi/VBoxContainer"]
+margin_top = 121.0
+margin_right = 69.0
+margin_bottom = 143.0
+text = "inf stamina"
+
+[connection signal="pressed" from="CheatUi/VBoxContainer/ModifierSelector" to="." method="_on_ModifierSelector_pressed"]
+[connection signal="pressed" from="CheatUi/VBoxContainer/ResetModifier" to="." method="_on_ResetModifier_pressed"]
+[connection signal="pressed" from="CheatUi/VBoxContainer/ResetStats" to="." method="_on_ResetStats_pressed"]
+[connection signal="pressed" from="CheatUi/VBoxContainer/InfHealth" to="." method="_on_InfHealth_pressed"]
+[connection signal="pressed" from="CheatUi/VBoxContainer/InfStamina" to="." method="_on_InfStamina_pressed"]

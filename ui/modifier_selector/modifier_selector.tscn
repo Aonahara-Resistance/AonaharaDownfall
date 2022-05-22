@@ -1,58 +1,39 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://ui/modifier_selector/modifier_selector.gd" type="Script" id=1]
+[ext_resource path="res://ui/modifier_selector/modifier_item.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/panel.tres" type="StyleBox" id=3]
-[ext_resource path="res://entities/characters/nom_nom/skills/get_excited/get_excited.png" type="Texture" id=4]
 
-[node name="ModifierSelector" type="PopupDialog"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -116.5
-margin_top = -65.5
-margin_right = 116.5
-margin_bottom = 65.5
-custom_styles/panel = ExtResource( 3 )
+[node name="ModifierSelector" type="CanvasLayer"]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_horizontal_guides_": [  ],
-"_edit_use_anchors_": false,
-"_edit_vertical_guides_": [  ]
-}
+modifier_item_path = ExtResource( 2 )
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -102.5
-margin_top = -54.0
-margin_right = 102.5
-margin_bottom = 54.0
+[node name="Dialog" type="PopupDialog" parent="."]
+visible = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 85.0
+margin_top = 51.0
+margin_right = -85.0
+margin_bottom = -51.0
+custom_styles/panel = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ModifierContainer" type="GridContainer" parent="MarginContainer"]
-margin_right = 205.0
-margin_bottom = 108.0
+[node name="MarginContainer" type="MarginContainer" parent="Dialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 12.0
+margin_right = -8.0
+margin_bottom = -12.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ModifierContainer" type="GridContainer" parent="Dialog/MarginContainer"]
+margin_right = 134.0
+margin_bottom = 54.0
 custom_constants/hseparation = 6
 columns = 7
-
-[node name="TextureButton" type="TextureButton" parent="MarginContainer/ModifierContainer"]
-margin_right = 24.0
-margin_bottom = 24.0
-texture_normal = ExtResource( 4 )
-
-[node name="TextureButton2" type="TextureButton" parent="MarginContainer/ModifierContainer"]
-margin_left = 30.0
-margin_right = 54.0
-margin_bottom = 24.0
-texture_normal = ExtResource( 4 )
-
-[node name="TextureButton3" type="TextureButton" parent="MarginContainer/ModifierContainer"]
-margin_left = 60.0
-margin_right = 84.0
-margin_bottom = 24.0
-texture_normal = ExtResource( 4 )
