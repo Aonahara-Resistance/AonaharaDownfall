@@ -126,7 +126,7 @@ position = Vector2( 0.520279, 8.45346 )
 shape = SubResource( 6 )
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2( 0.556811, 8.50424 )
+position = Vector2( 0.557, 8.4 )
 shape = SubResource( 13 )
 
 [node name="AnimationPlayer" parent="." index="13"]
