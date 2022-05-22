@@ -6,7 +6,7 @@ var saved_party_members: Array = [
 	preload("res://entities/characters/nom_nom/nom_nom.tscn"),
 	preload("res://entities/characters/emuwaa/emuwaa.tscn"),
 ]
-var saved_party = []
+var saved_party: Array = []
 var party_members: Array = []
 const PARTY_MAX: int = 4
 var selected_member: int = 0 setget set_selected_member, get_selected_member_index
@@ -16,7 +16,7 @@ func current_scene() -> Node:
 	return get_tree().get_current_scene()
 
 
-func load_party():
+func load_party() -> void:
 	for i in range(saved_party.size()):
 		add_party_member(saved_party[i])
 
@@ -28,7 +28,7 @@ func is_party_empty() -> bool:
 		return true
 
 
-func load_party_members():
+func load_party_members() -> void:
 	for i in range(saved_party_members.size()):
 		add_party_member(saved_party_members[i].instance())
 
@@ -45,17 +45,9 @@ func switch_to_available_member() -> void:
 		Hud.show_death_screen()
 
 
-func clear_party_members():
-	for i in range(party_members.size()):
-		party_members.remove(i)
+func clear_party_members() -> void:
+	party_members = []
 	set_selected_member(0)
-
-
-func respawn_all_members(spawn_location):
-	for i in range(party_members.size()):
-		party_members[i].replenish_stats()
-		party_members[i].global_position = spawn_location
-		tactical_character_showing(current_character())
 
 
 func set_selected_member(index: int) -> void:
@@ -102,7 +94,7 @@ func current_character() -> Character:
 		return null
 
 
-func change_party_member(index):
+func change_party_member(index) -> void:
 	if !party_members[index].is_alive:
 		Hud.show_info("she is die")
 		return
@@ -117,7 +109,7 @@ func change_party_member(index):
 	Hud.update_hud()
 
 
-func tactical_character_hiding(character):
+func tactical_character_hiding(character) -> void:
 	# ! Will break if the characters scene nodes renamed
 	var sprites = [
 		character.get_node("Sprite"),
@@ -131,7 +123,7 @@ func tactical_character_hiding(character):
 		sprite.set_visible(false)
 
 
-func tactical_character_showing(character):
+func tactical_character_showing(character) -> void:
 	# ! Will break if the characters scene nodes renamed
 	var sprites = [
 		character.get_node("Sprite"),

@@ -25,7 +25,7 @@ export var character_icon: Resource
 export var mirrored_sprite: bool = true
 
 var is_alive: bool = true
-var attributes: CharacterAttributes
+var attributes
 export var hp: int
 export var stamina: int
 export var stamina_regen: float
@@ -169,7 +169,6 @@ func move(delta: float) -> void:
 	velocity = velocity.clamped(get_attribute("max_speed"))
 
 
-# warning-ignore:unsafe_method_access
 func listen_to_dash() -> void:
 	if Input.is_action_just_pressed("dash") && is_in_control:
 		if !dash.get_can_dash():
@@ -184,7 +183,6 @@ func listen_to_dash() -> void:
 		dash.start_dash(sprite, get_attribute("dash_duration"), get_input_direction())
 
 
-# warning-ignore:unsafe_method_access
 # Why the fuck is the actual dash function is on character??
 func apply_dash() -> void:
 	if dash.is_dashing():
@@ -226,12 +224,13 @@ func apply_knockback(direction, strength) -> void:
 
 
 func _on_Hurtbox_area_entered(hitbox: Hitbox) -> void:
-	set_is_in_battle(false)
-	blinker.start_blinking(sprite, 1.0)
-	_whiten_sprite(0.3)
-	_take_damage(hitbox.damage)
-	apply_knockback(hitbox.global_position, hitbox.knockback_strength)
-	_enable_iframes(1.0)
+	if hitbox is Hitbox:
+		set_is_in_battle(false)
+		blinker.start_blinking(sprite, 1.0)
+		_whiten_sprite(0.3)
+		_take_damage(hitbox.damage)
+		apply_knockback(hitbox.global_position, hitbox.knockback_strength)
+		_enable_iframes(1.0)
 
 
 func regenerate_stamina() -> void:
