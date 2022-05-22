@@ -35,6 +35,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [ false ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("WeaponContainer/WeaponHitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=2]
 length = 0.8
@@ -51,7 +63,7 @@ tracks/0/keys = {
 "values": [ -68.1, 108.8, -68.1 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("WeaponContainer/Hitbox/CollisionShape2D:disabled")
+tracks/1/path = NodePath("WeaponContainer/WeaponHitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -79,7 +91,7 @@ tracks/0/keys = {
 "values": [ -68.1, -1510.97 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("WeaponContainer/Hitbox/CollisionShape2D:disabled")
+tracks/1/path = NodePath("WeaponContainer/WeaponHitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -138,7 +150,7 @@ heavy_cooldown_time = 3.0
 
 [node name="WeaponContainer" parent="." index="0"]
 position = Vector2( -0.00150087, -0.00423738 )
-rotation = -1.18857
+rotation = -26.3714
 
 [node name="Sprite" parent="WeaponContainer" index="0"]
 position = Vector2( -0.387979, -0.0990992 )
@@ -156,15 +168,15 @@ collision_mask = 4
 position = Vector2( 7.00366, -8.97965 )
 rotation = 0.66024
 shape = SubResource( 7 )
+disabled = true
 
 [node name="EffectSprite" parent="." index="1"]
 visible = false
-position = Vector2( 29.183, 14.951 )
+position = Vector2( 25.468, 12.4358 )
 rotation = 0.667016
 scale = Vector2( 3, 3 )
 texture = ExtResource( 5 )
 hframes = 3
-frame = 2
 
 [node name="WeaponAnimation" parent="." index="2"]
 anims/RESET = SubResource( 5 )
