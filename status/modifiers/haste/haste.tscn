@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://common/modifiers/modifier.tscn" type="PackedScene" id=1]
+[ext_resource path="res://status/modifiers/haste/haste.gd" type="Script" id=2]
+[ext_resource path="res://status/modifiers/haste/haste_icon.png" type="Texture" id=3]
+
+[node name="Haste" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+buff_name = "Haste"
+buff_icon = ExtResource( 3 )
+buff_description = "Gotta go fast"
+duration = 10.0
+extra_acceleration = 100
+extra_max_speed = 100
+
+[connection signal="timeout" from="Duration" to="." method="_on_Duration_timeout"]
