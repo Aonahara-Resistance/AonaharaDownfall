@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://objects/projectiles/single_target/single_target.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/enemies/ranged/skacid/skacid_projectile_sheet.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 4.0
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "burns"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 4.0
+
+[node name="SkacidProjectile" instance=ExtResource( 1 )]
+collision_layer = 16
+collision_mask = 2
+damage = 1
+
+[node name="Sprite" parent="." index="0"]
+rotation = -4.7101
+texture = ExtResource( 2 )
+hframes = 2
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource( 3 )
+
+[node name="AnimationPlayer" parent="." index="3"]
+autoplay = "burns"
+anims/RESET = SubResource( 2 )
+anims/burns = SubResource( 1 )
+
+[node name="Lifetime" parent="." index="4"]
+wait_time = 10.0
+one_shot = true
+
+[node name="SingleTargetHitbox" parent="." index="5"]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="SingleTargetHitbox" index="0"]
+shape = SubResource( 4 )
+
+[editable path="SingleTargetHitbox"]

@@ -8,6 +8,7 @@ func _init(
 	max_speed: int,
 	base_damage: int,
 	acceleration: int,
+	friction: float,
 	steering_force: float,
 	avoid_force: float,
 	receives_knockback: bool
@@ -17,6 +18,7 @@ func _init(
 	stateless_attributes.max_speed = max_speed
 	stateless_attributes.base_damage = base_damage
 	stateless_attributes.acceleration = acceleration
+	stateless_attributes.friction = friction
 	stateless_attributes.steering_force = steering_force
 	stateless_attributes.avoid_force = avoid_force
 	stateless_attributes.receives_knockback = receives_knockback
@@ -31,6 +33,7 @@ var stateless_attributes = {
 	"max_speed": 0,
 	"base_damage": 0,
 	"acceleration": 0,
+	"friction": 0.0,
 	"agro_radius": 0,
 	"steering_force": 0,
 	"avoid_force": 0,

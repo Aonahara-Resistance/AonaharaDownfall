@@ -201,12 +201,13 @@ collision_mask = 6
 script = ExtResource( 4 )
 hp = 30
 max_hp = 30
-max_speed = 300
+max_speed = 100
 base_damage = 1
-acceleration = 100
+acceleration = 10
+friction = 0.2
 agro_radius = 20
 receives_knockback = true
-steering_force = 10.0
+steering_force = 0.2
 avoid_force = 10.0
 
 [node name="StateMachine" parent="." index="0"]

@@ -21,7 +21,8 @@ func _state_logic(delta) -> void:
 	parent.listen_knockback(delta)
 
 	if state == states.move:
-		parent.move()
+		print(parent.velocity)
+		parent.move(delta)
 
 	# if state == states.die:
 

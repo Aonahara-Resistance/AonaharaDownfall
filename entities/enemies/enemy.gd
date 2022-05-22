@@ -22,6 +22,7 @@ export var max_hp: int
 export var max_speed: int
 export var base_damage: int
 export var acceleration: int
+export var friction: float
 export var agro_radius: int
 export var receives_knockback: bool
 export var steering_force: float
@@ -49,6 +50,7 @@ func _ready():
 		max_speed,
 		base_damage,
 		acceleration,
+		friction,
 		steering_force,
 		avoid_force,
 		receives_knockback
@@ -62,14 +64,17 @@ func _ready():
 ## -----------------------------------------------------------------------------
 
 
-func move():
-	var steering: Vector2 = Vector2.ZERO
-	steering += seek_steering()
-	steering = steering.clamped(steering_force)
-	steering += avoid_obstacles_steering()
-	velocity += steering
-
+func move(delta):
+	#var steering: Vector2 = Vector2.ZERO
+	#steering += seek_steering()
+	#steering = steering.clamped(steering_force)
+	#steering += avoid_obstacles_steering()
+	#velocity += steering
+	#velocity = velocity.clamped(get_attribute("max_speed"))
 	velocity = move_and_slide(velocity)
+	velocity += get_attribute("acceleration") * direction_to_target() * delta * 60
+	velocity = lerp(velocity, Vector2.ZERO, get_attribute("friction"))
+	velocity = velocity.clamped(get_attribute("max_speed"))
 
 
 func direction_to_target():
@@ -113,7 +118,7 @@ func avoid_obstacles_steering() -> Vector2:
 
 func get_target():
 	if !Party.is_party_empty():
-		return Party.current_character()
+		return Party.current_character().hurtbox
 	return self
 
 
@@ -158,9 +163,9 @@ func shoot_projectile() -> void:
 	var active_projectile = projectile.instance()
 	get_tree().current_scene.add_child(active_projectile)
 	active_projectile.direction = direction_to_target()
+	print(direction_to_target())
 	active_projectile.global_position = self.global_position
-	active_projectile.launch()
-	pass
+	active_projectile.launch_at_player()
 
 
 ## -----------------------------------------------------------------------------
