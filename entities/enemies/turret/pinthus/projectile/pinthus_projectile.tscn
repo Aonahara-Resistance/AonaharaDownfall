@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://objects/projectiles/single_target/single_target.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/enemies/turret/pinthus/pinthus_projectile_sheet.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 3.16228
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 3.0
+
+[node name="SingleTarget" instance=ExtResource( 1 )]
+collision_layer = 16
+collision_mask = 2
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource( 1 )
+
+[node name="SingleTargetHitbox" parent="." index="5"]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="SingleTargetHitbox" index="0"]
+shape = SubResource( 2 )
+
+[editable path="SingleTargetHitbox"]
