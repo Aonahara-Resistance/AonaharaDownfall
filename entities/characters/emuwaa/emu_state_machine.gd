@@ -109,7 +109,6 @@ func _get_transition() -> int:
 			if parent.skill_two.cast_timer.is_stopped():
 				return states.after_cast
 		states.after_cast:
-			print(animation_mode.get_current_node())
 			if str(animation_mode.get_current_node()) == "idle":
 				return states.idle
 
