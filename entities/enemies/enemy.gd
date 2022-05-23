@@ -179,7 +179,7 @@ func set_is_pouncing(value):
 func pounce(delta) -> void:
 	if is_pouncing:
 		velocity = move_and_slide(velocity)
-		velocity += get_attribute("max_speed") * direction_to_target() * delta * 60
+		velocity += 10 * direction_to_target() * delta * 60
 		velocity = lerp(velocity, Vector2.ZERO, get_attribute("friction"))
 
 
