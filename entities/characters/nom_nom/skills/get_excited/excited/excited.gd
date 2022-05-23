@@ -11,7 +11,6 @@ var effect = preload("res://entities/characters/nom_nom/skills/get_excited/excit
 
 func _ready():
 	._ready()
-	print("pog/?")
 	var effect_container = get_node("../../Vfx")
 	effect_container.add_child(effect)
 

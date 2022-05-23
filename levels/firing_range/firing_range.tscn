@@ -1,14 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://levels/level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/firing_range/firing_range_surface.tres" type="TileSet" id=2]
 [ext_resource path="res://levels/firing_range/firing_range_props.tres" type="TileSet" id=3]
 [ext_resource path="res://entities/enemies/dummy/dummy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/warp/warp.tscn" type="PackedScene" id=5]
-[ext_resource path="res://entities/NPCs/test_npc.tscn" type="PackedScene" id=6]
-[ext_resource path="res://entities/enemies/chaser/fromb/fromb.tscn" type="PackedScene" id=7]
 [ext_resource path="res://ui/cheat_panel/cheat_panel.tscn" type="PackedScene" id=8]
-[ext_resource path="res://entities/enemies/ranged/skacid/skacid.tscn" type="PackedScene" id=9]
+[ext_resource path="res://entities/enemies/chaser/green_slime/green_slime.tscn" type="PackedScene" id=11]
 
 [node name="FiringRange" instance=ExtResource( 1 )]
 
@@ -29,17 +26,6 @@ color = Color( 1, 1, 1, 1 )
 [node name="Spawn" parent="." index="6"]
 position = Vector2( 324, 46 )
 
-[node name="Warp" parent="." index="7" instance=ExtResource( 5 )]
-position = Vector2( 154, 93 )
-level = ExtResource( 1 )
-destination = "Spawn"
+[node name="CheatPanel" parent="." index="7" instance=ExtResource( 8 )]
 
-[node name="TestNpc" parent="." index="8" instance=ExtResource( 6 )]
-position = Vector2( 149, 45 )
-
-[node name="CheatPanel" parent="." index="9" instance=ExtResource( 8 )]
-
-[node name="Fromb" parent="." index="10" instance=ExtResource( 7 )]
-
-[node name="Skacid" parent="." index="11" instance=ExtResource( 9 )]
-position = Vector2( 91, -16 )
+[node name="GreenSlime" parent="." index="8" instance=ExtResource( 11 )]

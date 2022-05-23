@@ -73,4 +73,4 @@ states/walk/node = SubResource( 8 )
 states/walk/position = Vector2( 467, 55 )
 transitions = [ "idle", "walk", SubResource( 9 ), "walk", "idle", SubResource( 10 ), "walk", "explode", SubResource( 11 ), "idle", "explode", SubResource( 12 ), "idle", "die", SubResource( 27 ), "walk", "die", SubResource( 28 ) ]
 start_node = "idle"
-graph_offset = Vector2( 77, -34.912 )
+graph_offset = Vector2( 4, -48.912 )

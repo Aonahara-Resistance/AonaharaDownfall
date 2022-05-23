@@ -11,10 +11,12 @@ onready var ai = $Ai
 onready var animation: AnimationPlayer = $AnimationPlayer
 onready var modifiers: Node2D = $Modifiers
 onready var enemy_hitbox: Hitbox = $Hitbox
+onready var attack_timer: Timer = $AttackTimer
 onready var whiskers: Node2D = $Whiskers
 
 var velocity: Vector2 = Vector2.ZERO
 var knockback: Vector2 = Vector2.ZERO
+var is_pouncing: bool = false setget set_is_pouncing
 var target setget set_target, get_target
 
 export var hp: int
@@ -163,9 +165,22 @@ func shoot_projectile() -> void:
 	var active_projectile = projectile.instance()
 	get_tree().current_scene.add_child(active_projectile)
 	active_projectile.direction = direction_to_target()
-	print(direction_to_target())
 	active_projectile.global_position = self.global_position
 	active_projectile.launch_at_player()
+	attack_timer.start()
+
+
+func set_is_pouncing(value):
+	if value == false:
+		attack_timer.start()
+	is_pouncing = value
+
+
+func pounce(delta) -> void:
+	if is_pouncing:
+		velocity = move_and_slide(velocity)
+		velocity += get_attribute("max_speed") * direction_to_target() * delta * 60
+		velocity = lerp(velocity, Vector2.ZERO, get_attribute("friction"))
 
 
 ## -----------------------------------------------------------------------------

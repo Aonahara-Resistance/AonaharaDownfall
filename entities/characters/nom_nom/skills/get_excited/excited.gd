@@ -11,13 +11,11 @@ var effect = preload("res://entities/characters/nom_nom/skills/get_excited/excit
 
 func _ready():
 	._ready()
-	print("pog/?")
 	var effect_container = get_node("../../Vfx")
 	effect_container.add_child(effect)
 
 
 func modify_stateless(res):
-	print("waaa")
 	res["acceleration"] += extra_acceleration
 	res["max_speed"] += extra_max_speed
 	res["max_hp"] += extra_max_hp
