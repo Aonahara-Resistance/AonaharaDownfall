@@ -16,6 +16,7 @@ onready var whiskers: Node2D = $Whiskers
 
 var velocity: Vector2 = Vector2.ZERO
 var knockback: Vector2 = Vector2.ZERO
+var spawn_group: String = ""
 var is_pouncing: bool = false setget set_is_pouncing
 var target setget set_target, get_target
 
@@ -159,6 +160,11 @@ func _take_damage(damage: int) -> void:
 func _die() -> void:
 	# Do dying stuff before freeing
 	queue_free()
+
+
+func remove_from_spawn_group():
+	if spawn_group != "":
+		remove_from_group(spawn_group)
 
 
 func shoot_projectile() -> void:
