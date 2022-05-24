@@ -16,6 +16,7 @@ onready var whiskers: Node2D = $Whiskers
 
 var velocity: Vector2 = Vector2.ZERO
 var knockback: Vector2 = Vector2.ZERO
+var spawn_group: String = ""
 var is_pouncing: bool = false setget set_is_pouncing
 var target setget set_target, get_target
 
@@ -161,6 +162,11 @@ func _die() -> void:
 	queue_free()
 
 
+func remove_from_spawn_group():
+	if spawn_group != "":
+		remove_from_group(spawn_group)
+
+
 func shoot_projectile() -> void:
 	var active_projectile = projectile.instance()
 	get_tree().current_scene.add_child(active_projectile)
@@ -179,7 +185,7 @@ func set_is_pouncing(value):
 func pounce(delta) -> void:
 	if is_pouncing:
 		velocity = move_and_slide(velocity)
-		velocity += get_attribute("max_speed") * direction_to_target() * delta * 60
+		velocity += 10 * direction_to_target() * delta * 60
 		velocity = lerp(velocity, Vector2.ZERO, get_attribute("friction"))
 
 
