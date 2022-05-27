@@ -1,6 +1,6 @@
 extends Node
 
-signal current_active_changed
+signal active_party_switched
 
 var saved_party_members: Array = [
 	preload("res://entities/characters/nom_nom/nom_nom.tscn"),
@@ -98,19 +98,20 @@ func change_party_member(index) -> void:
 	if !party_members[index].is_alive:
 		Hud.show_info("she is die")
 		return
-	var pos = current_character().global_position
 	tactical_character_hiding(current_character())
+	var pos = current_character().global_position
 	var movement_key = current_character().movement_key
 	set_selected_member(index)
 	current_character().movement_key = movement_key
 	current_character().global_position = pos
 	tactical_character_showing(current_character())
-	emit_signal("current_active_changed")
+	emit_signal("active_party_switched")
 	Hud.update_hud()
 
 
 func tactical_character_hiding(character) -> void:
 	# ! Will break if the characters scene nodes renamed
+	character.is_in_control = false
 	var sprites = [
 		character.get_node("Sprite"),
 		character.get_node("ShadowSprite"),
@@ -120,7 +121,6 @@ func tactical_character_hiding(character) -> void:
 	character.get_node("Hurtbox/CollisionShape2D").set_deferred("disabled", true)
 	character.get_node("InteractionComponent/CollisionShape2D").set_deferred("disabled", true)
 	character.get_node("CollisionShape2D").set_deferred("disabled", true)
-	character.is_in_control = false
 	for sprite in sprites:
 		sprite.set_visible(false)
 

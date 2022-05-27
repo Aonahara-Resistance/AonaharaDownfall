@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://common/modifiers/modifier.tscn" type="PackedScene" id=1]
+[ext_resource path="res://status/modifiers/poison/poison_icon.png" type="Texture" id=2]
+
+[node name="Poison" instance=ExtResource( 1 )]
+type = 1
+buff_name = "Poison"
+buff_icon = ExtResource( 2 )

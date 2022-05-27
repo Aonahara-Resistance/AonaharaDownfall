@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://common/modifiers/modifier.tscn" type="PackedScene" id=1]
+[ext_resource path="res://status/modifiers/stun/stun_icon.png" type="Texture" id=2]
+[ext_resource path="res://status/modifiers/stun/stun.gd" type="Script" id=3]
+
+[node name="Stun" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+type = 1
+buff_name = "Stun"
+buff_icon = ExtResource( 2 )
+buff_description = "Stun"
+duration = 3.0
+
+[connection signal="timeout" from="Duration" to="." method="_on_Duration_timeout"]

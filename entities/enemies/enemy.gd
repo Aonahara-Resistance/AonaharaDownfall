@@ -15,10 +15,15 @@ onready var attack_timer: Timer = $AttackTimer
 onready var whiskers: Node2D = $Whiskers
 
 var velocity: Vector2 = Vector2.ZERO
+var choosen_direction: Vector2 = Vector2.ZERO
 var knockback: Vector2 = Vector2.ZERO
 var spawn_group: String = ""
 var is_pouncing: bool = false setget set_is_pouncing
 var target setget set_target, get_target
+
+var ray_directions = []
+var interest = []
+var danger = []
 
 export var hp: int
 export var max_hp: int
@@ -30,6 +35,9 @@ export var agro_radius: int
 export var receives_knockback: bool
 export var steering_force: float
 export var avoid_force: float
+
+export var look_ahead: int
+export var whiskers_amount: int
 
 var active_attributes: Dictionary = {
 	"hp": 0,
@@ -59,12 +67,40 @@ func _ready():
 		receives_knockback
 	)
 	enemy_hitbox.damage = get_attribute("base_damage")
+
+	interest.resize(whiskers_amount)
+	danger.resize(whiskers_amount)
+	ray_directions.resize(whiskers_amount)
+	for i in whiskers_amount:
+		var angle = i * 2 * PI / whiskers_amount
+		ray_directions[i] = Vector2.RIGHT.rotated(angle)
+
 	modifier_tick()
+
+
+func _process(_delta):
+	set_interest()
+	set_dangers()
 
 
 ## -----------------------------------------------------------------------------
 ##																Movement Stuff
 ## -----------------------------------------------------------------------------
+
+
+func set_interest() -> void:
+	for i in whiskers_amount:
+		var d = ray_directions[i].dot(direction_to_target())
+		interest[i] = max(0, d)
+
+
+func set_dangers() -> void:
+	var space_state = get_world_2d().direct_space_state
+	for i in whiskers_amount:
+		var result = space_state.intersect_ray(
+			position, position + ray_directions[i].rotated(rotation) * look_ahead, [self]
+		)
+		danger[i] = 1.0 if result else 0.0
 
 
 func move(delta):

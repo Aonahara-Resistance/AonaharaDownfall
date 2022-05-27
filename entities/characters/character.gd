@@ -146,13 +146,13 @@ func listen_to_skills(event) -> void:
 
 
 func listen_to_party_change(event) -> void:
-	if event.is_action_pressed("party1") && Party.party_members.size() >= 1:
+	if event.is_action_pressed("party1") && Party.party_members.size() >= 1 && is_in_control:
 		Party.change_party_member(0)
-	if event.is_action_pressed("party2") && Party.party_members.size() >= 2:
+	if event.is_action_pressed("party2") && Party.party_members.size() >= 2 && is_in_control:
 		Party.change_party_member(1)
-	if event.is_action_pressed("party3") && Party.party_members.size() >= 3:
+	if event.is_action_pressed("party3") && Party.party_members.size() >= 3 && is_in_control:
 		Party.change_party_member(2)
-	if event.is_action_pressed("party4") && Party.party_members.size() >= 4:
+	if event.is_action_pressed("party4") && Party.party_members.size() >= 4 && is_in_control:
 		Party.change_party_member(3)
 
 

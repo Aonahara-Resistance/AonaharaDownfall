@@ -115,6 +115,7 @@ max_speed = 300
 base_damage = 1
 acceleration = 100
 friction = 0.2
+whiskers_amount = 4
 
 [node name="StateMachine" parent="." index="0"]
 script = ExtResource( 3 )

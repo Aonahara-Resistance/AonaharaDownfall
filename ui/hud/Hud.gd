@@ -2,6 +2,7 @@ extends Node
 
 export var pop_up: PackedScene
 export var death_screen: PackedScene
+export var buff_indicator: PackedScene
 
 onready var gui: Control = $CanvasLayer/GUI
 onready var health_container: HBoxContainer = $CanvasLayer/GUI/MarginContainer/Top/Health
@@ -10,6 +11,8 @@ onready var stamina_fill: HBoxContainer = $CanvasLayer/GUI/MarginContainer/Top/S
 onready var stamina_container: HBoxContainer = $CanvasLayer/GUI/MarginContainer/TopBackground/StaminaFill
 onready var skill: SkillHud = $CanvasLayer/GUI/MarginContainer2/Bottom/SkillsHud
 onready var channeling: TextureProgress = $CanvasLayer/GUI/MarginContainer2/Bottom/Channeling/Progress
+onready var character_icon: TextureRect = $CanvasLayer/GUI/MarginContainer3/HBoxContainer/CharacterIcon
+onready var modifier_container: HBoxContainer = $CanvasLayer/GUI/MarginContainer4/Modifiers
 
 var health_full = preload("res://ui/hud/health/health_full.tscn")
 var health_empty = preload("res://ui/hud/health/health_empty.tscn")
@@ -20,8 +23,13 @@ var visible := false setget set_visible
 
 
 func _ready() -> void:
+	var _err = Party.connect("active_party_switched", self, "_on_party_changed")
 	gui.visible = visible
 	update_hud()
+
+
+func _on_party_changed():
+	print("ayo")
 
 
 func update_hud() -> void:
@@ -29,6 +37,7 @@ func update_hud() -> void:
 		_update_health()
 		_update_stamina()
 		skill.update_skill()
+		character_icon.set_texture(Party.current_character().character_icon)
 
 
 func show_info(info: String):
@@ -58,6 +67,10 @@ func _on_Progress_value_changed(value: float):
 		channeling.set_visible(false)
 
 
+func register_buff() -> void:
+	modifier_container.add_child(buff_indicator.instance())
+
+
 func _update_health() -> void:
 	for i in health_container.get_children():
 		#health_container.remove_child(i)
@@ -71,6 +84,13 @@ func _update_health() -> void:
 		health_container.add_child(health_full.instance())
 	for i in Party.current_character().get_attribute("max_hp"):
 		empty_health_container.add_child(health_empty.instance())
+
+
+func _update_modifiers() -> void:
+	for modifier in Party.current_character().get_modifiers():
+		for modifier_indicator in modifier_container.get_children():
+			if modifier.buff_name != modifier_indicator.buff_name:
+				modifier_indicator.call_deferred(queue_free())
 
 
 func _update_stamina() -> void:

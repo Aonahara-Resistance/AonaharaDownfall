@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://common/modifiers/modifier.tscn" type="PackedScene" id=1]
+[ext_resource path="res://status/modifiers/slow/slow_icon.png" type="Texture" id=2]
+[ext_resource path="res://status/modifiers/slow/slow.gd" type="Script" id=3]
+[ext_resource path="res://status/modifiers/slow/slow_effect.tscn" type="PackedScene" id=4]
+
+[node name="Slow" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+type = 1
+buff_name = "Slow"
+buff_icon = ExtResource( 2 )
+buff_description = "Slow"
+duration = 3.0
+effect = ExtResource( 4 )
+slow_percentage = 50.0
