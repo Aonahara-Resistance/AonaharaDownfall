@@ -23,13 +23,29 @@ var visible := false setget set_visible
 
 
 func _ready() -> void:
-	var _err = Party.connect("active_party_switched", self, "_on_party_changed")
+	var __ = Party.connect("active_party_switched", self, "_on_party_changed")
 	gui.visible = visible
 	update_hud()
 
 
-func _on_party_changed():
-	print("ayo")
+func _on_party_changed() -> void:
+	update_modifier_indicator()
+
+
+func update_modifier_indicator() -> void:
+	for modifier in modifier_container.get_children():
+		modifier_container.remove_child(modifier)
+		modifier.call_deferred("queue_free")
+	for modifier in Party.current_character().get_modifiers():
+		var buff_item_instance = buff_indicator.instance()
+		buff_item_instance.set_texture(modifier.buff_icon)
+		buff_item_instance.get_node("CooldownIndicator").max_value = modifier.duration * 60
+		buff_item_instance.get_node("CooldownIndicator").value = (
+			modifier.duration * 60
+			- modifier.get_node("Duration").time_left * 60
+		)
+		print(modifier.get_node("Duration").time_left)
+		modifier_container.add_child(buff_item_instance)
 
 
 func update_hud() -> void:
@@ -67,10 +83,6 @@ func _on_Progress_value_changed(value: float):
 		channeling.set_visible(false)
 
 
-func register_buff() -> void:
-	modifier_container.add_child(buff_indicator.instance())
-
-
 func _update_health() -> void:
 	for i in health_container.get_children():
 		#health_container.remove_child(i)
@@ -84,13 +96,6 @@ func _update_health() -> void:
 		health_container.add_child(health_full.instance())
 	for i in Party.current_character().get_attribute("max_hp"):
 		empty_health_container.add_child(health_empty.instance())
-
-
-func _update_modifiers() -> void:
-	for modifier in Party.current_character().get_modifiers():
-		for modifier_indicator in modifier_container.get_children():
-			if modifier.buff_name != modifier_indicator.buff_name:
-				modifier_indicator.call_deferred(queue_free())
 
 
 func _update_stamina() -> void:

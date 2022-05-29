@@ -11,5 +11,3 @@ buff_name = "Stun"
 buff_icon = ExtResource( 2 )
 buff_description = "Stun"
 duration = 3.0
-
-[connection signal="timeout" from="Duration" to="." method="_on_Duration_timeout"]

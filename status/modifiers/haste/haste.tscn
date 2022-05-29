@@ -12,5 +12,3 @@ buff_description = "Gotta go fast"
 duration = 10.0
 extra_acceleration = 100
 extra_max_speed = 100
-
-[connection signal="timeout" from="Duration" to="." method="_on_Duration_timeout"]

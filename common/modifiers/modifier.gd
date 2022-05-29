@@ -21,21 +21,17 @@ func _ready():
 		instanced_effect = effect.instance()
 		effect_container.add_child(instanced_effect)
 	Hud.update_hud()
-	Hud.register_buff()
 
 
 func modify_stateless(res):
-	print(res)
 	return res
 
 
 func modify_stateful(host):
-	print(host)
 	pass
 
 
 func _on_Duration_timeout():
-	print(name)
 	if effect != null:
 		instanced_effect.get_parent().remove_child(instanced_effect)
 		instanced_effect.queue_free()
@@ -44,4 +40,5 @@ func _on_Duration_timeout():
 
 func reset_duration():
 	print("reset timer")
+	Hud.update_modifier_indicator()
 	duration_timer.start()

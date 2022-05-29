@@ -22,7 +22,6 @@ anchor_bottom = 1.0
 margin_right = 14.0
 margin_bottom = 14.0
 rect_scale = Vector2( 0.42, 0.42 )
-value = 50.0
 rounded = true
 texture_under = ExtResource( 2 )
 texture_progress = ExtResource( 1 )
@@ -30,3 +29,5 @@ fill_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[connection signal="value_changed" from="CooldownIndicator" to="." method="_on_CooldownIndicator_value_changed"]

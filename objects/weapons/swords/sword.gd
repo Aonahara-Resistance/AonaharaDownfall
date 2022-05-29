@@ -13,8 +13,8 @@ export var holdable_light: bool
 export var holdable_heavy: bool
 export var chargable_light: bool
 export var chargable_heavy: bool
-export var heavy_cooldown_time: float = 0
-export var light_cooldown_time: float = 0
+export var heavy_cooldown_time: float
+export var light_cooldown_time: float
 
 var character: Character
 
@@ -23,8 +23,10 @@ func _ready() -> void:
 	# ! Very dangerous and unsage but i like it :HenryMatsuri:
 	# Actually this might be safe
 	character = get_node("../../")
-	light_cooldown_timer.set_wait_time(light_cooldown_time)
-	heavy_cooldown_timer.set_wait_time(heavy_cooldown_time)
+	if light_cooldown_time != 0:
+		light_cooldown_timer.set_wait_time(light_cooldown_time)
+	if heavy_cooldown_time != 0:
+		heavy_cooldown_timer.set_wait_time(heavy_cooldown_time)
 	hit_box.damage = damage
 
 

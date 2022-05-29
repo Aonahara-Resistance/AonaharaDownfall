@@ -218,8 +218,4 @@ margin_right = 230.0
 margin_bottom = 10.0
 alignment = 2
 
-[node name="TextureRect" parent="CanvasLayer/GUI/MarginContainer4/Modifiers" instance=ExtResource( 12 )]
-margin_left = 220.0
-margin_right = 230.0
-
 [connection signal="value_changed" from="CanvasLayer/GUI/MarginContainer2/Bottom/Channeling/Progress" to="." method="_on_Progress_value_changed"]

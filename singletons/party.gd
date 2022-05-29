@@ -98,6 +98,8 @@ func change_party_member(index) -> void:
 	if !party_members[index].is_alive:
 		Hud.show_info("she is die")
 		return
+	if index == get_selected_member_index():
+		return
 	tactical_character_hiding(current_character())
 	var pos = current_character().global_position
 	var movement_key = current_character().movement_key
@@ -105,7 +107,7 @@ func change_party_member(index) -> void:
 	current_character().movement_key = movement_key
 	current_character().global_position = pos
 	tactical_character_showing(current_character())
-	emit_signal("active_party_switched")
+	emit_signal("active_party_switched", current_character())
 	Hud.update_hud()
 
 
@@ -136,6 +138,6 @@ func tactical_character_showing(character) -> void:
 	character.get_node("Hurtbox/CollisionShape2D").set_deferred("disabled", false)
 	character.get_node("InteractionComponent/CollisionShape2D").set_deferred("disabled", false)
 	character.get_node("CollisionShape2D").set_deferred("disabled", false)
-	character.is_in_control = true
 	for sprite in sprites:
 		sprite.set_visible(true)
+	character.is_in_control = true

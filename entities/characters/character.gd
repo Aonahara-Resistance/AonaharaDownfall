@@ -327,12 +327,14 @@ func apply_modifier(new_modifier: Modifier) -> void:
 	modifiers.add_child(new_modifier)
 	modifier_tick()
 	new_modifier.modify_stateful(self)
+	Hud.update_modifier_indicator()
 
 
 func reset_modifier() -> void:
 	var modifier_list: Array = get_modifiers()
 	for modifier in modifier_list:
 		modifier.get_parent().remove_child(modifier)
+	Hud.update_modifier_indicator()
 
 
 func get_modifiers() -> Array:
