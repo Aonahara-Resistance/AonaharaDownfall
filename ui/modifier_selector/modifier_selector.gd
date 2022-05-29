@@ -7,11 +7,14 @@ export var modifier_item_path: PackedScene
 
 func _ready():
 	for item in get_dir_contents()[0]:
-		if ".tscn" in item:
+		if ".tscn" in item && !"effect" in item:
 			var a = modifier_item_path.instance()
-			var modifier_item: Modifier = load(item).instance()
+			var modifier_item = load(item).instance()
 			a.texture_normal = modifier_item.buff_icon
 			a.modifier = item
+			a.get_node("Label").text = modifier_item.buff_name
+			if modifier_item.type == Modifier.Types.Buff:
+				a.get_node("Label").modulate = Color(0, 1, 0)
 			modifier_container.add_child(a)
 
 

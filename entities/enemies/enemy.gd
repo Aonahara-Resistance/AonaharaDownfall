@@ -11,25 +11,41 @@ onready var ai = $Ai
 onready var animation: AnimationPlayer = $AnimationPlayer
 onready var modifiers: Node2D = $Modifiers
 onready var enemy_hitbox: Hitbox = $Hitbox
+onready var alert_signal = $Alertsignal
 onready var attack_timer: Timer = $AttackTimer
+onready var player_detector: Node2D = $PlayerDetector
+onready var range_detector: RayCast2D = $RangeDetector
+onready var wall_detector: RayCast2D = $WallDetector
 onready var whiskers: Node2D = $Whiskers
+onready var patrol_cooldown_timer: Timer = $PatrolCooldown
+onready var state_machine = $StateMachine
 
+signal patrol_finished
+signal target_disengaged
+signal target_in_range
 var velocity: Vector2 = Vector2.ZERO
+var choosen_direction: Vector2 = Vector2.ZERO
 var knockback: Vector2 = Vector2.ZERO
 var spawn_group: String = ""
 var is_pouncing: bool = false setget set_is_pouncing
-var target setget set_target, get_target
+var target = self setget set_target, get_target
+var reverse_scan: int = 1
+var spawn_location: Vector2
 
 export var hp: int
 export var max_hp: int
 export var max_speed: int
 export var base_damage: int
 export var acceleration: int
-export var friction: float
-export var agro_radius: int
 export var receives_knockback: bool
-export var steering_force: float
-export var avoid_force: float
+export var avoid_force: float = 1000
+
+export var arrival_radius: int = 50
+export var patrol_range: int = 200
+export var patrol_cooldown: int = 2
+export var sight_range: int = 100
+export var attack_radius: int = 20
+export var disengage_radius: int = 500
 
 var active_attributes: Dictionary = {
 	"hp": 0,
@@ -47,18 +63,18 @@ var active_attributes: Dictionary = {
 
 
 func _ready():
+	spawn_location = global_position
 	attributes = EnemeyAttributes.new(
-		hp,
-		max_hp,
-		max_speed,
-		base_damage,
-		acceleration,
-		friction,
-		steering_force,
-		avoid_force,
-		receives_knockback
+		hp, max_hp, max_speed, base_damage, acceleration, avoid_force, receives_knockback
 	)
 	enemy_hitbox.damage = get_attribute("base_damage")
+	for detector in player_detector.get_children():
+		detector.cast_to.x = sight_range
+	patrol_cooldown_timer.wait_time = patrol_cooldown
+	range_detector.cast_to.x = attack_radius
+
+	var __ = Party.connect("active_party_switched", self, "_on_party_changed")
+
 	modifier_tick()
 
 
@@ -67,50 +83,91 @@ func _ready():
 ## -----------------------------------------------------------------------------
 
 
-func move(delta):
-	#var steering: Vector2 = Vector2.ZERO
-	#steering += seek_steering()
-	#steering = steering.clamped(steering_force)
-	#steering += avoid_obstacles_steering()
-	#velocity += steering
-	#velocity = velocity.clamped(get_attribute("max_speed"))
-	velocity = move_and_slide(velocity)
-	velocity += get_attribute("acceleration") * direction_to_target() * delta * 60
-	velocity = lerp(velocity, Vector2.ZERO, get_attribute("friction"))
+func chase(delta):
+	var steering: Vector2 = Vector2.ZERO
+	steering += seek_steering() * 60 * delta
+	steering += avoid_obstacles_steering() * 60 * delta
+	steering = steering.clamped(get_attribute("acceleration"))
+	velocity += steering * 60 * delta
 	velocity = velocity.clamped(get_attribute("max_speed"))
+	velocity = move_and_slide(velocity)
+	range_detector.rotation = velocity.angle()
+	if (target.global_position - global_position).length() > disengage_radius:
+		emit_signal("target_disengaged")
+	if range_detector.is_colliding():
+		emit_signal("target_in_range")
+
+
+func retreat(delta):
+	print(spawn_location)
+	var steering: Vector2 = Vector2.ZERO
+	steering += arrival_steering() * 60 * delta
+	steering += avoid_obstacles_steering() * 60 * delta
+	steering = steering.clamped(get_attribute("acceleration"))
+	velocity += steering * 60 * delta
+	velocity = velocity.clamped(get_attribute("max_speed"))
+	velocity = move_and_slide(velocity)
+	if global_position.floor() == target.global_position.floor():
+		emit_signal("patrol_finished")
+
+
+func set_retreat_target() -> Dictionary:
+	return {"global_position": spawn_location}
+
+
+func generate_patrol_target() -> Dictionary:
+	randomize()
+	return {
+		"global_position":
+		Vector2(
+			rand_range(patrol_range * -1, patrol_range), rand_range(patrol_range * -1, patrol_range)
+		)
+	}
+
+
+func patrol(delta):
+	var steering: Vector2 = Vector2.ZERO
+	wall_detector.rotation = velocity.angle()
+	steering += arrival_steering() * 60 * delta
+	steering += avoid_obstacles_steering() * 60 * delta
+	steering = steering.clamped(get_attribute("acceleration"))
+	velocity += steering * 60 * delta
+	velocity = velocity.clamped(get_attribute("max_speed"))
+	velocity = move_and_slide(velocity)
+	if global_position.floor() == target.global_position.floor():
+		emit_signal("patrol_finished")
+	if wall_detector.is_colliding():
+		emit_signal("patrol_finished")
 
 
 func direction_to_target():
-	return global_position.direction_to(get_target().global_position)
+	if get_target() is Character:
+		return global_position.direction_to(get_target().hurtbox.global_position)
+	else:
+		return global_position.direction_to(get_target().global_position)
 
 
-# Wander around designated radius
-func patrol() -> void:
-	pass
-
-
-# Seek target
 func seek_steering() -> Vector2:
-	var desired_velocity: Vector2 = (
-		direction_to_target().normalized()
-		* get_attribute("acceleration")
-	)
+	var desired_velocity: Vector2 = direction_to_target() * get_attribute("max_speed")
 	return desired_velocity - velocity
 
 
-# Slowly slows down on arrival at destination
-func arrival_steering() -> void:
-	pass
+func arrival_steering() -> Vector2:
+	var speed: float = (
+		((global_position - target.global_position).length() / 50)
+		* get_attribute("max_speed")
+	)
+	var desired_velocity: Vector2 = direction_to_target() * speed
+	return desired_velocity - velocity
 
 
-# Avoid obstacles while maintaining course to target
 func avoid_obstacles_steering() -> Vector2:
 	whiskers.rotation = velocity.angle()
 	for whisker in whiskers.get_children():
 		whisker.cast_to.x = velocity.length()
 		if whisker.is_colliding():
 			var obstacle = whisker.get_collider()
-			return (position + velocity - obstacle.position).normalized() * avoid_force
+			return (position + velocity - obstacle.position).normalized() * 1000
 	return Vector2.ZERO
 
 
@@ -119,10 +176,18 @@ func avoid_obstacles_steering() -> Vector2:
 ## -----------------------------------------------------------------------------
 
 
+func scan_target():
+	player_detector.rotation += 10
+	for detector in player_detector.get_children():
+		var collider = detector.get_collider()
+		if collider is Character:
+			if collider.is_in_control == true:
+				set_target(collider)
+				alert_signal.alert()
+
+
 func get_target():
-	if !Party.is_party_empty():
-		return Party.current_character().hurtbox
-	return self
+	return target
 
 
 func set_target(new_target) -> void:
@@ -259,10 +324,15 @@ func modifier_tick() -> void:
 		"max_speed": res.max_speed,
 		"base_damage": res.base_damage,
 		"acceleration": res.acceleration,
-		"agro_radius": res.agro_radius,
 		"receives_knockback": res.receives_knockback,
 	}
+
 
 ## -----------------------------------------------------------------------------
 ##																Misc
 ## -----------------------------------------------------------------------------
+
+
+func _on_party_changed(character):
+	if target is Character && target != character:
+		target = character

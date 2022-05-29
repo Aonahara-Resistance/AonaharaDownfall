@@ -146,13 +146,13 @@ func listen_to_skills(event) -> void:
 
 
 func listen_to_party_change(event) -> void:
-	if event.is_action_pressed("party1") && Party.party_members.size() >= 1:
+	if event.is_action_pressed("party1") && Party.party_members.size() >= 1 && is_in_control:
 		Party.change_party_member(0)
-	if event.is_action_pressed("party2") && Party.party_members.size() >= 2:
+	if event.is_action_pressed("party2") && Party.party_members.size() >= 2 && is_in_control:
 		Party.change_party_member(1)
-	if event.is_action_pressed("party3") && Party.party_members.size() >= 3:
+	if event.is_action_pressed("party3") && Party.party_members.size() >= 3 && is_in_control:
 		Party.change_party_member(2)
-	if event.is_action_pressed("party4") && Party.party_members.size() >= 4:
+	if event.is_action_pressed("party4") && Party.party_members.size() >= 4 && is_in_control:
 		Party.change_party_member(3)
 
 
@@ -327,12 +327,14 @@ func apply_modifier(new_modifier: Modifier) -> void:
 	modifiers.add_child(new_modifier)
 	modifier_tick()
 	new_modifier.modify_stateful(self)
+	Hud.update_modifier_indicator()
 
 
 func reset_modifier() -> void:
 	var modifier_list: Array = get_modifiers()
 	for modifier in modifier_list:
 		modifier.get_parent().remove_child(modifier)
+	Hud.update_modifier_indicator()
 
 
 func get_modifiers() -> Array:
