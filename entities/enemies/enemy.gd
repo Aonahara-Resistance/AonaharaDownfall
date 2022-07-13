@@ -214,6 +214,7 @@ func _on_Hurtbox_area_entered(hitbox) -> void:
 		spawn_damage_indicator(final_damage)
 
 
+#???? I don't think this should be here
 func _randomize_damage(damage: int) -> int:
 	return int(round(rand_range(damage * 0.9, damage * 1.2)))
 

@@ -1,12 +1,8 @@
-extends Area2D
+extends Hitbox
 class_name WeaponHitbox
 
-# The difference between normal hitbox is that
-# Weapon hitbox require character damage
-
-var damage: int
-var knockback_strength: float
+var _character_damage: int = 0
 
 
-func total_damage() -> int:
-	return damage + Party.current_character().get_attribute("base_damage")
+func get_damage() -> int:
+	return _damage + _character_damage

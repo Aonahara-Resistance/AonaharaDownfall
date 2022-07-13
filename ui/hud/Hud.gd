@@ -85,13 +85,10 @@ func _on_Progress_value_changed(value: float):
 
 func _update_health() -> void:
 	for i in health_container.get_children():
-		#health_container.remove_child(i)
 		i.free()
 
-		#empty_health_container.remove_child(i)
 	for i in empty_health_container.get_children():
 		i.free()
-		#empty_health_container.remove_child(i)
 	for i in Party.current_character().get_attribute("hp"):
 		health_container.add_child(health_full.instance())
 	for i in Party.current_character().get_attribute("max_hp"):

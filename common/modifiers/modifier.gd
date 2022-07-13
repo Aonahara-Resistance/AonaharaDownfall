@@ -17,6 +17,7 @@ func _ready():
 	duration_timer.set_wait_time(duration)
 	duration_timer.start()
 	if effect != null:
+		# Assumption is evil
 		var effect_container = get_node("../../Vfx")
 		instanced_effect = effect.instance()
 		effect_container.add_child(instanced_effect)

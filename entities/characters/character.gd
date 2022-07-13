@@ -231,7 +231,7 @@ func apply_knockback(direction, strength) -> void:
 func _on_Hurtbox_area_entered(hitbox) -> void:
 	if hitbox is WeaponHitbox:
 		set_is_in_battle(false)
-		blinker.start_blinking(sprite, 1.0)
+		blinker.start_blinking()
 		_whiten_sprite(0.3)
 		_take_damage(hitbox.damage)
 		apply_knockback(hitbox.global_position, hitbox.knockback_strength)

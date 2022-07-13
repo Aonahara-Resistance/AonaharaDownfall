@@ -1,8 +1,21 @@
 extends Node2D
+class_name Level
 
 onready var canvas_modulate: CanvasModulate = $CanvasModulate
 onready var checkpoint: Node2D = $Checkpoint
 onready var spawn: Node2D = $Spawn
+onready var ysort: YSort = $YSort
+
+
+func get_class():
+	return "Level"
+
+
+func is_class(value):
+	if value == "Level":
+		return true
+	else:
+		return false
 
 
 func pre_start(params):

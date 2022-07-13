@@ -6,12 +6,14 @@ var _isVisible: bool = true
 onready var _blink_timer: Timer = $BlinkTimer
 onready var _duration_timer: Timer = $DurationTimer
 
+export(float) var _duration: float
+export(float) var _blink_interval: float
 export(NodePath) onready var _blink_object = get_node(_blink_object) as Node2D
-export(float) var duration: float
 
 
 func _ready() -> void:
-	_duration_timer.set_wait_time(duration)
+	_duration_timer.set_wait_time(_duration)
+	_blink_timer.set_wait_time(_blink_interval)
 
 
 func start_blinking() -> void:

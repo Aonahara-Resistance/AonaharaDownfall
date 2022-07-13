@@ -10,8 +10,11 @@ onready var ghost_timer: Timer = $GhostTimer
 onready var cooldown_timer: Timer = $CooldownTimer
 onready var dust_trail: Particles2D = $DustTrail
 onready var dust_burst: Particles2D = $DustBurst
+
+# Maybe change path nodepath
 onready var character: Character = get_parent()
 
+# Change into a more dynamic path
 var ghost_scene: PackedScene = preload("res://common/dash/dash_ghost.tscn")
 var can_dash: bool setget set_can_dash, get_can_dash
 var dash_sprite: Sprite
@@ -34,6 +37,7 @@ func get_can_dash() -> bool:
 		return true
 
 
+# Rename
 func cooldown_finished() -> bool:
 	return cooldown_timer.is_stopped()
 
@@ -67,9 +71,9 @@ func start_dash(character_sprite: Sprite, duration: float, direction: Vector2) -
 
 func instance_ghost() -> void:
 	var ghost: Sprite = ghost_scene.instance()
+	var current_level: Level = get_tree().get_current_scene()
 
-	# ? Will hopefully get the character node :koronesweat:
-	get_node("../..").add_child(ghost)
+	current_level.ysort.add_child(ghost)
 
 	ghost.global_position = global_position
 	ghost.texture = dash_sprite.texture
