@@ -27,7 +27,7 @@ func _ready() -> void:
 		light_cooldown_timer.set_wait_time(light_cooldown_time)
 	if heavy_cooldown_time != 0:
 		heavy_cooldown_timer.set_wait_time(heavy_cooldown_time)
-	hit_box.damage = damage
+	hit_box.set_damage(damage)
 	#???? wtf
 
 

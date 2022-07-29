@@ -41,6 +41,7 @@ func _unhandled_input(event):
 			parent.listen_to_party_change(event)
 			parent.listen_to_input_direction(event)
 			parent.sprite_control()
+			parent.listen_to_dash(event)
 
 		if state == states.move:
 			if !isSkillActive:
@@ -49,6 +50,7 @@ func _unhandled_input(event):
 			parent.listen_to_party_change(event)
 			parent.listen_to_input_direction(event)
 			parent.sprite_control()
+			parent.listen_to_dash(event)
 
 		if state == states.casting:
 			pass
@@ -71,8 +73,6 @@ func _state_logic(delta) -> void:
 
 	if !state == states.casting && !state == states.after_cast:
 		parent.move(delta)
-		parent.apply_dash()
-		parent.listen_to_dash()
 
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
@@ -103,7 +103,7 @@ func _get_transition() -> int:
 			if !parent.skill_two.cast_timer.is_stopped():
 				return states.casting
 		states.dash:
-			if !parent.dash.is_dashing():
+			if true:
 				return states.move
 		states.casting:
 			if parent.skill_two.cast_timer.is_stopped():

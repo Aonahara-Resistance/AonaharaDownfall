@@ -43,7 +43,6 @@ tracks/0/keys = {
 }
 
 [node name="SplashScreen" type="Node2D"]
-position = Vector2( 1, 0 )
 script = ExtResource( 5 )
 
 [node name="bg" type="Node2D" parent="."]

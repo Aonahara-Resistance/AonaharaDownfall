@@ -108,7 +108,6 @@ func change_party_member(index) -> void:
 	current_character().global_position = pos
 	tactical_character_showing(current_character())
 	emit_signal("active_party_switched", current_character())
-	Hud.update_hud()
 
 
 func tactical_character_hiding(character) -> void:

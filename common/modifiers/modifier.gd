@@ -21,7 +21,6 @@ func _ready():
 		var effect_container = get_node("../../Vfx")
 		instanced_effect = effect.instance()
 		effect_container.add_child(instanced_effect)
-	Hud.update_hud()
 
 
 func modify_stateless(res):

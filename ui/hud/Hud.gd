@@ -23,7 +23,7 @@ var visible := false setget set_visible
 
 
 func _ready() -> void:
-	var __ = Party.connect("active_party_switched", self, "_on_party_changed")
+	_connect_signals()
 	gui.visible = visible
 	update_hud()
 
@@ -67,7 +67,6 @@ func show_death_screen():
 
 
 func _process(delta):
-	update_hud()
 	if channeling.is_visible():
 		channeling.value += 1 * delta * 60
 
@@ -111,3 +110,15 @@ func _update_stamina() -> void:
 func set_visible(value: bool) -> void:
 	visible = value
 	gui.visible = value
+
+
+## Callbacks
+
+
+func _on_Dash_started() -> void:
+	update_hud()
+
+
+func _connect_signals() -> void:
+	GameSignal.connect("dash_started", self, "_on_Dash_started")
+	Party.connect("active_party_switched", self, "_on_party_changed")
