@@ -73,6 +73,55 @@ signal battle_state_changed
 ## -----------------------------------------------------------------------------
 
 
+func init(
+	hp_: int,
+	stamina_: int,
+	stamina_regen_: float,
+	acceleration_: int,
+	max_hp_: int,
+	extra_hp_: int,
+	max_speed_: int,
+	max_stamina_: int,
+	base_damage_: int,
+	stamina_regen_rate_: int,
+	dash_duration_: float,
+	dash_cooldown_: float,
+	dash_speed_: int,
+	friction_: float,
+	receives_knockback_: bool
+) -> void:
+	hp = hp_
+	stamina = stamina_
+	stamina_regen = stamina_regen_
+	acceleration = acceleration_
+	max_hp = max_hp_
+	extra_hp = extra_hp_
+	max_speed = max_speed_
+	max_stamina = max_stamina_
+	base_damage = base_damage_
+	stamina_regen_rate = stamina_regen_rate_
+	dash_duration = dash_duration_
+	dash_cooldown = dash_cooldown_
+	dash_speed = dash_speed_
+	friction = friction_
+	receives_knockback = receives_knockback_
+	attributes = CharacterAttributes.new(
+		hp,
+		stamina,
+		stamina_regen,
+		max_hp,
+		extra_hp,
+		max_speed,
+		max_stamina,
+		base_damage,
+		acceleration,
+		stamina_regen_rate,
+		dash_duration,
+		friction,
+		receives_knockback
+	)
+
+
 func _ready() -> void:
 	if attributes == null:
 		attributes = CharacterAttributes.new(

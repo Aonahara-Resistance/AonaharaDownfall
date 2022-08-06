@@ -27,6 +27,8 @@ func start_dash(entity) -> void:
 			_start_timers()
 			emit_signal("dash_started")
 			GameSignal.emit_signal("dash_started")
+		else:
+			print("cannot dash")
 	else:
 		print("Can't implement dash into this class, requirements are not satisfied")
 
@@ -79,9 +81,14 @@ func _create_trails(direction: Vector2):
 
 func _instance_ghost() -> void:
 	var ghost: Sprite = ghost_scene.instance()
-	var current_level: Level = get_tree().get_current_scene()
+	var ghost_target
+	if get_tree().get_current_scene().get_class() == "Level":
+		var current_level = get_tree().get_current_scene() as Level
+		ghost_target = current_level.ysort
+	else:
+		ghost_target = get_tree().get_current_scene()
 
-	current_level.ysort.add_child(ghost)
+	ghost_target.add_child(ghost)
 	ghost.global_position = global_position
 	ghost.texture = _dash_sprite.texture
 	ghost.vframes = _dash_sprite.vframes

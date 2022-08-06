@@ -31,14 +31,18 @@ func modify_stateful(host):
 	pass
 
 
+func reset_duration():
+	print("reset timer")
+	Hud.update_modifier_indicator()
+	duration_timer.start()
+
+
+func get_modifier_type() -> int:
+	return type
+
+
 func _on_Duration_timeout():
 	if effect != null:
 		instanced_effect.get_parent().remove_child(instanced_effect)
 		instanced_effect.queue_free()
 	call_deferred("queue_free")
-
-
-func reset_duration():
-	print("reset timer")
-	Hud.update_modifier_indicator()
-	duration_timer.start()

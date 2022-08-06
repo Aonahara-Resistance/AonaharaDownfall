@@ -7,7 +7,7 @@ onready var spawn: Node2D = $Spawn
 onready var ysort: YSort = $YSort
 
 
-func get_class():
+func get_class() -> String:
 	return "Level"
 
 

@@ -230,6 +230,11 @@ _global_script_classes=[ {
 "path": "res://addons/gdUnit3/src/core/parse/GdClassDescriptor.gd"
 }, {
 "base": "Reference",
+"class": "GdDiffTool",
+"language": "GDScript",
+"path": "res://addons/gdUnit3/src/core/GdDiffTool.gd"
+}, {
+"base": "Reference",
 "class": "GdFunctionArgument",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/core/parse/GdFunctionArgument.gd"
@@ -528,6 +533,11 @@ _global_script_classes=[ {
 "class": "GdUnitScriptType",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/core/GdUnitScriptType.gd"
+}, {
+"base": "Reference",
+"class": "GdUnitServerConstants",
+"language": "GDScript",
+"path": "res://addons/gdUnit3/src/network/GdUnitServerConstants.gd"
 }, {
 "base": "Reference",
 "class": "GdUnitSettings",
@@ -964,6 +974,7 @@ _global_script_class_icons={
 "GdAssertMessages": "",
 "GdAssertReports": "",
 "GdClassDescriptor": "",
+"GdDiffTool": "",
 "GdFunctionArgument": "",
 "GdFunctionDescriptor": "",
 "GdFunctionDoubler": "",
@@ -1024,6 +1035,7 @@ _global_script_class_icons={
 "GdUnitSceneRunner": "",
 "GdUnitSceneRunnerImpl": "",
 "GdUnitScriptType": "",
+"GdUnitServerConstants": "",
 "GdUnitSettings": "",
 "GdUnitSignalAssert": "",
 "GdUnitSignalAssertImpl": "",
