@@ -27,8 +27,6 @@ func start_dash(entity) -> void:
 			_start_timers()
 			emit_signal("dash_started")
 			GameSignal.emit_signal("dash_started")
-		else:
-			print("cannot dash")
 	else:
 		print("Can't implement dash into this class, requirements are not satisfied")
 
@@ -56,6 +54,7 @@ func _setup_dash() -> void:
 
 
 func _can_dash() -> bool:
+	# TODO: Refactor into signals
 	if _entity.get_attribute("stamina") <= 0:
 		Hud.show_info("You skipped leg day")
 		return false
@@ -81,12 +80,7 @@ func _create_trails(direction: Vector2):
 
 func _instance_ghost() -> void:
 	var ghost: Sprite = ghost_scene.instance()
-	var ghost_target
-	if get_tree().get_current_scene().get_class() == "Level":
-		var current_level = get_tree().get_current_scene() as Level
-		ghost_target = current_level.ysort
-	else:
-		ghost_target = get_tree().get_current_scene()
+	var ghost_target = _get_ghost_target()
 
 	ghost_target.add_child(ghost)
 	ghost.global_position = global_position
@@ -95,6 +89,14 @@ func _instance_ghost() -> void:
 	ghost.hframes = _dash_sprite.hframes
 	ghost.frame = _dash_sprite.frame
 	ghost.flip_h = _dash_sprite.flip_h
+
+
+func _get_ghost_target():
+	if get_tree().get_current_scene().get_class() == "Level":
+		var current_level = get_tree().get_current_scene() as Level
+		return current_level.ysort
+	else:
+		return get_tree().get_current_scene()
 
 
 func _end_dash() -> void:
