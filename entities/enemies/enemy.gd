@@ -67,7 +67,7 @@ func _ready():
 	attributes = EnemeyAttributes.new(
 		hp, max_hp, max_speed, base_damage, acceleration, avoid_force, receives_knockback
 	)
-	enemy_hitbox.damage = get_attribute("base_damage")
+	enemy_hitbox.set_damage(get_attribute("base_damage"))
 	for detector in player_detector.get_children():
 		detector.cast_to.x = sight_range
 	patrol_cooldown_timer.wait_time = patrol_cooldown
@@ -205,17 +205,13 @@ func apply_knockback(direction, strength) -> void:
 
 
 func _on_Hurtbox_area_entered(hitbox) -> void:
-	if hitbox is WeaponHitbox:
-		var final_damage = _randomize_damage(hitbox.total_damage())
+	if hitbox.has_method("get_hitbox_damage"):
+		_take_damage(hitbox.get_hitbox_damage())
+		## change way if applying knockback this is deadass weird or maybe not
 		apply_knockback(hitbox.global_position, hitbox.knockback_strength)
 		Shake.shake(1.0, 0.2, 1)
 		spawn_hit_effect()
-		_take_damage(final_damage)
-		spawn_damage_indicator(final_damage)
-
-
-func _randomize_damage(damage: int) -> int:
-	return int(round(rand_range(damage * 0.9, damage * 1.2)))
+		spawn_damage_indicator(hitbox.get_hitbox_damage())
 
 
 func _take_damage(damage: int) -> void:
@@ -300,7 +296,6 @@ func set_attribute(attribute: String, new_value):
 	else:
 		attributes.stateless_attributes[attribute] = new_value
 	modifier_tick()
-	Hud.update_hud()
 
 
 func apply_modifier(new_modifier: Modifier) -> void:

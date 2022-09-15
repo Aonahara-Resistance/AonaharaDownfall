@@ -27,7 +27,8 @@ func _ready() -> void:
 		light_cooldown_timer.set_wait_time(light_cooldown_time)
 	if heavy_cooldown_time != 0:
 		heavy_cooldown_timer.set_wait_time(heavy_cooldown_time)
-	hit_box.damage = damage
+	hit_box.set_damage(damage)
+	#???? wtf
 
 
 # Nullify enemy's projectile if it hits active hitbox
@@ -40,6 +41,7 @@ func light_attack() -> void:
 	if !animation.is_playing() && light_cooldown_timer.is_stopped():
 		character.set_is_in_battle(true)
 		character.battle_timer.start()
+		#??? wtf
 		animation.play("attack")
 
 

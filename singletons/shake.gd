@@ -109,3 +109,11 @@ func _process(delta):
 		offset = Vector2(noise_value_x, noise_value_y) * camera_shake_intensity * 2.0
 
 	camera.offset = offset
+
+
+func _on_Dash_Started() -> void:
+	shake(1, 0.1)
+
+
+func _connect_signals() -> void:
+	GameSignal.connect("dash_started", self, "_on_Dash_Started")

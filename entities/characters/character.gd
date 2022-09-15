@@ -6,7 +6,7 @@ onready var animation_tree: AnimationTree = $AnimationTree
 onready var animation_mode = animation_tree.get("paramaters/playback")
 onready var sprite: Sprite = $Sprite
 onready var weapon: Node2D = $Weapon
-onready var dash := $Dash
+onready var dash: Dash = $Dash
 onready var stamina_timer: Timer = $StaminaTimer
 onready var camera: Camera2D = $Camera2D
 onready var blinker: Blinker = $Blinker
@@ -39,6 +39,8 @@ export var max_stamina: int
 export var base_damage: int
 export var stamina_regen_rate: int
 export var dash_duration: float
+export var dash_cooldown: float
+export var dash_speed: int
 export var friction: float
 export var receives_knockback: bool
 
@@ -71,6 +73,55 @@ signal battle_state_changed
 ## -----------------------------------------------------------------------------
 
 
+func init(
+	hp_: int,
+	stamina_: int,
+	stamina_regen_: float,
+	acceleration_: int,
+	max_hp_: int,
+	extra_hp_: int,
+	max_speed_: int,
+	max_stamina_: int,
+	base_damage_: int,
+	stamina_regen_rate_: int,
+	dash_duration_: float,
+	dash_cooldown_: float,
+	dash_speed_: int,
+	friction_: float,
+	receives_knockback_: bool
+) -> void:
+	hp = hp_
+	stamina = stamina_
+	stamina_regen = stamina_regen_
+	acceleration = acceleration_
+	max_hp = max_hp_
+	extra_hp = extra_hp_
+	max_speed = max_speed_
+	max_stamina = max_stamina_
+	base_damage = base_damage_
+	stamina_regen_rate = stamina_regen_rate_
+	dash_duration = dash_duration_
+	dash_cooldown = dash_cooldown_
+	dash_speed = dash_speed_
+	friction = friction_
+	receives_knockback = receives_knockback_
+	attributes = CharacterAttributes.new(
+		hp,
+		stamina,
+		stamina_regen,
+		max_hp,
+		extra_hp,
+		max_speed,
+		max_stamina,
+		base_damage,
+		acceleration,
+		stamina_regen_rate,
+		dash_duration,
+		friction,
+		receives_knockback
+	)
+
+
 func _ready() -> void:
 	if attributes == null:
 		attributes = CharacterAttributes.new(
@@ -88,8 +139,8 @@ func _ready() -> void:
 			friction,
 			receives_knockback
 		)
-
 	modifier_tick()
+	_connect_signals()
 
 
 func _process(_delta):
@@ -156,6 +207,13 @@ func listen_to_party_change(event) -> void:
 		Party.change_party_member(3)
 
 
+func listen_to_dash(event) -> void:
+	if event.is_action_pressed("dash") && is_in_control:
+		dash.start_dash(self)
+		set_stamina_regen_timer(get_attribute("stamina"))
+		stamina_timer.start()
+
+
 ## -----------------------------------------------------------------------------
 ##																Movement Stuff
 ## -----------------------------------------------------------------------------
@@ -163,35 +221,15 @@ func listen_to_party_change(event) -> void:
 
 func move(delta: float) -> void:
 	var input_direction: Vector2 = get_input_direction()
-
-	# * Using Linear Interpolation to simulate friction
 	velocity = move_and_slide(velocity)
 	velocity += (get_attribute("acceleration") * input_direction * delta * 60)
 	velocity = lerp(velocity, Vector2.ZERO, get_attribute("friction"))
 	velocity = velocity.clamped(get_attribute("max_speed"))
 
 
-func listen_to_dash() -> void:
-	if Input.is_action_just_pressed("dash") && is_in_control:
-		if !dash.get_can_dash():
-			Hud.show_info("You skipped leg day")
-			return
-		if !dash.cooldown_finished():
-			Hud.show_info("Knees weak")
-			return
-		if inf_stamina:
-			set_attribute("stamina", get_attribute("stamina") - 1 * 0)
-		else:
-			set_attribute("stamina", get_attribute("stamina") - 1)
-		set_stamina_regen_timer(get_attribute("stamina"))
-		stamina_timer.start()
-		dash.start_dash(sprite, get_attribute("dash_duration"), get_input_direction())
-
-
-# Why the fuck is the actual dash function is on character??
-func apply_dash() -> void:
-	if dash.is_dashing():
-		velocity = (get_attribute("acceleration") * 8) * get_input_direction()
+func _on_Dash_started() -> void:
+	_whiten_sprite(dash_duration)
+	_enable_iframes(dash_duration)
 
 
 ## -----------------------------------------------------------------------------
@@ -231,7 +269,7 @@ func apply_knockback(direction, strength) -> void:
 func _on_Hurtbox_area_entered(hitbox) -> void:
 	if hitbox is WeaponHitbox:
 		set_is_in_battle(false)
-		blinker.start_blinking(sprite, 1.0)
+		blinker.start_blinking(sprite)
 		_whiten_sprite(0.3)
 		_take_damage(hitbox.damage)
 		apply_knockback(hitbox.global_position, hitbox.knockback_strength)
@@ -306,6 +344,7 @@ func get_attribute(attribute: String):
 		return active_attributes[attribute]
 	else:
 		print("Attribute does not exist")
+		print(attribute)
 		return 0
 
 
@@ -315,7 +354,6 @@ func set_attribute(attribute: String, new_value):
 	else:
 		attributes.stateless_attributes[attribute] = new_value
 	modifier_tick()
-	Hud.update_hud()
 
 
 func apply_modifier(new_modifier: Modifier) -> void:
@@ -420,3 +458,8 @@ func _whiten_sprite(duration: float):
 	sprite_shader_material.set_shader_param("whiten", true)
 	yield(get_tree().create_timer(duration), "timeout")
 	sprite_shader_material.set_shader_param("whiten", false)
+
+
+# warning-ignore-all:return_value_discarded
+func _connect_signals():
+	dash.connect("dash_started", self, "_on_Dash_started")

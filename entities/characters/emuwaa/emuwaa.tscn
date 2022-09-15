@@ -227,6 +227,7 @@ max_stamina = 3
 base_damage = 10
 stamina_regen_rate = 1
 dash_duration = 0.2
+dash_speed = 300
 friction = 0.2
 
 [node name="StateMachine" parent="." index="0"]

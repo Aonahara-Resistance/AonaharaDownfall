@@ -1,108 +1,114 @@
 extends Node2D
 class_name Dash
 
+signal dash_started
 signal dash_ended
 
-export(float) var dash_delay: float = 1.5
+export(PackedScene) var ghost_scene: PackedScene = preload("res://common/dash/dash_ghost.tscn")
 
-onready var duration_timer: Timer = $DurationTimer
-onready var ghost_timer: Timer = $GhostTimer
-onready var cooldown_timer: Timer = $CooldownTimer
-onready var dust_trail: Particles2D = $DustTrail
-onready var dust_burst: Particles2D = $DustBurst
-onready var character: Character = get_parent()
+onready var _ghost_timer: Timer = $GhostTimer
+onready var _duration_timer: Timer = $DurationTimer
+onready var _cooldown_timer: Timer = $CooldownTimer
+onready var _dust_trail: Particles2D = $DustTrail
+onready var _dust_burst: Particles2D = $DustBurst
 
-var ghost_scene: PackedScene = preload("res://common/dash/dash_ghost.tscn")
-var can_dash: bool setget set_can_dash, get_can_dash
-var dash_sprite: Sprite
-var dash_sprite_shader: ShaderMaterial
+var _dash_sprite: Sprite
+var _dash_sprite_shader: ShaderMaterial
 
-
-# * Just in case we ~~need~~ want to change the dash delay
-func _ready() -> void:
-	cooldown_timer.wait_time = dash_delay
+var _entity
 
 
-func set_can_dash(new_value: bool) -> void:
-	can_dash = new_value
-
-
-func get_can_dash() -> bool:
-	if character.get_attribute("stamina") <= 0:
-		return false
+func start_dash(entity) -> void:
+	if entity.has_method("listen_to_dash"):
+		_entity = entity
+		if _can_dash():
+			_setup_dash()
+			_apply_dash_speed()
+			_start_timers()
+			emit_signal("dash_started")
+			GameSignal.emit_signal("dash_started")
 	else:
-		return true
+		print("Can't implement dash into this class, requirements are not satisfied")
 
 
-func cooldown_finished() -> bool:
-	return cooldown_timer.is_stopped()
+func _apply_dash_speed() -> void:
+	_entity.set_attribute("stamina", _entity.get_attribute("stamina") - 1)
+	_entity.set_attribute(
+		"acceleration", _entity.get_attribute("acceleration") + _entity.dash_speed
+	)
+	_entity.set_attribute("max_speed", _entity.get_attribute("max_speed") + _entity.dash_speed)
 
 
-func start_dash(character_sprite: Sprite, duration: float, direction: Vector2) -> void:
-	Hud.update_hud()
-	Shake.shake(1, 0.1)
-	set_can_dash(false)
-
-	character.hurtbox.disabled = true
-
-	cooldown_timer.start()
-	duration_timer.wait_time = duration
-	duration_timer.start()
-
-	dash_sprite = character_sprite
-	dash_sprite_shader = dash_sprite.material
-	dash_sprite_shader.set_shader_param("mix_weight", 0.7)
-	dash_sprite_shader.set_shader_param("whiten", true)
-
-	ghost_timer.start()
-	instance_ghost()
-
-	dust_trail.restart()
-	dust_trail.emitting = true
-
-	dust_burst.rotation = (direction * -1).angle()
-	dust_burst.restart()
-	dust_burst.emitting = true
+func _restore_dash_speed() -> void:
+	_entity.set_attribute(
+		"acceleration", _entity.get_attribute("acceleration") - _entity.dash_speed
+	)
+	_entity.set_attribute("max_speed", _entity.get_attribute("max_speed") - _entity.dash_speed)
 
 
-func instance_ghost() -> void:
+func _setup_dash() -> void:
+	_duration_timer.set_wait_time(_entity.dash_duration)
+	_cooldown_timer.set_wait_time(_entity.dash_cooldown)
+	_dash_sprite = _entity.sprite
+	_dash_sprite_shader = _dash_sprite.material
+
+
+func _can_dash() -> bool:
+	# TODO: Refactor into signals
+	if _entity.get_attribute("stamina") <= 0:
+		Hud.show_info("You skipped leg day")
+		return false
+	if !_cooldown_timer.is_stopped():
+		Hud.show_info("Knees weak")
+		return false
+	return true
+
+
+func _start_timers():
+	_cooldown_timer.start()
+	_duration_timer.start()
+	_ghost_timer.start()
+
+
+func _create_trails(direction: Vector2):
+	_dust_burst.set_rotation((direction * -1).angle())
+	_dust_trail.restart()
+	_dust_trail.set_emitting(true)
+	_dust_burst.restart()
+	_dust_burst.set_emitting(true)
+
+
+func _instance_ghost() -> void:
 	var ghost: Sprite = ghost_scene.instance()
+	var ghost_target = _get_ghost_target()
 
-	# ? Will hopefully get the character node :koronesweat:
-	get_node("../..").add_child(ghost)
-
+	ghost_target.add_child(ghost)
 	ghost.global_position = global_position
-	ghost.texture = dash_sprite.texture
-	ghost.vframes = dash_sprite.vframes
-	ghost.hframes = dash_sprite.hframes
-	ghost.frame = dash_sprite.frame
-	ghost.flip_h = dash_sprite.flip_h
+	ghost.texture = _dash_sprite.texture
+	ghost.vframes = _dash_sprite.vframes
+	ghost.hframes = _dash_sprite.hframes
+	ghost.frame = _dash_sprite.frame
+	ghost.flip_h = _dash_sprite.flip_h
 
 
-func is_dashing() -> bool:
-	return !duration_timer.is_stopped()
+func _get_ghost_target():
+	if get_tree().get_current_scene().get_class() == "Level":
+		var current_level = get_tree().get_current_scene() as Level
+		return current_level.ysort
+	else:
+		return get_tree().get_current_scene()
 
 
-func end_dash() -> void:
+func _end_dash() -> void:
+	_restore_dash_speed()
+	_dash_sprite_shader.set_shader_param("whiten", false)
+	_ghost_timer.stop()
 	emit_signal("dash_ended")
-
-	character.hurtbox.disabled = false
-
-	dash_sprite_shader.set_shader_param("whiten", false)
-	ghost_timer.stop()
 
 
 func _on_DurationTimer_timeout() -> void:
-	end_dash()
+	_end_dash()
 
 
 func _on_GhostTimer_timeout() -> void:
-	instance_ghost()
-
-
-func _on_CooldownTimer_timeout() -> void:
-	set_can_dash(true)
-
-
-func get_cooldown_timer() -> float:
-	return cooldown_timer.time_left
+	_instance_ghost()
