@@ -6,9 +6,8 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 6.28823
 
-[sub_resource type="CapsuleShape2D" id=2]
-radius = 6.81016
-height = 0.0
+[sub_resource type="CircleShape2D" id=2]
+radius = 7.07107
 
 [node name="RockShard" instance=ExtResource( 1 )]
 speed = 400
@@ -21,8 +20,5 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource( 1 )
 
-[node name="Collision" parent="PiercingHitbox" index="0"]
-rotation = 1.57079
+[node name="CollisionShape2D" parent="PiercingHitbox" index="0"]
 shape = SubResource( 2 )
-
-[editable path="PiercingHitbox"]

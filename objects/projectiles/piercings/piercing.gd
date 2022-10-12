@@ -15,7 +15,6 @@ func _process(delta):
 
 
 func _ready():
-	hit_box.damage = damage
 	hit_box.knockback_strength = knockback_strength
 
 

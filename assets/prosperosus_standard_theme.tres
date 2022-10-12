@@ -94,4 +94,4 @@ Button/styles/focus = SubResource( 6 )
 Button/styles/hover = SubResource( 14 )
 Button/styles/normal = SubResource( 10 )
 Button/styles/pressed = SubResource( 11 )
-ProgressBar/fonts/font = null
+ProgressBar/fonts/font = ExtResource( 1 )
