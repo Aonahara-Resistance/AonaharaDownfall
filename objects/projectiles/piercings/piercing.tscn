@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://objects/projectiles/piercings/piercing.gd" type="Script" id=1]
-[ext_resource path="res://objects/projectiles/piercings/piercing_hitbox.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/projectiles/piercings/piercing_hitbox.gd" type="Script" id=2]
 
 [node name="Piercing" type="Area2D"]
 collision_layer = 8
@@ -19,6 +19,9 @@ autostart = true
 
 [node name="Particles2D" type="Particles2D" parent="."]
 
-[node name="PiercingHitbox" parent="." instance=ExtResource( 2 )]
+[node name="PiercingHitbox" type="Area2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PiercingHitbox"]
 
 [connection signal="timeout" from="Lifetime" to="." method="_on_Lifetime_timeout"]
