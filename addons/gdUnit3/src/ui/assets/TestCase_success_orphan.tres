@@ -4,7 +4,6 @@
 [ext_resource path="res://addons/gdUnit3/src/ui/assets/orphan/TestCaseSuccess2.svg" type="Texture" id=2]
 
 [resource]
-flags = 4
 frames = 2
 fps = 1.1
 frame_0/texture = ExtResource( 1 )

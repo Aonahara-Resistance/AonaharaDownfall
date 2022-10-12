@@ -8,7 +8,6 @@
 [ext_resource path="res://addons/gdUnit3/src/ui/assets/orphan/orphan_red7.svg" type="Texture" id=6]
 
 [resource]
-flags = 4
 frames = 10
 fps = 9.0
 frame_0/texture = ExtResource( 5 )
