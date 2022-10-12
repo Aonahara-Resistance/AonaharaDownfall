@@ -34,6 +34,7 @@ func server_port() -> int:
 
 func self_test() -> GdUnitRunnerConfig:
 	add_test_suite("res://addons/gdUnit3/test/")
+	add_test_suite("res://addons/gdUnit3/mono/test/")
 	return self
 
 func add_test_suite(resource_path :String) -> GdUnitRunnerConfig:
@@ -91,7 +92,7 @@ func save(path :String = CONFIG_FILE) -> Result:
 	if err != OK:
 		return Result.error("Can't write test runner configuration '%s'! %s" % [path, GdUnitTools.error_as_string(err)])
 	_config[VERSION] = CONFIG_VERSION
-	file.store_var(_config)
+	file.store_string(to_json(_config))
 	file.close()
 	return Result.success(path)
 
@@ -104,7 +105,7 @@ func load(path :String = CONFIG_FILE) -> Result:
 	if err != OK:
 		return Result.error("Can't load test runner configuration '%s'! ERROR: %s." % [path, GdUnitTools.error_as_string(err)])
 	var content := file.get_as_text()
-	if content[0] == '{':
+	if not content.empty() and content[0] == '{':
 		# Parse as json
 		var result := JSON.parse(content)
 		if result.error != OK:

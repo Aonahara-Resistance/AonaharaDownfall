@@ -2,8 +2,9 @@
 class_name GdObjects
 extends Object
 
-const TYPE_VOID = TYPE_MAX + 1000
-const TYPE_VARARG = TYPE_MAX + 1001
+const TYPE_VOID 	= TYPE_MAX + 1000
+const TYPE_VARARG 	= TYPE_MAX + 1001
+const TYPE_FUNC 	= TYPE_MAX + 1002
 
 # used as default value for varargs
 const TYPE_VARARG_PLACEHOLDER_VALUE = "__null__"
@@ -38,6 +39,7 @@ const TYPE_AS_STRING_MAPPINGS := {
 	TYPE_COLOR_ARRAY: "PoolColorArray",
 	TYPE_VOID: "void",
 	TYPE_VARARG: "VarArg",
+	TYPE_FUNC: "Func"
 }
 
 # holds flipped copy of TYPE_AS_STRING_MAPPINGS initalisized by func 'string_as_typeof'
@@ -327,7 +329,7 @@ static func is_script(value) -> bool:
 	return is_object(value) and value is Script
 
 static func is_test_suite(script :Script) -> bool:
-	return is_gd_testsuite(script) or is_cs_testsuite(script)
+	return is_gd_testsuite(script) or GdUnit3MonoAPI.is_test_suite(script.resource_path)
 
 static func is_native_class(value) -> bool:
 	return is_object(value) and value.to_string() != null and value.to_string().find("GDScriptNativeClass") != -1
@@ -338,27 +340,21 @@ static func is_scene(value) -> bool:
 static func is_scene_resource_path(value) -> bool:
 	return value is String and value.ends_with(".tscn")
 
-static func is_cs_script(script :Script) -> bool:
-	# we need to check by stringify name because on non mono Godot the class CSharpScript is not available
-	return str(script).find("CSharpScript") != -1
-
 static func is_vs_script(script :Script) -> bool:
 	return script is VisualScript
 
 static func is_gd_script(script :Script) -> bool:
 	return script is GDScript
 
+static func is_cs_script(script :Script) -> bool:
+	# we need to check by stringify name because on non mono Godot the class CSharpScript is not available
+	return str(script).find("CSharpScript") != -1
+
 static func is_native_script(script :Script) -> bool:
 	return script is NativeScript
 
 static func is_cs_test_suite(instance :Node) -> bool:
-	return instance.has_meta("CS_TESTSUITE")
-
-static func is_cs_testsuite(script :Script) -> bool:
-	if GdUnitTools.is_mono_supported():
-		var csTools = load("res://addons/gdUnit3/src/core/CsTools.cs").new()
-		return not script.resource_path.empty() and csTools.IsTestSuite(script.resource_path)
-	return false;
+	return instance.get("IsCsTestSuite")
 
 static func is_gd_testsuite(script :Script) -> bool:
 	if is_gd_script(script):

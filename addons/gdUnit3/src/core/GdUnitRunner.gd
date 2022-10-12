@@ -30,9 +30,7 @@ func _init():
 	_signal_handler = GdUnitSingleton.get_or_create_singleton(SignalHandler.SINGLETON_NAME, "res://addons/gdUnit3/src/core/event/SignalHandler.gd")
 	# store current runner instance to engine meta data to can be access in as a singleton
 	Engine.set_meta(GDUNIT_RUNNER, self)
-	if GdUnitTools.is_mono_supported():
-		_cs_executor = load("res://addons/gdUnit3/src/core/execution/Executor.cs").new()
-		_cs_executor.AddGdTestEventListener(self)
+	_cs_executor = GdUnit3MonoAPI.create_executor(self)
 
 func _ready():
 	var config_result := _config.load()
@@ -61,7 +59,10 @@ func _process(delta):
 		INIT:
 			# wait until client is connected to the GdUnitServer
 			if _client.is_client_connected():
+				var time = LocalTime.now()
+				prints("Scan for test suites.")
 				_test_suites_to_process = load_test_suits()
+				prints("Scanning of %d test suites took" % _test_suites_to_process.size(), time.elapsed_since())
 				gdUnitInit()
 				_state = RUN
 		RUN:
@@ -71,7 +72,7 @@ func _process(delta):
 			else:
 				# process next test suite
 				set_process(false)
-				var test_suite = _test_suites_to_process.pop_front()
+				var test_suite :Node = _test_suites_to_process.pop_front()
 				add_child(test_suite)
 				var executor = _cs_executor if GdObjects.is_cs_test_suite(test_suite) else _executor
 				executor.Execute(test_suite)

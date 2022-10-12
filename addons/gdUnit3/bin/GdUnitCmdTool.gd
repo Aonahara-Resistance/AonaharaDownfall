@@ -27,12 +27,13 @@ class CLIRunner extends Node:
 	var _console := CmdConsole.new()
 	var _cs_executor
 	var _rtf :RichTextLabelExt
-	
 	var _cmd_options: = CmdOptions.new([
 			CmdOption.new("-a, --add", "-a <directory|path of testsuite>", "Adds the given test suite or directory to the execution pipeline.", TYPE_STRING),
 			CmdOption.new("-i, --ignore", "-i <testsuite_name|testsuite_name:test-name>", "Adds the given test suite or test case to the ignore list.", TYPE_STRING),
 			CmdOption.new("-c, --continue", "", "By default GdUnit will abort on first test failure to be fail fast, instead of stop after first failure you can use this option to run the complete test set."),
 			CmdOption.new("-conf, --config", "-conf [testconfiguration.cfg]", "Run all tests by given test configuration. Default is 'GdUnitRunner.cfg'", TYPE_STRING, true),
+			CmdOption.new("-help", "", "Shows this help message."),
+			CmdOption.new("--help-advanced", "", "Shows advanced options.")
 		], [
 			# advanced options
 			CmdOption.new("-rd, --report-directory", "-rd <directory>", "Specifies the output directory in which the reports are to be written. The default is res://reports/.", TYPE_STRING, true),
@@ -53,8 +54,7 @@ class CLIRunner extends Node:
 		_executor.fail_fast(true)
 		
 		if GdUnitTools.is_mono_supported():
-			_cs_executor = load("res://addons/gdUnit3/src/core/execution/Executor.cs").new()
-			_cs_executor.AddGdTestEventListener(self)
+			_cs_executor = GdUnit3MonoAPI.create_executor(self)
 		
 		var err := _executor.connect("send_event", self, "_on_executor_event")
 		if err != OK:
@@ -118,7 +118,7 @@ class CLIRunner extends Node:
 	
 	func show_options(show_advanced :bool = false) -> void:
 		_console.prints_color(" Usage:", Color.darksalmon)
-		_console.prints_color("	runtest -a <directory|path of testsiute>", Color.darksalmon)
+		_console.prints_color("	runtest -a <directory|path of testsuite>", Color.darksalmon)
 		_console.prints_color("	runtest -a <directory> -i <path of testsuite|testsuite_name|testsuite_name:test_name>", Color.darksalmon).new_line()
 		_console.prints_color("-- Options ---------------------------------------------------------------------------------------", Color.darksalmon).new_line()
 		for option in _cmd_options.default_options():
@@ -273,7 +273,9 @@ class CLIRunner extends Node:
 				var report_path := _report.write()
 				_report.delete_history(_report_max)
 				JUnitXmlReport.new(_report._report_path, _report.iteration(), _rtf).write(_report)
-				_console.prints_color("Total time %s" % LocalTime.elapsed(_report.duration()), Color.darksalmon)
+				_console.prints_color("Total test suites: %s" % _report.suite_count(), Color.darksalmon)
+				_console.prints_color("Total test cases:  %s" % _report.test_count(), Color.darksalmon)
+				_console.prints_color("Total time:        %s" % LocalTime.elapsed(_report.duration()), Color.darksalmon)
 				_console.prints_color("Open Report at: file://%s" % report_path, Color.cornflower)
 			
 			GdUnitEvent.TESTSUITE_BEFORE:
