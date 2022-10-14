@@ -1143,11 +1143,12 @@ Display=8
 [application]
 
 config/name="Aonahara: Downfall"
+config/description="When the aonahara is downsyndrome idk i haven't played it"
 run/main_scene="res://scenes/splash_screen/splash_screen.tscn"
 config/use_custom_user_dir=true
 boot_splash/image="res://assets/solid_colors/poseicum.png"
 boot_splash/bg_color=Color( 1, 1, 1, 0 )
-config/icon="res://icon.png"
+config/icon="res://entities/characters/emuwaa/sprites/emu_head.png"
 config/version="0.0.1"
 
 [audio]
