@@ -4,8 +4,13 @@ extends Node2D
 # * I am terribly sorry
 # * signed posei
 
+# Posei ended up being the one who have to work with it
+# Damn
+
 # warnings-disable
 # ^ this'll do :KoroneEye:
+
+# Just don't touch this, it works don't touch anything
 
 onready var tween: Tween = $Tween
 
