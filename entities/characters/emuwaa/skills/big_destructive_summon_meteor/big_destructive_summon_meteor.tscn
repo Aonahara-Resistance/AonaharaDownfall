@@ -4,7 +4,7 @@
 [ext_resource path="res://entities/characters/emuwaa/skills/big_destructive_summon_meteor/big_destructive_summon_meteor.gd" type="Script" id=2]
 [ext_resource path="res://entities/characters/emuwaa/skills/big_destructive_summon_meteor/BDSM.png" type="Texture" id=3]
 [ext_resource path="res://entities/characters/emuwaa/skills/big_destructive_summon_meteor/meteor_drop.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/place_holder/ui_elements/AoE_circle.png" type="Texture" id=5]
+[ext_resource path="res://assets/characters/AoE_circle.png" type="Texture" id=5]
 [ext_resource path="res://common/particles/spawning_circle_aura.tres" type="Material" id=6]
 
 [sub_resource type="Animation" id=2]

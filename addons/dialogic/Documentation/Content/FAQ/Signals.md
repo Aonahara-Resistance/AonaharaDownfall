@@ -16,12 +16,3 @@ func start_dialog():
 	dialog.connect("timeline_end", self, "dialog_ended")
 	add_node(dialog)
 ```
-
-The Auto advance api adds a new signal
-```gdscript
-auto_advance_toggled
-```
-Which returns the boolean value of the auto advance state. Use this to better control your UIs tied to the auto advance code
-```
-Dialogic.auto_advance_on(true)
-```

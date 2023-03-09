@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://objects/weapons/swords/sword.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/weapons/swords/cum_stained_sword/cum_stained_sword.gd" type="Script" id=2]
 [ext_resource path="res://objects/weapons/swords/cum_stained_sword/sprites/cum_stained_sword.png" type="Texture" id=4]
-[ext_resource path="res://assets/place_holder/effects (new)/slash_effect_anim_spritesheet.png" type="Texture" id=5]
 
 [sub_resource type="CapsuleShape2D" id=7]
 radius = 1.65025
@@ -175,7 +174,6 @@ visible = false
 position = Vector2( 25.468, 12.4358 )
 rotation = 0.667016
 scale = Vector2( 3, 3 )
-texture = ExtResource( 5 )
 hframes = 3
 
 [node name="WeaponAnimation" parent="." index="2"]

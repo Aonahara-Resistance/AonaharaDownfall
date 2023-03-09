@@ -28,7 +28,6 @@ script = ExtResource( 4 )
 script = ExtResource( 3 )
 
 [node name="Blinker" parent="." instance=ExtResource( 6 )]
-_blink_object = NodePath("..")
 duration = 10.0
 
 [node name="Skills" type="Node" parent="."]
