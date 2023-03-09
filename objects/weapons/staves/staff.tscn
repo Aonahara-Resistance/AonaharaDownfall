@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://objects/weapons/staves/staff.gd" type="Script" id=1]
-[ext_resource path="res://assets/sounds/fire_woosh.mp3" type="AudioStream" id=2]
 
 [node name="Staff" type="Node2D"]
 position = Vector2( 11.3892, 0 )
@@ -21,7 +20,6 @@ amount = 30
 [node name="WeaponAnimation" type="AnimationPlayer" parent="."]
 
 [node name="SoundEffect" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 2 )
 
 [node name="HeavyCooldown" type="Timer" parent="."]
 one_shot = true

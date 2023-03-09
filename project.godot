@@ -345,7 +345,7 @@ settings/test/test_suite_naming_convention=1
 
 [gui]
 
-theme/custom_font="res://assets/fonts/mx5x7.tres"
+theme/custom_font="res://assets/fonts/mx5/mx5x7.tres"
 
 [importer_defaults]
 

@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://assets/fonts/m5x7.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/fonts/m5x/m5x7.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/license_and_agreement/license_and_agreement.gd" type="Script" id=2]
 [ext_resource path="res://assets/prosperosus_standard_theme.tres" type="Theme" id=3]
-[ext_resource path="res://assets/sprites/kiseki.png" type="Texture" id=4]
-[ext_resource path="res://assets/place_holder/effects (new)/hit_effect_anim_f0.png" type="Texture" id=5]
+[ext_resource path="res://assets/artworks/kiseki.png" type="Texture" id=4]
+[ext_resource path="res://assets/particle_textures/star_texture.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 11

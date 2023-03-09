@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/pause_layer/pause_layer.gd" type="Script" id=2]
-[ext_resource path="res://assets/fonts/open-sans/open-sans-regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/fonts/open_sans/open-sans-regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/pause_button.png" type="Texture" id=4]
 [ext_resource path="res://assets/prosperosus_standard_theme.tres" type="Theme" id=5]
 

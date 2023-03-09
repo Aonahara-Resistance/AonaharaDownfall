@@ -1,11 +1,11 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://menus/main_menu/main_menu.gd" type="Script" id=1]
-[ext_resource path="res://assets/miscs/meeko.png" type="Texture" id=2]
+[ext_resource path="res://assets/artworks/nom_zinia.png" type="Texture" id=2]
 [ext_resource path="res://assets/prosperosus_standard_theme.tres" type="Theme" id=3]
-[ext_resource path="res://assets/fonts/m5x7.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/fonts/m5x/m5x7.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://menus/main_menu/new_game_popup.tscn" type="PackedScene" id=5]
-[ext_resource path="res://assets/place_holder/effects (new)/hit_effect_anim_f0.png" type="Texture" id=6]
+[ext_resource path="res://assets/particle_textures/star_texture.png" type="Texture" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -37,13 +37,11 @@ __meta__ = {
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_bottom = 242.0
+rect_clip_content = true
 mouse_filter = 2
 texture = ExtResource( 2 )
 expand = true
-stretch_mode = 7
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Tittle" type="Label" parent="."]
 anchor_right = 1.0
@@ -54,23 +52,16 @@ custom_fonts/font = SubResource( 1 )
 text = "Aonahara: Downfall"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="CenterContainer" type="MarginContainer" parent="."]
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -23.4126
-margin_top = 84.5402
-margin_right = 26.5874
-margin_bottom = -13.4598
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 24.0
+margin_top = -21.0
+margin_right = 74.0
+margin_bottom = 61.0
 grow_horizontal = 0
 theme = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 margin_right = 50.0
@@ -107,9 +98,6 @@ text = "Get Milk"
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="NewGamePopup" parent="CenterPopup" instance=ExtResource( 5 )]
 
@@ -122,10 +110,10 @@ process_material = SubResource( 4 )
 texture = ExtResource( 6 )
 
 [node name="test" type="Button" parent="."]
-margin_left = 21.6498
-margin_top = 95.0
-margin_right = 48.6498
-margin_bottom = 108.0
+margin_left = 272.0
+margin_top = 160.0
+margin_right = 299.0
+margin_bottom = 173.0
 text = "Test"
 __meta__ = {
 "_edit_use_anchors_": false

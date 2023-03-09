@@ -1,11 +1,9 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://assets/fonts/mx5x7.tres" type="DynamicFont" id=1]
-[ext_resource path="res://assets/place_holder/GUI.png" type="Texture" id=2]
-[ext_resource path="res://assets/place_holder/props_itens/bomb_anim_f0.png" type="Texture" id=3]
-[ext_resource path="res://assets/place_holder/props_itens/bomb_anim_f5.png" type="Texture" id=4]
+[ext_resource path="res://assets/fonts/mx5/mx5x7.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/place_holders/GUI.png" type="Texture" id=2]
 [ext_resource path="res://ui/cheat_panel/cheat_panel.gd" type="Script" id=5]
-[ext_resource path="res://assets/fonts/m5x7.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://assets/fonts/m5x/m5x7.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://ui/modifier_selector/modifier_selector.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Image" id=19]
@@ -105,9 +103,9 @@ Button/styles/focus = SubResource( 6 )
 Button/styles/hover = SubResource( 14 )
 Button/styles/normal = SubResource( 10 )
 Button/styles/pressed = SubResource( 11 )
-CheckBox/icons/checked = ExtResource( 4 )
-CheckBox/icons/unchecked = ExtResource( 3 )
-ProgressBar/fonts/font = null
+CheckBox/icons/checked = null
+CheckBox/icons/unchecked = null
+ProgressBar/fonts/font = SubResource( 18 )
 
 [node name="CheatPanel" type="CanvasLayer"]
 script = ExtResource( 5 )

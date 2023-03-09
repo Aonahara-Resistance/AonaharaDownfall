@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/place_holder/ui (new)/pause_button.png" type="Texture" id=1]
+[ext_resource path="res://assets/place_holders/ui (new)/pause_button.png" type="Texture" id=1]
 [ext_resource path="res://common/interactions/interaction_component_ui.gd" type="Script" id=2]
 [ext_resource path="res://assets/cursors/target32.png" type="Texture" id=3]
 

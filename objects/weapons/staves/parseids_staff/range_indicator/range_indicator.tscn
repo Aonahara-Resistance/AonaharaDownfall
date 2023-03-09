@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://objects/weapons/staves/parseids_staff/range_indicator/range_indicator.gd" type="Script" id=1]
-[ext_resource path="res://assets/place_holder/ui_elements/circle.png" type="Texture" id=2]
+[ext_resource path="res://assets/characters/circle.png" type="Texture" id=2]
 
 [sub_resource type="Animation" id=2]
 length = 0.001

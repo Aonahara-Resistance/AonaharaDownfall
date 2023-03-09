@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://assets/fonts/m5x7.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/fonts/m5x/m5x7.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://ui/panel.tres" type="StyleBox" id=2]
 [ext_resource path="res://assets/prosperosus_standard_theme.tres" type="Theme" id=3]
 [ext_resource path="res://menus/main_menu/new_game_popup.gd" type="Script" id=4]

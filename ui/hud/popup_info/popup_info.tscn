@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/place_holder/kusa_peko.png" type="Texture" id=1]
+[ext_resource path="res://ui/hud/popup_info/popup_info_icon.png" type="Texture" id=1]
 [ext_resource path="res://ui/hud/popup_info/popup_info.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=2]

@@ -3,7 +3,7 @@ class_name Enemy
 
 var attributes
 export var effect_hit: PackedScene = preload("res://common/effects/hit_effect.tscn")
-export var effect_died: PackedScene = preload("res://common/effects/death_effect.tscn")
+export var effect_died: PackedScene = preload("res://common/effects/death_effect/death_effect.tscn")
 export var indicator_damage: PackedScene = preload("res://ui/damage_indicator/damage_indicator.tscn")
 export var projectile: PackedScene = preload("res://objects/weapons/staves/parseids_staff/rock_shard/rock_shard.tscn")
 
