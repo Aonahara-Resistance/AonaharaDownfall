@@ -39,7 +39,7 @@ func activate_skill() -> void:
 		Hud.show_info("The balls is not ready")
 
 
-func _start_timers() -> void:
+func start_timers() -> void:
 	cooldown_timer.start()
 	cast_timer.start()
 
@@ -48,7 +48,7 @@ func cast_skill() -> void:
 	emit_signal("skill_casted")
 	casting = false
 	particle.set_visible(true)
-	_start_timers()
+	start_timers()
 	Hud.start_channeling(cast_timer.get_wait_time() * 60)
 	Cursor.set_default_cursor(Cursor.default, Vector2(16, 16))
 
@@ -60,14 +60,14 @@ func cancel_cast() -> void:
 
 
 func _process(delta) -> void:
-	_spin(delta)
+	spin(delta)
 	if !cooldown_timer.is_stopped():
 		current_cooldown_indicator -= 60 * delta
 	if casting:
 		spawning_circle.global_position = get_global_mouse_position()
 
 
-func _spin(delta: float) -> void:
+func spin(delta: float) -> void:
 	spawning_circle.rotate(0.50 * delta)
 
 
