@@ -24,6 +24,9 @@ func set_character_damage(new_character_damage: int) -> void:
 	else:
 		character_damage = 0
 
+func total_damage() -> int:
+    return get_randomized_hitbox_damage()
+
 
 func get_hitbox_damage() -> int:
 	return damage + character_damage

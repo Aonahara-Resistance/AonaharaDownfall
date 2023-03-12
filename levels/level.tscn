@@ -32,3 +32,5 @@ color = Color( 0.427451, 0.486275, 0.639216, 1 )
 
 [node name="Spawn" type="Node2D" parent="."]
 position = Vector2( 144.04, 42.5 )
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/bgm.mp3-fe159156a7225da6be5583cd8edf22ef.mp3str"
+
+[deps]
+
+source_file="res://levels/firing_range/bgm.mp3"
+dest_files=[ "res://.import/bgm.mp3-fe159156a7225da6be5583cd8edf22ef.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

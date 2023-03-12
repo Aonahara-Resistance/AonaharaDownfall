@@ -1,22 +1,12 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://levels/level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/firing_range/firing_range_surface.tres" type="TileSet" id=2]
 [ext_resource path="res://levels/firing_range/firing_range_props.tres" type="TileSet" id=3]
-[ext_resource path="res://entities/enemies/dummy/dummy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://entities/enemies/chaser/fromb/fromb.tscn" type="PackedScene" id=5]
-[ext_resource path="res://objects/interactables/enemy_spawner/enemy_spawner.tscn" type="PackedScene" id=7]
+[ext_resource path="res://levels/firing_range/bgm.mp3" type="AudioStream" id=4]
+[ext_resource path="res://entities/enemies/dummy/dummy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ui/cheat_panel/cheat_panel.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/lights/basic_light.tscn" type="PackedScene" id=9]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 106 )
-
-[sub_resource type="CircleShape2D" id=2]
-radius = 32.0624
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 30.5, 8 )
 
 [node name="FiringRange" instance=ExtResource( 1 )]
 
@@ -27,67 +17,31 @@ tile_data = PoolIntArray( -2293736, 0, 0, -2293735, 0, 0, -2293734, 0, 0, -22937
 [node name="Props" parent="." index="1"]
 tile_set = ExtResource( 3 )
 
-[node name="Dummy" parent="YSort" index="0" instance=ExtResource( 4 )]
-
-[node name="EnemySpawner" parent="YSort" index="1" instance=ExtResource( 7 )]
-position = Vector2( -90, 82 )
-enemy = ExtResource( 5 )
-spawn_time = 1
-initial_enemy = 1
-max_spawn = 4
-
 [node name="Checkpoint" parent="." index="3"]
 position = Vector2( 92, 78 )
 
 [node name="Spawn" parent="." index="6"]
 position = Vector2( 324, 46 )
 
-[node name="CheatPanel" parent="." index="7" instance=ExtResource( 8 )]
+[node name="BGM" parent="." index="7"]
+stream = ExtResource( 4 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." index="8"]
-position = Vector2( 166, 58 )
+[node name="Dummy" parent="." index="8" instance=ExtResource( 5 )]
+position = Vector2( 194, 78 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="0"]
-position = Vector2( 0, 58 )
-scale = Vector2( 0.994201, 1 )
-shape = SubResource( 1 )
+[node name="CheatPanel" parent="." index="9" instance=ExtResource( 8 )]
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" index="1"]
-position = Vector2( 124, 78 )
-shape = SubResource( 2 )
+[node name="Light2D" parent="." index="10" instance=ExtResource( 9 )]
+position = Vector2( 67, 239 )
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" index="2"]
-position = Vector2( -98.5, 85 )
-shape = SubResource( 3 )
+[node name="Light2D2" parent="." index="11" instance=ExtResource( 9 )]
+position = Vector2( 117, 17 )
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" index="3"]
-position = Vector2( -98, 148 )
-shape = SubResource( 3 )
+[node name="Light2D4" parent="." index="12" instance=ExtResource( 9 )]
+position = Vector2( 287, -94 )
 
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D" index="4"]
-position = Vector2( -98, 148 )
-shape = SubResource( 3 )
+[node name="Light2D5" parent="." index="13" instance=ExtResource( 9 )]
+position = Vector2( 487, -246 )
 
-[node name="Sprite" type="Sprite" parent="StaticBody2D" index="5"]
-position = Vector2( 1, 45 )
-scale = Vector2( 0.136667, 0.444 )
-
-[node name="Sprite2" type="Sprite" parent="StaticBody2D" index="6"]
-position = Vector2( 124, 76 )
-scale = Vector2( 0.258333, 0.119 )
-
-[node name="Sprite3" type="Sprite" parent="StaticBody2D" index="7"]
-position = Vector2( -99, 84 )
-scale = Vector2( 0.258333, 0.0275 )
-
-[node name="Sprite4" type="Sprite" parent="StaticBody2D" index="8"]
-position = Vector2( -98, 146 )
-scale = Vector2( 0.258333, 0.0275 )
-
-[node name="Light2D" parent="." index="9" instance=ExtResource( 9 )]
-
-[node name="Light2D2" parent="." index="10" instance=ExtResource( 9 )]
-position = Vector2( 355, 45 )
-
-[node name="Light2D3" parent="." index="11" instance=ExtResource( 9 )]
+[node name="Light2D3" parent="." index="14" instance=ExtResource( 9 )]
 position = Vector2( -99, 14 )

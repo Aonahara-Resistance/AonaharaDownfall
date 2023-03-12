@@ -19,7 +19,7 @@ var entity
 
 
 func start_dash(new_entity) -> void:
-	if entity.has_method("listen_to_dash"):
+	if new_entity.has_method("listen_to_dash"):
 		entity = new_entity
 		if can_dash():
 			setup_dash()
