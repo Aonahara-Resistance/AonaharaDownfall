@@ -102,6 +102,9 @@ position = Vector2( 0.297298, -0.322042 )
 [node name="Vfx" parent="." index="7"]
 position = Vector2( 0.286123, 10.7679 )
 
+[node name="Dash" parent="." index="8"]
+ghost_scene = null
+
 [node name="DustTrail" parent="Dash" index="2"]
 position = Vector2( -0.832449, 8.38362 )
 
@@ -115,7 +118,6 @@ scale = Vector2( 0.611197, 0.285642 )
 texture = ExtResource( 5 )
 
 [node name="Sprite" parent="." index="10"]
-visible = false
 scale = Vector2( 1, 1 )
 texture = ExtResource( 3 )
 hframes = 8
