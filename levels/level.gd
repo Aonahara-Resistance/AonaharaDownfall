@@ -33,4 +33,4 @@ func pre_start(params):
 
 func _ready():
 	Party.clear_party_members()
-	Hud.visible = true
+#Hud.visible = true

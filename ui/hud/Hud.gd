@@ -23,102 +23,115 @@ var visible := false setget set_visible
 
 
 func _ready() -> void:
-	_connect_signals()
-	gui.visible = visible
-	update_hud()
+  _connect_signals()
+  gui.visible = visible
+  update_hud()
 
 
-func _on_party_changed() -> void:
-	update_modifier_indicator()
 
 
 func update_modifier_indicator() -> void:
-	for modifier in modifier_container.get_children():
-		modifier_container.remove_child(modifier)
-		modifier.call_deferred("queue_free")
-	for modifier in Party.current_character().get_modifiers():
-		var buff_item_instance = buff_indicator.instance()
-		buff_item_instance.set_texture(modifier.buff_icon)
-		buff_item_instance.get_node("CooldownIndicator").max_value = modifier.duration * 60
-		buff_item_instance.get_node("CooldownIndicator").value = (
-			modifier.duration * 60
-			- modifier.get_node("Duration").time_left * 60
-		)
-		print(modifier.get_node("Duration").time_left)
-		modifier_container.add_child(buff_item_instance)
+  for modifier in modifier_container.get_children():
+    modifier_container.remove_child(modifier)
+    modifier.call_deferred("queue_free")
+  for modifier in Party.current_character().get_modifiers():
+    var buff_item_instance = buff_indicator.instance()
+    buff_item_instance.set_texture(modifier.buff_icon)
+    buff_item_instance.get_node("CooldownIndicator").max_value = modifier.duration * 60
+    buff_item_instance.get_node("CooldownIndicator").value = (
+      modifier.duration * 60
+      - modifier.get_node("Duration").time_left * 60
+    )
+    print(modifier.get_node("Duration").time_left)
+    modifier_container.add_child(buff_item_instance)
 
 
 func update_hud() -> void:
-	if !Party.is_party_empty():
-		_update_health()
-		_update_stamina()
-		skill.update_skill()
-		character_icon.set_texture(Party.current_character().character_icon)
+  if !Party.is_party_empty():
+    _update_health()
+    _update_stamina()
+    skill.update_skill()
+    character_icon.set_texture(Party.current_character().character_icon)
 
 
-func show_info(info: String):
-	var popup: PopupInfo = pop_up.instance()
-	get_tree().current_scene.add_child(popup)
-	popup.show_info(info)
 
 
 func show_death_screen():
-	get_tree().current_scene.add_child(death_screen.instance())
+  get_tree().current_scene.add_child(death_screen.instance())
 
 
 func _process(delta):
-	if channeling.is_visible():
-		channeling.value += 1 * delta * 60
+  if channeling.is_visible():
+    channeling.value += 1 * delta * 60
 
 
 func start_channeling(duration: float) -> void:
-	channeling.set_value(0)
-	channeling.set_visible(true)
-	channeling.set_max(duration)
+  channeling.set_value(0)
+  channeling.set_visible(true)
+  channeling.set_max(duration)
 
 
 func _on_Progress_value_changed(value: float):
-	if value == channeling.get_max():
-		channeling.set_visible(false)
+  if value == channeling.get_max():
+    channeling.set_visible(false)
 
 
 func _update_health() -> void:
-	for i in health_container.get_children():
-		i.free()
+  for i in health_container.get_children():
+    i.free()
 
-	for i in empty_health_container.get_children():
-		i.free()
-	for i in Party.current_character().get_attribute("hp"):
-		health_container.add_child(health_full.instance())
-	for i in Party.current_character().get_attribute("max_hp"):
-		empty_health_container.add_child(health_empty.instance())
+  for i in empty_health_container.get_children():
+    i.free()
+  for i in Party.current_character().get_attribute("hp"):
+    health_container.add_child(health_full.instance())
+  for i in Party.current_character().get_attribute("max_hp"):
+    empty_health_container.add_child(health_empty.instance())
 
 
 func _update_stamina() -> void:
-	for i in stamina_container.get_children():
-		#stamina_container.remove_child(i)
-		i.free()
-	for i in stamina_fill.get_children():
-		#stamina_fill.remove_child(i)
-		i.free()
-	for i in Party.current_character().get_attribute("stamina"):
-		stamina_fill.add_child(stamina_bar_filled.instance())
-	for i in Party.current_character().get_attribute("max_stamina"):
-		stamina_container.add_child(stamina_bar_empty.instance())
+  for i in stamina_container.get_children():
+    #stamina_container.remove_child(i)
+    i.free()
+  for i in stamina_fill.get_children():
+    #stamina_fill.remove_child(i)
+    i.free()
+  for i in Party.current_character().get_attribute("stamina"):
+    stamina_fill.add_child(stamina_bar_filled.instance())
+  for i in Party.current_character().get_attribute("max_stamina"):
+    stamina_container.add_child(stamina_bar_empty.instance())
 
 
 func set_visible(value: bool) -> void:
-	visible = value
-	gui.visible = value
+  visible = value
+  gui.visible = value
 
 
 ## Callbacks
 
 
 func _on_Dash_started() -> void:
-	update_hud()
+  update_hud()
+
+func _on_party_changed() -> void:
+  update_modifier_indicator()
+
+func _on_modifier_applied() -> void:
+  update_modifier_indicator()
+
+func _on_modifier_reset() -> void:
+  update_modifier_indicator()
+
+func _on_skill_channel_started(duration) -> void:
+  start_channeling(duration)
+
+func _on_died() -> void:
+  show_death_screen()
 
 
 func _connect_signals() -> void:
-	GameSignal.connect("dash_started", self, "_on_Dash_started")
-	Party.connect("active_party_switched", self, "_on_party_changed")
+  GameSignal.connect("dash_started", self, "_on_Dash_started")
+  GameSignal.connect("modifier_applied", self, "_on_modifier_applied")
+  GameSignal.connect("modifier_reset", self, "_on_modifier_reset")
+  GameSignal.connect("skill_channel_started", self, "_on_skill_channel_started")
+  GameSignal.connect("died", self, "_on_died")
+  Party.connect("active_party_switched", self, "_on_party_changed")

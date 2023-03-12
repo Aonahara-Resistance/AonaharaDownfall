@@ -24,6 +24,7 @@ func set_character_damage(new_character_damage: int) -> void:
 	else:
 		character_damage = 0
 
+# Retardation
 func total_damage() -> int:
     return get_randomized_hitbox_damage()
 

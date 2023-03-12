@@ -309,11 +309,12 @@ Game="*res://addons/game-template/game.gd"
 GameSignal="*res://singletons/game_signal.gd"
 Hud="res://ui/hud/Hud.tscn"
 Shake="*res://singletons/shake.gd"
-Party="res://singletons/party.tscn"
-GlobalCamera="res://singletons/global_camera.tscn"
-Cursor="res://singletons/cursor.gd"
+Party="*res://singletons/party.tscn"
+GlobalCamera="*res://singletons/global_camera.tscn"
+Cursor="*res://singletons/cursor.gd"
 Utils="*res://addons/game-template/utils.gd"
 Transitions="*res://addons/game-template/transition/transition.tscn"
+UiUtils="*res://singletons/ui_utils.gd"
 
 [debug]
 
