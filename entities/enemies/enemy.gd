@@ -73,8 +73,6 @@ func _ready():
 	patrol_cooldown_timer.wait_time = patrol_cooldown
 	range_detector.cast_to.x = attack_radius
 
-	var __ = Party.connect("active_party_switched", self, "_on_party_changed")
-
 	modifier_tick()
 
 
@@ -233,7 +231,7 @@ func shoot_projectile() -> void:
 	get_tree().current_scene.add_child(active_projectile)
 	active_projectile.direction = direction_to_target()
 	active_projectile.global_position = self.global_position
-	active_projectile.launch_at_player()
+	active_projectile.launch_at_player(target)
 	attack_timer.start()
 
 
@@ -323,11 +321,3 @@ func modifier_tick() -> void:
 	}
 
 
-## -----------------------------------------------------------------------------
-##																Misc
-## -----------------------------------------------------------------------------
-
-
-func _on_party_changed(character):
-	if target is Character && target != character:
-		target = character

@@ -4,6 +4,8 @@
 
 [node name="Blinker" type="Node"]
 script = ExtResource( 1 )
+duration = 1.0
+blink_interval = 0.1
 
 [node name="BlinkTimer" type="Timer" parent="."]
 wait_time = 0.1

@@ -94,5 +94,4 @@ process_material = ExtResource( 6 )
 anims/RESET = SubResource( 2 )
 anims/fade = SubResource( 1 )
 
-[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
 [connection signal="timeout" from="CastTimer" to="." method="_on_CastTimer_timeout"]

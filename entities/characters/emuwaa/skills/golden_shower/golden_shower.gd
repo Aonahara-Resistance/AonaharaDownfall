@@ -14,9 +14,7 @@ var casting: bool = false
 
 
 func _process(delta) -> void:
-	_spin(delta)
-	if !cooldown_timer.is_stopped():
-		current_cooldown_indicator -= 60 * delta
+	spin(delta)
 	if casting:
 		aoe.global_position = get_global_mouse_position()
 
@@ -29,13 +27,13 @@ func _unhandled_input(event):
 			cancel_cast()
 
 
-func _spin(delta: float) -> void:
+func spin(delta: float) -> void:
 	aoe.rotate(0.50 * delta)
 	shadow.rotate(0.50 * delta)
 	spawning_circle.rotate(0.50 * delta)
 
 
-func _start_timers() -> void:
+func start_timers() -> void:
 	timer.start()
 	duration_timer.start()
 	cooldown_timer.start()
@@ -51,7 +49,7 @@ func activate_skill() -> void:
 func cast_skill() -> void:
 	animation.play("fade_in")
 	casting = false
-	_start_timers()
+	start_timers()
 	Cursor.set_default_cursor(Cursor.default, Vector2(16, 16))
 	shadow.global_position = get_global_mouse_position()
 	spawning_circle.global_position = shadow.global_position - Vector2(0, 80)

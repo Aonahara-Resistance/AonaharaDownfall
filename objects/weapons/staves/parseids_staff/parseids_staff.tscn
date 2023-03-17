@@ -192,6 +192,7 @@ heavy_projectile = ExtResource( 7 )
 chargable_heavy = true
 holdable_light = true
 pillar = ExtResource( 8 )
+maximum_pillars = 2
 
 [node name="Sprite" parent="WeaponContainer" index="0"]
 scale = Vector2( 1, 1.02222 )

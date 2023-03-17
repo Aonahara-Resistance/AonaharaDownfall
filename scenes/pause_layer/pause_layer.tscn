@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/pause_layer/pause_layer.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/open_sans/open-sans-regular.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://assets/pause_button.png" type="Texture" id=4]
 [ext_resource path="res://assets/prosperosus_standard_theme.tres" type="Theme" id=5]
 
 [sub_resource type="DynamicFont" id=1]
@@ -34,7 +33,6 @@ margin_left = 16.0
 margin_top = 16.0
 margin_right = 62.0
 margin_bottom = 62.0
-texture_normal = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

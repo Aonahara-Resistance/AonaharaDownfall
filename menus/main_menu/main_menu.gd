@@ -4,8 +4,6 @@ onready var new_game_popup: PopupDialog = $CenterPopup/NewGamePopup
 
 
 func _ready():
-	Hud.set_visible(false)
-	Hud.pause_mode = Node.PAUSE_MODE_STOP
 	if OS.has_feature("HTML5"):
 		$CenterContainer/VBoxContainer/QuitButton.queue_free()
 

@@ -24,13 +24,13 @@ func disable():
 	collision.free()
 
 
-func launch():
-	var angle_to_mouse = ((get_global_mouse_position() - Party.current_character().global_position).normalized()).angle()
+func launch(character):
+	var angle_to_mouse = ((get_global_mouse_position() - character.global_position).normalized()).angle()
 	sprite.rotate(angle_to_mouse)
 
 
-func launch_at_player():
-	var angle_to_player = ((global_position - Party.current_character().global_position).normalized()).angle()
+func launch_at_player(character):
+	var angle_to_player = ((global_position - character.global_position).normalized()).angle()
 	sprite.rotate(angle_to_player)
 
 

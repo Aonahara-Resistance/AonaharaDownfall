@@ -9,11 +9,3 @@ func _process(_delta):
 		global_position = Party.current_character().global_position
 	else:
 		camera2D.current = false
-
-
-func set_current(state: bool) -> void:
-	camera2D.current = state
-
-
-func get_camera():
-	return camera2D

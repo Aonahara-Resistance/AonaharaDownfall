@@ -23,16 +23,16 @@ func _on_ModifierSelector_pressed():
 
 
 func _on_ResetModifier_pressed():
-	Party.current_character().reset_modifier()
+  GameSignal.emit_signal("reset_modifier_button_pressed")
 
 
 func _on_ResetStats_pressed():
-	Party.current_character().reset_stats()
+  GameSignal.emit_signal("reset_stats_button_pressed")
 
 
 func _on_InfHealth_pressed():
-	Party.current_character().inf_health = inf_health_button.pressed
+  GameSignal.emit_signal("inf_health_button_pressed", inf_health_button.pressed)
 
 
 func _on_InfStamina_pressed():
-	Party.current_character().inf_stamina = inf_stamina_button.pressed
+  GameSignal.emit_signal("inf_stamina_button_pressed", inf_stamina_button.pressed)

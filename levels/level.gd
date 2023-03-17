@@ -8,29 +8,28 @@ onready var ysort: YSort = $YSort
 
 
 func get_class() -> String:
-	return "Level"
+  return "Level"
 
 
 func is_class(value):
-	if value == "Level":
-		return true
-	else:
-		return false
+  if value == "Level":
+    return true
+  else:
+    return false
 
 
 func pre_start(params):
-	if params.has("restart"):
-		Party.load_party_members()
-		Party.spawn_at(checkpoint.global_position, ysort)
-	elif params.has("destination"):
-		var destination_node: Node2D = get_node(params.destination)
-		Party.load_party()
-		Party.spawn_at(destination_node.global_position, ysort)
-	else:
-		Party.load_party_members()
-		Party.spawn_at(spawn.global_position, ysort)
+  if params.has("restart"):
+    print("a")
+    GameSignal.emit_signal("level_restarted", checkpoint.global_position, ysort)
+  elif params.has("destination"):
+    print("b")
+    var destination_node: Node2D = get_node(params.destination)
+    GameSignal.emit_signal("level_loaded_with_destionation", destination_node.global_position, ysort)
+  else:
+    print("c")
+    GameSignal.emit_signal("level_loaded", spawn.global_position, ysort)
 
 
 func _ready():
-	Party.clear_party_members()
-	Hud.visible = true
+  GameSignal.emit_signal("level_entered")
