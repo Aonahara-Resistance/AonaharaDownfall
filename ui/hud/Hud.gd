@@ -19,22 +19,20 @@ var health_empty = preload("res://ui/hud/health/health_empty.tscn")
 var stamina_bar_empty = preload("res://ui/hud/stamina/stamina_bar_empty.tscn")
 var stamina_bar_filled = preload("res://ui/hud/stamina/stamina_bar_filled.tscn")
 
-var visible := false setget set_visible
+var visible := true setget set_visible
 
 
 func _ready() -> void:
   _connect_signals()
   gui.visible = visible
-  update_hud()
 
 
 
-
-func update_modifier_indicator() -> void:
+func update_modifier_indicator(character) -> void:
   for modifier in modifier_container.get_children():
     modifier_container.remove_child(modifier)
     modifier.call_deferred("queue_free")
-  for modifier in Party.current_character().get_modifiers():
+  for modifier in character.get_modifiers():
     var buff_item_instance = buff_indicator.instance()
     buff_item_instance.set_texture(modifier.buff_icon)
     buff_item_instance.get_node("CooldownIndicator").max_value = modifier.duration * 60
@@ -44,16 +42,6 @@ func update_modifier_indicator() -> void:
     )
     print(modifier.get_node("Duration").time_left)
     modifier_container.add_child(buff_item_instance)
-
-
-func update_hud() -> void:
-  if !Party.is_party_empty():
-    _update_health()
-    _update_stamina()
-    skill.update_skill()
-    character_icon.set_texture(Party.current_character().character_icon)
-
-
 
 
 func show_death_screen():
@@ -76,28 +64,27 @@ func _on_Progress_value_changed(value: float):
     channeling.set_visible(false)
 
 
-func _update_health() -> void:
+func update_health(character) -> void:
   for i in health_container.get_children():
     i.free()
-
   for i in empty_health_container.get_children():
     i.free()
-  for i in Party.current_character().get_attribute("hp"):
+  for i in character.get_attribute("hp"):
     health_container.add_child(health_full.instance())
-  for i in Party.current_character().get_attribute("max_hp"):
+  for i in character.get_attribute("max_hp"):
     empty_health_container.add_child(health_empty.instance())
 
 
-func _update_stamina() -> void:
+func update_stamina(character) -> void:
   for i in stamina_container.get_children():
     #stamina_container.remove_child(i)
     i.free()
   for i in stamina_fill.get_children():
     #stamina_fill.remove_child(i)
     i.free()
-  for i in Party.current_character().get_attribute("stamina"):
+  for i in character.get_attribute("stamina"):
     stamina_fill.add_child(stamina_bar_filled.instance())
-  for i in Party.current_character().get_attribute("max_stamina"):
+  for i in character.get_attribute("max_stamina"):
     stamina_container.add_child(stamina_bar_empty.instance())
 
 
@@ -106,20 +93,19 @@ func set_visible(value: bool) -> void:
   gui.visible = value
 
 
-## Callbacks
+func _on_Dash_started(character) -> void:
+  update_stamina(character)
 
+func _on_party_member_changed(character) -> void:
+  update_modifier_indicator(character)
+  update_health(character)
+  update_stamina(character)
 
-func _on_Dash_started() -> void:
-  update_hud()
+func _on_modifier_applied(character) -> void:
+  update_modifier_indicator(character)
 
-func _on_party_changed() -> void:
-  update_modifier_indicator()
-
-func _on_modifier_applied() -> void:
-  update_modifier_indicator()
-
-func _on_modifier_reset() -> void:
-  update_modifier_indicator()
+func _on_modifier_reset(character) -> void:
+  update_modifier_indicator(character)
 
 func _on_skill_channel_started(duration) -> void:
   start_channeling(duration)
@@ -127,6 +113,16 @@ func _on_skill_channel_started(duration) -> void:
 func _on_died() -> void:
   show_death_screen()
 
+func _on_party_spawned(active_character) -> void:
+   update_health(active_character)
+   update_stamina(active_character)
+   character_icon.set_texture(active_character.character_icon)
+
+func _on_health_changed(character) -> void:
+  update_health(character)
+
+func _on_stamina_changed(character) -> void:
+  update_stamina(character)
 
 func _connect_signals() -> void:
   GameSignal.connect("dash_started", self, "_on_Dash_started")
@@ -134,4 +130,7 @@ func _connect_signals() -> void:
   GameSignal.connect("modifier_reset", self, "_on_modifier_reset")
   GameSignal.connect("skill_channel_started", self, "_on_skill_channel_started")
   GameSignal.connect("died", self, "_on_died")
-  Party.connect("active_party_switched", self, "_on_party_changed")
+  GameSignal.connect("party_member_changed", self, "_on_party_member_changed")
+  GameSignal.connect("party_spawned", self, "_on_party_spawned")
+  GameSignal.connect("health_changed", self, "_on_health_changed")
+  GameSignal.connect("stamina_changed", self, "_on_stamina_changed")

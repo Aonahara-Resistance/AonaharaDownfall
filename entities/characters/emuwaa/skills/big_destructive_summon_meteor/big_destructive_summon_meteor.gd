@@ -2,9 +2,7 @@ extends Skill
 
 export var cast_duration: float
 export var meteor: PackedScene
-export var character_path: NodePath
 
-onready var character: Character = get_node(character_path)
 onready var spawning_circle: Sprite = $SpawningCircle
 onready var particle: Particles2D = $SpawningCircle/SpawningParticle
 onready var animation: AnimationPlayer = $AnimationPlayer
@@ -61,8 +59,6 @@ func cancel_cast() -> void:
 
 func _process(delta) -> void:
   spin(delta)
-  if !cooldown_timer.is_stopped():
-    current_cooldown_indicator -= 60 * delta
   if casting:
     spawning_circle.global_position = get_global_mouse_position()
 

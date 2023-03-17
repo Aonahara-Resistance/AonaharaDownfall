@@ -26,7 +26,7 @@ func start_dash(new_entity) -> void:
       apply_dash_speed()
       start_timers()
       emit_signal("dash_started")
-      GameSignal.emit_signal("dash_started")
+      GameSignal.emit_signal("dash_started", entity)
   else:
     print("Can't implement dash into this class, requirements are not satisfied")
 
@@ -103,7 +103,7 @@ func end_dash() -> void:
   restore_dash_speed()
   dash_sprite_shader.set_shader_param("whiten", false)
   ghost_timer.stop()
-  emit_signal("dash_ended")
+  emit_signal("dash_ended", entity)
 
 
 func _on_DurationTimer_timeout() -> void:

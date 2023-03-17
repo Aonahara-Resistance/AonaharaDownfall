@@ -197,14 +197,12 @@ func listen_to_skills(event) -> void:
 
 
 func listen_to_party_change(event) -> void:
-  if event.is_action_pressed("party1") && Party.party_members.size() >= 1 && is_in_control:
-    Party.change_party_member(0)
-  if event.is_action_pressed("party2") && Party.party_members.size() >= 2 && is_in_control:
-    Party.change_party_member(1)
-  if event.is_action_pressed("party3") && Party.party_members.size() >= 3 && is_in_control:
-    Party.change_party_member(2)
-  if event.is_action_pressed("party4") && Party.party_members.size() >= 4 && is_in_control:
-    Party.change_party_member(3)
+  if event.is_action_pressed("party1") && is_in_control:
+    GameSignal.emit_signal("party_member_change_requested", 0)
+  if event.is_action_pressed("party2") && is_in_control:
+    GameSignal.emit_signal("party_member_change_requested", 1)
+  if event.is_action_pressed("party3") && is_in_control:
+    GameSignal.emit_signal("party_member_change_requested", 2)
 
 
 func listen_to_dash(event) -> void:
@@ -279,6 +277,7 @@ func _on_Hurtbox_area_entered(hitbox) -> void:
 func regenerate_stamina() -> void:
   while get_attribute("stamina") < get_attribute("max_stamina") && stamina_timer.is_stopped():
     set_attribute("stamina", get_attribute("stamina") + 1)
+    GameSignal.emit_signal("stamina_changed", self)
     yield(get_tree().create_timer(get_attribute("stamina_regen_rate")), "timeout")
 
 
@@ -305,6 +304,7 @@ func _take_damage(damage: int) -> void:
   if get_attribute("hp") < 0:
     set_attribute("hp", 0)
   _die_check(get_attribute("hp"))
+  GameSignal.emit_signal("health_changed", self)
 
 
 func _enable_iframes(duration: float) -> void:
@@ -320,13 +320,14 @@ func _die_check(current_hp: int) -> void:
 
 func die() -> void:
   is_alive = false
-  Party.tactical_character_hiding(Party.current_character())
-  Party.switch_to_available_member()
+  GameSignal.emit_signal("party_member_died")
 
 
 func reset_stats() -> void:
   set_attribute("hp", attributes.stateless_attributes.max_hp)
   set_attribute("stamina", attributes.stateless_attributes.max_stamina)
+  GameSignal.emit_signal("health_changed", self)
+  GameSignal.emit_signal("stamina_changed", self)
 
 
 func _on_BattleTimer_timeout():
@@ -365,14 +366,14 @@ func apply_modifier(new_modifier: Modifier) -> void:
   modifiers.add_child(new_modifier)
   modifier_tick()
   new_modifier.modify_stateful(self)
-  GameSignal.emit_signal("modifier_applied")
+  GameSignal.emit_signal("modifier_applied", self)
 
 
 func reset_modifier() -> void:
   var modifier_list: Array = get_modifiers()
   for modifier in modifier_list:
     modifier.get_parent().remove_child(modifier)
-  GameSignal.emit_signal("modifier_reset")
+  GameSignal.emit_signal("modifier_reset", self)
 
 
 func get_modifiers() -> Array:

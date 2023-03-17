@@ -9,30 +9,30 @@ var formed: bool = false
 
 
 func disable():
-	.disable()
-	speed = 0
-	yield(get_tree().create_timer(0.1), "timeout")
-	explosion_collision.free()
+  .disable()
+  speed = 0
+  yield(get_tree().create_timer(0.1), "timeout")
+  explosion_collision.free()
 
 
-func launch():
-	var angle_to_mouse = ((get_global_mouse_position() - Party.current_character().global_position).normalized()).angle()
-	rotate(angle_to_mouse)
-	var mouse_direction = (get_global_mouse_position() - global_position).normalized()
-	if mouse_direction.x < 0:
-		sprite.scale.y *= -1
-		explosion.scale.y *= -1
+func launch(character):
+  var angle_to_mouse = ((get_global_mouse_position() - character.global_position).normalized()).angle()
+  rotate(angle_to_mouse)
+  var mouse_direction = (get_global_mouse_position() - global_position).normalized()
+  if mouse_direction.x < 0:
+    sprite.scale.y *= -1
+    explosion.scale.y *= -1
 
 
 func _process(delta):
-	if formed:
-		global_position += speed * direction * delta
+  if formed:
+    global_position += speed * direction * delta
 
 
 func set_formed():
-	formed = true
-	animation.play("swim")
+  formed = true
+  animation.play("swim")
 
 
 func _on_Audio_finished():
-	queue_free()
+  queue_free()

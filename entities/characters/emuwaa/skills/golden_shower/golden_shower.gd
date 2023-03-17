@@ -15,8 +15,6 @@ var casting: bool = false
 
 func _process(delta) -> void:
 	spin(delta)
-	if !cooldown_timer.is_stopped():
-		current_cooldown_indicator -= 60 * delta
 	if casting:
 		aoe.global_position = get_global_mouse_position()
 

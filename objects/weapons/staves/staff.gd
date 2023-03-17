@@ -81,4 +81,4 @@ func _spawn_projectile(projectile_type):
   get_tree().current_scene.add_child(active_projectile)
   active_projectile.direction = character.get_mouse_direction()
   active_projectile.global_position = self.global_position
-  active_projectile.launch()
+  active_projectile.launch(character)

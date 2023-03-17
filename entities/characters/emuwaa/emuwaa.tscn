@@ -235,6 +235,7 @@ script = ExtResource( 4 )
 
 [node name="GoldenShower" parent="Skills" index="0" instance=ExtResource( 7 )]
 position = Vector2( 9.45283, -0.420448 )
+character_path = NodePath("../..")
 
 [node name="BigDestructiveSummonMeteor" parent="Skills" index="1" instance=ExtResource( 8 )]
 character_path = NodePath("../..")
@@ -243,7 +244,6 @@ character_path = NodePath("../..")
 position = Vector2( 0.997029, 0 )
 
 [node name="ParseidsStaff" parent="Weapon" index="0" instance=ExtResource( 5 )]
-maximum_pillars = 2
 
 [node name="ShadowSprite" parent="." index="9"]
 modulate = Color( 1, 1, 1, 0.333333 )

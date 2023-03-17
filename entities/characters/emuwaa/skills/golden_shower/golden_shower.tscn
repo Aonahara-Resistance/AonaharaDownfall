@@ -210,6 +210,5 @@ anims/fade_in = SubResource( 5 )
 anims/RESET = SubResource( 4 )
 anims/fade = SubResource( 3 )
 
-[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="DurationTimer" to="." method="_on_DurationTimer_timeout"]

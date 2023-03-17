@@ -5,12 +5,13 @@ onready var overlay: ColorRect = $Overlay
 
 
 func _on_ModifierItem_pressed():
-	Party.current_character().apply_modifier(load(modifier).instance())
+  GameSignal.emit_signal("modifier_item_button_pressed", load(modifier).instance())
+#Party.current_character().apply_modifier(load(modifier).instance())
 
 
 func _on_ModifierItem_mouse_entered():
-	overlay.set_visible(true)
+  overlay.set_visible(true)
 
 
 func _on_ModifierItem_mouse_exited():
-	overlay.set_visible(false)
+  overlay.set_visible(false)

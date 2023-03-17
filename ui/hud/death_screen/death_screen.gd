@@ -2,6 +2,5 @@ extends CanvasLayer
 
 
 func _on_AreaCheckpoint_pressed():
-	Party.clear_party_members()
-
-	Game.restart_scene_with_params({"restart": true})
+  GameSignal.emit_signal("death_continue_button_pressed")
+  Game.restart_scene_with_params({"restart": true})

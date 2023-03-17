@@ -13,5 +13,3 @@ cooldown_duration = 15.0
 
 [node name="CooldownTimer" parent="." index="0"]
 one_shot = true
-
-[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
