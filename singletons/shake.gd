@@ -54,7 +54,7 @@ func _process(delta):
 	# Do what you like
 	# var camera = get_tree().current_scene.get_node("Camera2D")
 	if get_tree().get_nodes_in_group("current_camera").empty():
-		camera = GlobalCamera.get_camera()
+		camera = GlobalCamera.camera2D
 	else:
 		camera = get_tree().get_nodes_in_group("current_camera").front()
 

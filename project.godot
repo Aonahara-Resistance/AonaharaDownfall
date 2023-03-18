@@ -319,7 +319,6 @@ UiUtils="*res://singletons/ui_utils.gd"
 [debug]
 
 gdscript/completion/autocomplete_setters_and_getters=true
-gdscript/warnings/unused_class_variable=true
 gdscript/warnings/unused_signal=false
 gdscript/warnings/return_value_discarded=false
 gdscript/warnings/unsafe_property_access=true
