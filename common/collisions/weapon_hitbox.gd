@@ -1,15 +1,26 @@
 extends Area2D
 class_name WeaponHitbox
 
+export var parent_path:NodePath
+
+onready var parent = get_node(parent_path)
+
 var damage: int = 0 setget set_damage
 var character_damage: int = 0 setget set_character_damage
 var knockback_strength: float
+var specific_target
+var die_after_hit = false
 
 
 func _ready() -> void:
 	randomize()
 	knockback_strength = 0
 
+func die() -> void:
+  if parent.has_method("die"):
+    parent.die()
+  else:
+    print("parent cannot die")
 
 func set_damage(new_damage: int) -> void:
 	if new_damage > 0:

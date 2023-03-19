@@ -31,6 +31,7 @@ func _unhandled_input(event):
 			parent.listen_to_party_change(event)
 			parent.listen_to_input_direction(event)
 			parent.sprite_control()
+			parent.listen_to_dash(event)
 
 		if state == states.dash:
 			parent.listen_to_skills(event)

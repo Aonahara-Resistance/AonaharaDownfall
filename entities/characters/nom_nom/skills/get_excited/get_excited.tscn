@@ -10,6 +10,3 @@ skill_name = "Get Excited"
 skill_description = "nom nom remembers last night's talk about something lewd and starts to become excited, boosting her stats and allowing her to swing faster. In addition to this, her stamina cooldown is temporarily decreased, but she becomes unable to regenerate stamina for some time after the skill duration ends."
 skill_icon = ExtResource( 3 )
 cooldown_duration = 15.0
-
-[node name="CooldownTimer" parent="." index="0"]
-one_shot = true

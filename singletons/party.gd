@@ -75,7 +75,7 @@ func add_party_member(member) -> void:
   if party_members.size() < PARTY_MAX:
     party_members.append(member)
   else:
-    # TODO: pop up notice party max
+  # TODO: pop up notice party max
     pass
 
 
@@ -90,7 +90,7 @@ func current_character() -> Character:
   if !is_party_empty():
     return party_members[get_selected_member_index()]
   else:
-    # TODO: Handle if part is empty
+  # TODO: Handle if part is empty
     return null
 
 
@@ -107,17 +107,16 @@ func change_party_member(index) -> void:
   current_character().movement_key = movement_key
   current_character().global_position = pos
   tactical_character_showing(current_character())
-  emit_signal("active_party_switched", current_character())
 
 
 func tactical_character_hiding(character) -> void:
   # ! Will break if the characters scene nodes renamed
   character.is_in_control = false
   var sprites = [
-    character.get_node("Sprite"),
-    character.get_node("ShadowSprite"),
-    character.get_node("Weapon"),
-    character.get_node("StateLabel")
+  character.get_node("Sprite"),
+  character.get_node("ShadowSprite"),
+  character.get_node("Weapon"),
+  character.get_node("StateLabel")
   ]
   character.get_node("Hurtbox/CollisionShape2D").set_deferred("disabled", true)
   character.get_node("InteractionComponent/CollisionShape2D").set_deferred("disabled", true)
@@ -129,10 +128,10 @@ func tactical_character_hiding(character) -> void:
 func tactical_character_showing(character) -> void:
   # ! Will break if the characters scene nodes renamed
   var sprites = [
-    character.get_node("Sprite"),
-    character.get_node("ShadowSprite"),
-    character.get_node("Weapon"),
-    character.get_node("StateLabel")
+  character.get_node("Sprite"),
+  character.get_node("ShadowSprite"),
+  character.get_node("Weapon"),
+  character.get_node("StateLabel")
   ]
   character.get_node("Hurtbox/CollisionShape2D").set_deferred("disabled", false)
   character.get_node("InteractionComponent/CollisionShape2D").set_deferred("disabled", false)
@@ -157,9 +156,9 @@ func _on_level_entered() -> void:
   clear_party_members()
   
 func _on_party_member_change_requested(index) -> void:
-  if party_members.size() >= index:
+  if party_members.size() > index:
     change_party_member(index)
-    GameSignal.emit_signal("party_member_changed", current_character())
+  GameSignal.emit_signal("party_member_changed", current_character())
 
 func _on_party_member_died() -> void:
   tactical_character_hiding(current_character())
