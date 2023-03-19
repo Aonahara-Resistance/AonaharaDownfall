@@ -19,13 +19,10 @@ var health_empty = preload("res://ui/hud/health/health_empty.tscn")
 var stamina_bar_empty = preload("res://ui/hud/stamina/stamina_bar_empty.tscn")
 var stamina_bar_filled = preload("res://ui/hud/stamina/stamina_bar_filled.tscn")
 
-var visible := true setget set_visible
-
+var active_character_name: String
 
 func _ready() -> void:
   _connect_signals()
-  gui.visible = visible
-
 
 
 func update_modifier_indicator(character) -> void:
@@ -88,11 +85,6 @@ func update_stamina(character) -> void:
     stamina_container.add_child(stamina_bar_empty.instance())
 
 
-func set_visible(value: bool) -> void:
-  visible = value
-  gui.visible = value
-
-
 func _on_Dash_started(character) -> void:
   update_stamina(character)
 
@@ -100,6 +92,9 @@ func _on_party_member_changed(character) -> void:
   update_modifier_indicator(character)
   update_health(character)
   update_stamina(character)
+  character_icon.set_texture(character.character_icon)
+  active_character_name = character.character_name
+
 
 func _on_modifier_applied(character) -> void:
   update_modifier_indicator(character)
@@ -114,15 +109,22 @@ func _on_died() -> void:
   show_death_screen()
 
 func _on_party_spawned(active_character) -> void:
-   update_health(active_character)
-   update_stamina(active_character)
-   character_icon.set_texture(active_character.character_icon)
+  update_health(active_character)
+  update_stamina(active_character)
+  character_icon.set_texture(active_character.character_icon)
+  active_character_name = active_character.character_name
 
 func _on_health_changed(character) -> void:
-  update_health(character)
+  if character.character_name == active_character_name:
+    update_health(character)
 
 func _on_stamina_changed(character) -> void:
-  update_stamina(character)
+  if character.character_name == active_character_name:
+    update_stamina(character)
+
+func _on_level_entered() -> void:
+  gui.visible = true
+  
 
 func _connect_signals() -> void:
   GameSignal.connect("dash_started", self, "_on_Dash_started")
@@ -134,3 +136,4 @@ func _connect_signals() -> void:
   GameSignal.connect("party_spawned", self, "_on_party_spawned")
   GameSignal.connect("health_changed", self, "_on_health_changed")
   GameSignal.connect("stamina_changed", self, "_on_stamina_changed")
+  GameSignal.connect("level_entered", self, "_on_level_entered")
