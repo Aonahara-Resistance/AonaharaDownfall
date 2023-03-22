@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://levels/level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/firing_range/firing_range_surface.tres" type="TileSet" id=2]
 [ext_resource path="res://levels/firing_range/firing_range_props.tres" type="TileSet" id=3]
 [ext_resource path="res://levels/firing_range/bgm.mp3" type="AudioStream" id=4]
 [ext_resource path="res://entities/enemies/dummy/dummy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://entities/enemies/chaser/fromb/fromb.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ui/cheat_panel/cheat_panel.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/lights/basic_light.tscn" type="PackedScene" id=9]
 
@@ -63,3 +64,5 @@ position = Vector2( -99, 14 )
 [node name="Camera2D" type="Camera2D" parent="." index="14"]
 current = true
 zoom = Vector2( 4, 4 )
+
+[node name="Fromb" parent="." index="15" instance=ExtResource( 6 )]

@@ -366,6 +366,9 @@ radius = 42.144
 collision_layer = 8
 collision_mask = 4
 script = ExtResource( 6 )
+explosion_damage = 10
+explosion_knockback = 500.0
+fire_damage = 5
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false

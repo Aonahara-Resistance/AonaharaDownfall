@@ -4,7 +4,9 @@ class_name Character
 onready var animation: AnimationPlayer = $AnimationPlayer
 onready var animation_tree: AnimationTree = $AnimationTree
 onready var animation_mode = animation_tree.get("paramaters/playback")
+
 onready var sprite: Sprite = $Sprite
+
 onready var weapon: Node2D = $Weapon
 onready var dash: Dash = $Dash
 onready var stamina_timer: Timer = $StaminaTimer
@@ -58,6 +60,7 @@ var active_attributes: Dictionary = {
   "friction": 0.0,
   "receives_knockback": false,
 }
+
 
 var velocity: Vector2 = Vector2.ZERO
 var knockback: Vector2 = Vector2.ZERO
