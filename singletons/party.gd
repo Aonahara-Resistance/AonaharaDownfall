@@ -9,14 +9,11 @@ var party_members: Array = []
 const PARTY_MAX: int = 3
 var selected_member: int = 0 setget set_selected_member, get_selected_member_index
 
-
 func _ready():
   connect_signals()
 
-
 func current_scene() -> Node:
   return get_tree().get_current_scene()
-
 
 func load_party() -> void:
   for i in range(saved_party.size()):
@@ -43,25 +40,20 @@ func switch_to_available_member() -> void:
   if death_count == party_members.size():
     GameSignal.emit_signal("died")
 
-
 func clear_party_members() -> void:
   party_members = []
   set_selected_member(0)
 
-
 func set_selected_member(index: int) -> void:
   selected_member = index
 
-
 func get_selected_member_index() -> int:
   return selected_member
-
 
 func spawn_party(target_node) -> void:
   for member in party_members:
     target_node.add_child(member)
   tactical_character_showing(current_character())
-
 
 func spawn_at(location: Vector2, target_node: YSort) -> void:
   for member in party_members:
@@ -70,7 +62,6 @@ func spawn_at(location: Vector2, target_node: YSort) -> void:
   tactical_character_showing(current_character())
   GameSignal.emit_signal("party_spawned", current_character())
 
-
 func add_party_member(member) -> void:
   if party_members.size() < PARTY_MAX:
     party_members.append(member)
@@ -78,13 +69,10 @@ func add_party_member(member) -> void:
   # TODO: pop up notice party max
     pass
 
-
 func remove_party_member(index: int) -> void:
   party_members.remove(index)
 
-
 # TODO: Swap party member
-
 
 func current_character() -> Character:
   if !is_party_empty():
@@ -92,7 +80,6 @@ func current_character() -> Character:
   else:
   # TODO: Handle if part is empty
     return null
-
 
 func change_party_member(index) -> void:
   if !party_members[index].is_alive:
@@ -108,7 +95,6 @@ func change_party_member(index) -> void:
   current_character().global_position = pos
   tactical_character_showing(current_character())
 
-
 func tactical_character_hiding(character) -> void:
   # ! Will break if the characters scene nodes renamed
   character.is_in_control = false
@@ -123,7 +109,6 @@ func tactical_character_hiding(character) -> void:
   character.get_node("CollisionShape2D").set_deferred("disabled", true)
   for sprite in sprites:
     sprite.set_visible(false)
-
 
 func tactical_character_showing(character) -> void:
   # ! Will break if the characters scene nodes renamed
@@ -197,8 +182,6 @@ func _on_warp_interacted() -> void:
 
 func _on_main_menu_button_pressed() -> void:
   party_members = []
-
-
 
 func connect_signals()->void:
   GameSignal.connect("level_restarted", self, "_on_level_restarted")

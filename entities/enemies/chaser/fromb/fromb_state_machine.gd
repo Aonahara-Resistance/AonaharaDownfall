@@ -3,7 +3,6 @@ extends StateMachine
 onready var animation_tree: AnimationTree = parent.get_node("AnimationTree")
 onready var animation_mode = animation_tree.get("parameters/playback")
 
-
 func _ready() -> void:
   _add_state("idle")
   _add_state("patrol")
@@ -14,15 +13,12 @@ func _ready() -> void:
   set_state(states.idle)
   parent.connect("died", self, "_on_host_died")
 
-
 func _state_logic(delta) -> void:
   animation_tree.set("parameters/idle/blend_position", parent.direction_to_target().x)
   animation_tree.set("parameters/walk/blend_position", parent.direction_to_target().x)
   animation_tree.set("parameters/explode/blend_position", parent.direction_to_target().x)
   animation_tree.set("parameters/die/blend_position", parent.direction_to_target().x)
-
   parent.listen_knockback(delta)
-
   if state == states.chase:
     parent.chase(delta)
   if state == states.idle:
@@ -33,7 +29,6 @@ func _state_logic(delta) -> void:
   if state == states.retreat:
     parent.scan_target()
     parent.retreat(delta)
-
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
   ._enter_state(_previous_state, new_state)
@@ -54,7 +49,6 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
     states.die:
       animation_mode.travel("die")
 
-
 func _get_transition() -> int:
   match state:
     states.idle:
@@ -69,9 +63,7 @@ func _get_transition() -> int:
       pass
     states.die:
       pass
-
   return -1
-
 
 func _on_host_died():
   set_state(states.die)
@@ -85,12 +77,10 @@ func _on_Alertsignal_alerted():
     states.retreat:
       set_state(states.chase)
 
-
 func _on_PatrolCooldown_timeout():
   match state:
     states.idle:
       set_state(states.patrol)
-
 
 func _on_Fromb_patrol_finished():
   match state:
@@ -99,12 +89,10 @@ func _on_Fromb_patrol_finished():
     states.retreat:
       set_state(states.idle)
 
-
 func _on_Fromb_target_disengaged():
   match state:
     states.chase:
       set_state(states.retreat)
-
 
 func _on_Fromb_target_in_range():
   match state:

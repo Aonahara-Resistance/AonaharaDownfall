@@ -11,7 +11,6 @@ var is_using_game = false
 func get_class() -> String:
   return "Level"
 
-
 func is_class(value):
   if value == "Level":
     return true
@@ -28,7 +27,6 @@ func pre_start(params):
     GameSignal.emit_signal("level_loaded_with_destionation", destination_node.global_position, ysort)
   else:
     GameSignal.emit_signal("level_loaded", spawn.global_position, ysort)
-
 
 func _ready():
   GameSignal.emit_signal("level_entered")

@@ -9,7 +9,6 @@ var camera
 
 var noise: OpenSimplexNoise
 
-
 func _ready():
 	# Generate noise for noise shake
 	#
@@ -24,10 +23,8 @@ func _ready():
 	noise.period = 20
 	noise.persistence = 0.8
 
-
 func zoom():
 	camera.offset(10, 10)
-
 
 func shake(intensity, duration, type = Type.Random):
 	# Set the shake parameters
@@ -42,7 +39,6 @@ func shake(intensity, duration, type = Type.Random):
 		camera_shake_intensity = intensity
 		camera_shake_duration = duration
 		camera_shake_type = type
-
 
 func _process(delta):
 	# Get the camera
@@ -110,10 +106,8 @@ func _process(delta):
 
 	camera.offset = offset
 
-
 func _on_Dash_Started() -> void:
 	shake(1, 0.1)
-
 
 func _connect_signals() -> void:
 	GameSignal.connect("dash_started", self, "_on_Dash_Started")

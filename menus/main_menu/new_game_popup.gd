@@ -1,9 +1,7 @@
 extends PopupDialog
 
-
 func _on_No_pressed():
 	set_visible(false)
-
 
 func _on_Yes_pressed():
 	Game.change_scene(

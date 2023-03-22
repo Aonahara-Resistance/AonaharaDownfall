@@ -24,7 +24,6 @@ var active_character_name: String
 func _ready() -> void:
   _connect_signals()
 
-
 func update_modifier_indicator(character) -> void:
   for modifier in modifier_container.get_children():
     modifier_container.remove_child(modifier)
@@ -40,26 +39,21 @@ func update_modifier_indicator(character) -> void:
     print(modifier.get_node("Duration").time_left)
     modifier_container.add_child(buff_item_instance)
 
-
 func show_death_screen():
   get_tree().current_scene.add_child(death_screen.instance())
-
 
 func _process(delta):
   if channeling.is_visible():
     channeling.value += 1 * delta * 60
-
 
 func start_channeling(duration: float) -> void:
   channeling.set_value(0)
   channeling.set_visible(true)
   channeling.set_max(duration)
 
-
 func _on_Progress_value_changed(value: float):
   if value == channeling.get_max():
     channeling.set_visible(false)
-
 
 func update_health(character) -> void:
   for i in health_container.get_children():
@@ -70,7 +64,6 @@ func update_health(character) -> void:
     health_container.add_child(health_full.instance())
   for i in character.get_attribute("max_hp"):
     empty_health_container.add_child(health_empty.instance())
-
 
 func update_stamina(character) -> void:
   for i in stamina_container.get_children():
@@ -84,7 +77,6 @@ func update_stamina(character) -> void:
   for i in character.get_attribute("max_stamina"):
     stamina_container.add_child(stamina_bar_empty.instance())
 
-
 func _on_Dash_started(character) -> void:
   update_stamina(character)
 
@@ -94,7 +86,6 @@ func _on_party_member_changed(character) -> void:
   update_stamina(character)
   character_icon.set_texture(character.character_icon)
   active_character_name = character.character_name
-
 
 func _on_modifier_applied(character) -> void:
   update_modifier_indicator(character)
@@ -124,7 +115,6 @@ func _on_stamina_changed(character) -> void:
 
 func _on_level_entered() -> void:
   gui.visible = true
-  
 
 func _connect_signals() -> void:
   GameSignal.connect("dash_started", self, "_on_Dash_started")

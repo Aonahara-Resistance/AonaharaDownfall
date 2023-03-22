@@ -16,13 +16,11 @@ export var fire_knockback: float
 
 signal exploded
 
-
 func _ready():
 	explosion_hitbox.damage = explosion_damage
 	explosion_hitbox.knockback_strength = explosion_knockback
 	fire_hitbox.damage = fire_damage
 	fire_hitbox.knockback_strength = fire_knockback
-
 
 func explode() -> void:
 	emit_signal("exploded")
@@ -31,14 +29,12 @@ func explode() -> void:
 	duration_timer.start()
 	fire_interval.start()
 
-
 func _on_FireDoT_timeout():
 	#fire_collision.set_deferred("disabled", false)
 	fire_collision.set_disabled(false)
 	yield(get_tree().create_timer(0.1), "timeout")
 	fire_collision.set_disabled(true)
 	#fire_collision.set_deferred("disabled", true)
-
 
 func _on_Duration_timeout():
 	animation.play("fade")

@@ -5,14 +5,11 @@ extends CanvasLayer
 
 onready var tween: Tween = $Tween
 
-
 func _ready() -> void:
 	start_fade_process()
 
-
 func _on_Tween_tween_completed(_object: Object, _key: NodePath) -> void:
 	queue_free()
-
 
 func start_fade_process() -> void:
 	var _interpolate: bool = tween.interpolate_property(

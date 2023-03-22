@@ -61,7 +61,6 @@ var active_attributes: Dictionary = {
   "receives_knockback": false,
 }
 
-
 var velocity: Vector2 = Vector2.ZERO
 var knockback: Vector2 = Vector2.ZERO
 var is_in_control: bool = false
@@ -74,7 +73,6 @@ signal battle_state_changed
 ## -----------------------------------------------------------------------------
 ##                                Virtual Methods
 ## -----------------------------------------------------------------------------
-
 
 func init(
   hp_: int,
@@ -145,15 +143,12 @@ func _ready() -> void:
   modifier_tick()
   _connect_signals()
 
-
 func _process(_delta):
   modifier_tick()
-
 
 ## -----------------------------------------------------------------------------
 ##                                Input Listeners
 ## -----------------------------------------------------------------------------
-
 
 func listen_to_input_direction(event) -> void:
   if event.is_action_pressed("up"):
@@ -173,7 +168,6 @@ func listen_to_input_direction(event) -> void:
   if event.is_action_released("right"):
     movement_key["right"] = false
 
-
 func listen_to_attacks(event) -> void:
   if event.is_action_pressed("light_attack"):
     equiped_weapon().light_attack()
@@ -184,20 +178,17 @@ func listen_to_attacks(event) -> void:
   if event.is_action_released("heavy_attack"):
     equiped_weapon().heavy_attack_release()
 
-
 func listen_to_focus_mode(event) -> void:
   if event.is_action_pressed("focus"):
     is_focus = true
   if event.is_action_released("focus"):
     is_focus = false
 
-
 func listen_to_skills(event) -> void:
   if event.is_action_pressed("first_skill"):
     skill_one.activate_skill()
   if event.is_action_pressed("second_skill"):
     skill_two.activate_skill()
-
 
 func listen_to_party_change(event) -> void:
   if event.is_action_pressed("party1") && is_in_control:
@@ -207,18 +198,15 @@ func listen_to_party_change(event) -> void:
   if event.is_action_pressed("party3") && is_in_control:
     GameSignal.emit_signal("party_member_change_requested", 2)
 
-
 func listen_to_dash(event) -> void:
   if event.is_action_pressed("dash") && is_in_control:
     dash.start_dash(self)
     set_stamina_regen_timer(get_attribute("stamina"))
     stamina_timer.start()
 
-
 ## -----------------------------------------------------------------------------
 ##                                Movement Stuff
 ## -----------------------------------------------------------------------------
-
 
 func move(delta: float) -> void:
   var input_direction: Vector2 = get_input_direction()
@@ -227,16 +215,13 @@ func move(delta: float) -> void:
   velocity = lerp(velocity, Vector2.ZERO, get_attribute("friction"))
   velocity = velocity.clamped(get_attribute("max_speed"))
 
-
 func _on_Dash_started() -> void:
   _whiten_sprite(dash_duration)
   _enable_iframes(dash_duration)
 
-
 ## -----------------------------------------------------------------------------
 ##                                Combat Stuff
 ## -----------------------------------------------------------------------------
-
 
 func equiped_weapon():
   if !weapon.get_children().empty():
@@ -245,10 +230,8 @@ func equiped_weapon():
     # TDOO: Handle if weapon is not equiped
     return null
 
-
 func get_is_in_battle() -> bool:
   return is_in_battle
-
 
 func set_is_in_battle(new_state) -> void:
   if new_state == true:
@@ -256,16 +239,13 @@ func set_is_in_battle(new_state) -> void:
   is_in_battle = new_state
   emit_signal("battle_state_changed")
 
-
 func listen_knockback(delta) -> void:
   if get_attribute("receives_knockback"):
     knockback = knockback.move_toward(Vector2.ZERO, 200 * delta)
     knockback = move_and_slide(knockback)
 
-
 func apply_knockback(direction, strength) -> void:
   knockback = (direction.direction_to(self.global_position) * strength)
-
 
 func _on_Hurtbox_area_entered(hitbox) -> void:
   if hitbox is WeaponHitbox:
@@ -276,28 +256,23 @@ func _on_Hurtbox_area_entered(hitbox) -> void:
     apply_knockback(hitbox.global_position, hitbox.knockback_strength)
     _enable_iframes(1.0)
 
-
 func regenerate_stamina() -> void:
   while get_attribute("stamina") < get_attribute("max_stamina") && stamina_timer.is_stopped():
     set_attribute("stamina", get_attribute("stamina") + 1)
     GameSignal.emit_signal("stamina_changed", self)
     yield(get_tree().create_timer(get_attribute("stamina_regen_rate")), "timeout")
 
-
 func get_stamina_timer() -> float:
   return stamina_timer.time_left
 
-
 func _on_StaminaTimer_timeout() -> void:
   regenerate_stamina()
-
 
 func set_stamina_regen_timer(current_stamina) -> void:
   if current_stamina == 0:
     stamina_timer.wait_time = get_attribute("stamina_regen") * 2
   else:
     stamina_timer.wait_time = get_attribute("stamina_regen")
-
 
 func _take_damage(damage: int) -> void:
   if inf_health:
@@ -309,22 +284,18 @@ func _take_damage(damage: int) -> void:
   _die_check(get_attribute("hp"))
   GameSignal.emit_signal("health_changed", self)
 
-
 func _enable_iframes(duration: float) -> void:
   hurtbox.set_deferred("disabled", true)
   yield(get_tree().create_timer(duration), "timeout")
   hurtbox.disabled = false
 
-
 func _die_check(current_hp: int) -> void:
   if current_hp <= 0:
     die()
 
-
 func die() -> void:
   is_alive = false
   GameSignal.emit_signal("party_member_died")
-
 
 func reset_stats() -> void:
   set_attribute("hp", attributes.stateless_attributes.max_hp)
@@ -332,15 +303,12 @@ func reset_stats() -> void:
   GameSignal.emit_signal("health_changed", self)
   GameSignal.emit_signal("stamina_changed", self)
 
-
 func _on_BattleTimer_timeout():
   set_is_in_battle(false)
-
 
 ## -----------------------------------------------------------------------------
 ##                              Modifier Stuff
 ## -----------------------------------------------------------------------------
-
 
 func get_attribute(attribute: String):
   if active_attributes.has(attribute):
@@ -351,14 +319,12 @@ func get_attribute(attribute: String):
     print(attribute)
     return 0
 
-
 func set_attribute(attribute: String, new_value):
   if attributes.stateful_attributes.has(attribute):
     attributes.stateful_attributes[attribute] = new_value
   else:
     attributes.stateless_attributes[attribute] = new_value
   modifier_tick()
-
 
 func apply_modifier(new_modifier: Modifier) -> void:
   var modifier_list: Array = get_modifiers()
@@ -371,17 +337,14 @@ func apply_modifier(new_modifier: Modifier) -> void:
   new_modifier.modify_stateful(self)
   GameSignal.emit_signal("modifier_applied", self)
 
-
 func reset_modifier() -> void:
   var modifier_list: Array = get_modifiers()
   for modifier in modifier_list:
     modifier.get_parent().remove_child(modifier)
   GameSignal.emit_signal("modifier_reset", self)
 
-
 func get_modifiers() -> Array:
   return modifiers.get_children()
-
 
 func modifier_tick() -> void:
   var res: Dictionary = attributes.stateless_attributes.duplicate()
@@ -403,15 +366,12 @@ func modifier_tick() -> void:
     "receives_knockback": res.receives_knockback,
   }
 
-
 ## -----------------------------------------------------------------------------
 ##                                  Miscs
 ## -----------------------------------------------------------------------------
 
-
 func get_mouse_direction() -> Vector2:
   return (get_global_mouse_position() - global_position).normalized()
-
 
 func get_input_direction() -> Vector2:
   var input_direction: Vector2 = Vector2.ZERO
@@ -423,13 +383,11 @@ func get_input_direction() -> Vector2:
   else:
     return Vector2.ZERO
 
-
 func sprite_control() -> void:
   var mouse_direction: Vector2 = get_mouse_direction()
   _flip_interaction_detection(mouse_direction)
   _control_weapon_direction(mouse_direction)
   _flip_character_sprite(mouse_direction)
-
 
 func _flip_interaction_detection(mouse_direction):
   if mouse_direction.x < 0 and sign(interaction_component.scale.x) != sign(mouse_direction.x):
@@ -437,14 +395,12 @@ func _flip_interaction_detection(mouse_direction):
   elif mouse_direction.x > 0 and sign(interaction_component.scale.x) != sign(mouse_direction.x):
     interaction_component.scale.x *= -1
 
-
 func _flip_character_sprite(mouse_direction):
   if mirrored_sprite:
     if mouse_direction.x < 0 and sign(sprite.scale.x) != sign(mouse_direction.x):
       sprite.scale.x *= -1
     elif mouse_direction.x > 0 and sign(sprite.scale.x) != sign(mouse_direction.x):
       sprite.scale.x *= -1
-
 
 func _control_weapon_direction(mouse_direction):
   weapon.rotation = mouse_direction.angle()
@@ -457,12 +413,10 @@ func _control_weapon_direction(mouse_direction):
   elif mouse_direction.y > 0 and sign(weapon.z_index) != sign(mouse_direction.y):
     weapon.z_index *= -1
 
-
 func _whiten_sprite(duration: float):
   sprite_shader_material.set_shader_param("whiten", true)
   yield(get_tree().create_timer(duration), "timeout")
   sprite_shader_material.set_shader_param("whiten", false)
-
 
 # warning-ignore-all:return_value_discarded
 func _connect_signals():
