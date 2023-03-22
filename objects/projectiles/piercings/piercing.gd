@@ -11,26 +11,27 @@ onready var hit_box: PiercingHitbox = $PiercingHitbox
 
 
 func _process(delta):
-	global_position += speed * direction * delta
+  global_position += speed * direction * delta
 
 
 func _ready():
-	hit_box.knockback_strength = knockback_strength
+  hit_box.damage = damage
+  hit_box.knockback_strength = knockback_strength
 
 
 func disable():
-	sprite.set_visible(false)
-	collision.free()
+  sprite.set_visible(false)
+  collision.free()
 
 
 func launch(character):
-	var angle_to_mouse = ((get_global_mouse_position() - character.global_position).normalized()).angle()
-	sprite.rotate(angle_to_mouse)
+  var angle_to_mouse = ((get_global_mouse_position() - character.global_position).normalized()).angle()
+  sprite.rotate(angle_to_mouse)
 
 
 func _on_LifeTime_timeout():
-	disable()
+  disable()
 
 
 func _on_Lifetime_timeout():
-	queue_free()
+  queue_free()

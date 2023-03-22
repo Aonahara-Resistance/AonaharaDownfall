@@ -11,7 +11,7 @@ radius = 7.07107
 
 [node name="RockShard" instance=ExtResource( 1 )]
 speed = 400
-damage = 100
+damage = 10
 
 [node name="Sprite" parent="." index="0"]
 scale = Vector2( 2, 2 )

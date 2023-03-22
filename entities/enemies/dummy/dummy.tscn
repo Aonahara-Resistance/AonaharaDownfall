@@ -66,6 +66,7 @@ collision_mask = 10
 script = ExtResource( 2 )
 hp = 100
 max_hp = 100
+receives_knockback = true
 
 [node name="Sprite" parent="." index="2"]
 texture = ExtResource( 3 )

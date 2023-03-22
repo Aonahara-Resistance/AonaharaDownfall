@@ -235,8 +235,12 @@ func _take_damage(damage: int) -> void:
 
 func _die() -> void:
   emit_signal("died", self)
-  # Do dying stuff before freeing
-  queue_free()
+  if !animation.has_animation("die_right") || !animation.has_animation("die_left"):
+    print("1")
+    queue_free()
+    return
+  print("2")
+  emit_signal("died")
 
 
 func remove_from_spawn_group():
