@@ -1,0 +1,91 @@
+{
+	"events": [
+		{
+			"animation": "instant_in.gd",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1679845406.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"animation": "instant_in.gd",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1679846755.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": true
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"character": "character-1679846755.json",
+			"event_id": "dialogic_001",
+			"portrait": "happy",
+			"text": "Nom nom piss asmr is now officially my ringtone\n"
+		},
+		{
+			"character": "character-1679845406.json",
+			"event_id": "dialogic_001",
+			"portrait": "happy",
+			"text": "LMAO"
+		},
+		{
+			"character": "character-1679846755.json",
+			"event_id": "dialogic_001",
+			"portrait": "Default",
+			"text": "If im going to join the edit team again, i will put nom's piss on the outro with maximum reverb\n"
+		},
+		{
+			"character": "character-1679845406.json",
+			"event_id": "dialogic_001",
+			"portrait": "surprised",
+			"text": "wait, can you guys make the piss sound cursed\n"
+		},
+		{
+			"character": "character-1679846755.json",
+			"event_id": "dialogic_001",
+			"portrait": "Default",
+			"text": "Nom nom piss asmr non copyrighted dubstep remix\n"
+		},
+		{
+			"character": "character-1679845406.json",
+			"event_id": "dialogic_001",
+			"portrait": "angry",
+			"text": "wtf\nstop"
+		},
+		{
+			"character": "character-1679846755.json",
+			"event_id": "dialogic_001",
+			"portrait": "angry",
+			"text": "calm down nom"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1679845461.json",
+		"name": "test"
+	}
+}

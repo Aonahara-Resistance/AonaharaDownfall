@@ -34,7 +34,6 @@ func _on_enemy_died(enemy):
   if enemies.has(enemy):
     enemies.erase(enemy)
 
-
 func _on_AttackIntervalTimer_timeout():
   if enemies.size() == 0:
     return

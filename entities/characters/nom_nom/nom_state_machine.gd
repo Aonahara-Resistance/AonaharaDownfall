@@ -2,19 +2,16 @@ extends StateMachine
 
 onready var animation = parent.get_node("AnimationPlayer")
 
-
 func _ready() -> void:
 	_add_state("idle")
 	_add_state("move")
 	_add_state("dash")
 	set_state(states.idle)
 
-
 func _state_logic(delta) -> void:
 	parent.move(delta)
 	parent.sprite_control()
 	parent.listen_knockback(delta)
-
 
 func _unhandled_input(event):
 	if parent.is_in_control:
@@ -24,7 +21,6 @@ func _unhandled_input(event):
 			parent.listen_to_party_change(event)
 			parent.listen_to_input_direction(event)
 			parent.sprite_control()
-
 		if state == states.move:
 			parent.listen_to_skills(event)
 			parent.listen_to_attacks(event)
@@ -32,14 +28,12 @@ func _unhandled_input(event):
 			parent.listen_to_input_direction(event)
 			parent.sprite_control()
 			parent.listen_to_dash(event)
-
 		if state == states.dash:
 			parent.listen_to_skills(event)
 			parent.listen_to_attacks(event)
 			parent.listen_to_party_change(event)
 			parent.listen_to_input_direction(event)
 			parent.sprite_control()
-
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	._enter_state(_previous_state, new_state)
@@ -48,7 +42,6 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			animation.play("idle")
 		states.move:
 			animation.play("move")
-
 
 func _get_transition() -> int:
 	match state:
@@ -63,5 +56,4 @@ func _get_transition() -> int:
 		states.dash:
 			if parent.dash.is_dashing() != true:
 				return states.move
-
 	return -1

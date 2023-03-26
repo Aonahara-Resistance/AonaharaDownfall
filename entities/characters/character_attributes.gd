@@ -20,7 +20,6 @@ var stateless_attributes = {
 	"receives_knockback": false,
 }
 
-
 func _init(
 	hp: int,
 	stamina: int,

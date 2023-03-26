@@ -14,7 +14,6 @@ var current_velocity: Vector2 = Vector2.ZERO
 
 var target
 
-
 func die():
   hitbox_collision.call_deferred("set_disabled", true)
   animation.play("die")

@@ -7,7 +7,6 @@ export var max_spawn: int
 
 onready var spawn_timer: Timer = $SpawnTimer
 
-
 func _on_SpawnTimer_timeout():
 	var spawned_enemy = get_tree().get_nodes_in_group(name)
 	if !spawned_enemy.size() >= max_spawn:

@@ -12,7 +12,6 @@ onready var duration_timer: Timer = $Duration
 export var effect: PackedScene
 var instanced_effect
 
-
 func _ready():
   duration_timer.set_wait_time(duration)
   duration_timer.start()
@@ -22,24 +21,19 @@ func _ready():
     instanced_effect = effect.instance()
     effect_container.add_child(instanced_effect)
 
-
 func modify_stateless(res):
   return res
 
-
 func modify_stateful(host):
   pass
-
 
 func reset_duration():
   print("reset timer")
   GameSignal.emit_signal("modifier_reset")
   duration_timer.start()
 
-
 func get_modifier_type() -> int:
   return type
-
 
 func _on_Duration_timeout():
   if effect != null:

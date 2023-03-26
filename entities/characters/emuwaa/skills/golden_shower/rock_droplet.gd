@@ -13,7 +13,6 @@ var rock_sprites: Array = [
 	"res://objects/weapons/staves/parseids_staff/rock_shard/rock_shard_8.png",
 ]
 
-
 func _ready():
 	randomize()
 	sprite.rotate(1.5708)

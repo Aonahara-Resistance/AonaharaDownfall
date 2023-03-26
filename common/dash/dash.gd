@@ -17,7 +17,6 @@ var dash_sprite_shader: ShaderMaterial
 
 var entity
 
-
 func start_dash(new_entity) -> void:
   if new_entity.has_method("listen_to_dash"):
     entity = new_entity
@@ -29,7 +28,6 @@ func start_dash(new_entity) -> void:
       GameSignal.emit_signal("dash_started", entity)
   else:
     print("Can't implement dash into this class, requirements are not satisfied")
-
 
 func apply_dash_speed() -> void:
   entity.set_attribute("stamina", entity.get_attribute("stamina") - 1)
@@ -45,13 +43,11 @@ func restore_dash_speed() -> void:
   )
   entity.set_attribute("max_speed", entity.get_attribute("max_speed") - entity.dash_speed)
 
-
 func setup_dash() -> void:
   duration_timer.set_wait_time(entity.dash_duration)
   cooldown_timer.set_wait_time(entity.dash_cooldown)
   dash_sprite = entity.sprite
   dash_sprite_shader = dash_sprite.material
-
 
 func can_dash() -> bool:
   # TODO: Refactor into signals
@@ -63,12 +59,10 @@ func can_dash() -> bool:
     return false
   return true
 
-
 func start_timers():
   cooldown_timer.start()
   duration_timer.start()
   ghost_timer.start()
-
 
 func create_trails(direction: Vector2):
   dust_burst.set_rotation((direction * -1).angle())
@@ -76,7 +70,6 @@ func create_trails(direction: Vector2):
   dust_trail.set_emitting(true)
   dust_burst.restart()
   dust_burst.set_emitting(true)
-
 
 func instance_ghost() -> void:
   var ghost: Sprite = ghost_scene.instance()
@@ -90,7 +83,6 @@ func instance_ghost() -> void:
   ghost.frame = dash_sprite.frame
   ghost.flip_h = dash_sprite.flip_h
 
-
 func get_ghost_target():
   if get_tree().get_current_scene().get_class() == "Level":
     var current_level = get_tree().get_current_scene() as Level
@@ -98,17 +90,14 @@ func get_ghost_target():
   else:
     return get_tree().get_current_scene()
 
-
 func end_dash() -> void:
   restore_dash_speed()
   dash_sprite_shader.set_shader_param("whiten", false)
   ghost_timer.stop()
   emit_signal("dash_ended", entity)
 
-
 func _on_DurationTimer_timeout() -> void:
   end_dash()
-
 
 func _on_GhostTimer_timeout() -> void:
   instance_ghost()

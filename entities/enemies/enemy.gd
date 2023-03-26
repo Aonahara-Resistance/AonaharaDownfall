@@ -74,14 +74,12 @@ func _ready():
     detector.cast_to.x = sight_range
   patrol_cooldown_timer.wait_time = patrol_cooldown
   range_detector.cast_to.x = attack_radius
-
   modifier_tick()
 
 
 ## -----------------------------------------------------------------------------
 ##                                Movement Stuff
 ## -----------------------------------------------------------------------------
-
 
 func chase(delta):
   var steering: Vector2 = Vector2.ZERO
@@ -97,7 +95,6 @@ func chase(delta):
   if range_detector.is_colliding():
     emit_signal("target_in_range")
 
-
 func retreat(delta):
   print(spawn_location)
   var steering: Vector2 = Vector2.ZERO
@@ -110,10 +107,8 @@ func retreat(delta):
   if global_position.floor() == target.global_position.floor():
     emit_signal("patrol_finished")
 
-
 func set_retreat_target() -> Dictionary:
   return {"global_position": spawn_location}
-
 
 func generate_patrol_target() -> Dictionary:
   randomize()
@@ -123,7 +118,6 @@ func generate_patrol_target() -> Dictionary:
       rand_range(patrol_range * -1, patrol_range), rand_range(patrol_range * -1, patrol_range)
     )
   }
-
 
 func patrol(delta):
   var steering: Vector2 = Vector2.ZERO
@@ -139,18 +133,15 @@ func patrol(delta):
   if wall_detector.is_colliding():
     emit_signal("patrol_finished")
 
-
 func direction_to_target():
   if get_target() is Character:
     return global_position.direction_to(get_target().hurtbox.global_position)
   else:
     return global_position.direction_to(get_target().global_position)
 
-
 func seek_steering() -> Vector2:
   var desired_velocity: Vector2 = direction_to_target() * get_attribute("max_speed")
   return desired_velocity - velocity
-
 
 func arrival_steering() -> Vector2:
   var speed: float = (
@@ -159,7 +150,6 @@ func arrival_steering() -> Vector2:
   )
   var desired_velocity: Vector2 = direction_to_target() * speed
   return desired_velocity - velocity
-
 
 func avoid_obstacles_steering() -> Vector2:
   whiskers.rotation = velocity.angle()
@@ -170,11 +160,9 @@ func avoid_obstacles_steering() -> Vector2:
       return (position + velocity - obstacle.position).normalized() * 1000
   return Vector2.ZERO
 
-
 ## -----------------------------------------------------------------------------
 ##                                Combat Stuff
 ## -----------------------------------------------------------------------------
-
 
 func scan_target():
   player_detector.rotation += 10
@@ -185,24 +173,19 @@ func scan_target():
         set_target(collider)
         alert_signal.alert()
 
-
 func get_target():
   return target
 
-
 func set_target(new_target) -> void:
   target = new_target
-
 
 func listen_knockback(delta) -> void:
   if get_attribute("receives_knockback"):
     knockback = knockback.move_toward(Vector2.ZERO, 200 * delta)
     knockback = move_and_slide(knockback)
 
-
 func apply_knockback(direction, strength) -> void:
   knockback = (direction.direction_to(self.global_position) * strength)
-
 
 func _on_Hurtbox_area_entered(hitbox) -> void:
   if hitbox.has_method("get_hitbox_damage"):
@@ -226,12 +209,10 @@ func _on_Hurtbox_area_entered(hitbox) -> void:
       if hitbox.die_after_hit:
         hitbox.die()
 
-
 func _take_damage(damage: int) -> void:
   set_attribute("hp", get_attribute("hp") - damage)
   if get_attribute("hp") <= 0:
     _die()
-
 
 func _die() -> void:
   emit_signal("died", self)
@@ -242,11 +223,9 @@ func _die() -> void:
   print("2")
   emit_signal("died")
 
-
 func remove_from_spawn_group():
   if spawn_group != "":
     remove_from_group(spawn_group)
-
 
 func shoot_projectile() -> void:
   var active_projectile = projectile.instance()
@@ -256,12 +235,10 @@ func shoot_projectile() -> void:
   active_projectile.launch_at_player(target)
   attack_timer.start()
 
-
 func set_is_pouncing(value):
   if value == false:
     attack_timer.start()
   is_pouncing = value
-
 
 func pounce(delta) -> void:
   if is_pouncing:
@@ -269,11 +246,9 @@ func pounce(delta) -> void:
     velocity += 10 * direction_to_target() * delta * 60
     velocity = lerp(velocity, Vector2.ZERO, get_attribute("friction"))
 
-
 ## -----------------------------------------------------------------------------
 ##                                Sprites
 ## -----------------------------------------------------------------------------
-
 
 func spawn_effect(EFFECT: PackedScene, effect_position: Vector2 = global_position) -> PackedScene:
   var effect = EFFECT.instance()
@@ -281,25 +256,20 @@ func spawn_effect(EFFECT: PackedScene, effect_position: Vector2 = global_positio
   effect.global_position = effect_position
   return effect
 
-
 func spawn_death_effect() -> void:
   var _hit_effect = spawn_effect(effect_died)
 
-
 func spawn_hit_effect() -> void:
   var _hit_effect = spawn_effect(effect_hit)
-
 
 func spawn_damage_indicator(damage: int) -> void:
   var indicator = spawn_effect(indicator_damage)
   if indicator:
     indicator.label.text = str(damage)
 
-
 ## -----------------------------------------------------------------------------
 ##                                Modifier Stuff
 ## -----------------------------------------------------------------------------
-
 
 func get_attribute(attribute: String):
   if active_attributes.has(attribute):
@@ -309,7 +279,6 @@ func get_attribute(attribute: String):
     print("Attribute does not exist")
     return 0
 
-
 func set_attribute(attribute: String, new_value):
   if attributes.stateful_attributes.has(attribute):
     attributes.stateful_attributes[attribute] = new_value
@@ -317,16 +286,13 @@ func set_attribute(attribute: String, new_value):
     attributes.stateless_attributes[attribute] = new_value
   modifier_tick()
 
-
 func apply_modifier(new_modifier: Modifier) -> void:
   modifiers.add_child(new_modifier)
   modifier_tick()
   new_modifier.modify_stateful(self)
 
-
 func get_modifiers() -> Array:
   return modifiers.get_children()
-
 
 func modifier_tick() -> void:
   var res: Dictionary = attributes.stateless_attributes.duplicate()
@@ -341,5 +307,3 @@ func modifier_tick() -> void:
     "acceleration": res.acceleration,
     "receives_knockback": res.receives_knockback,
   }
-
-

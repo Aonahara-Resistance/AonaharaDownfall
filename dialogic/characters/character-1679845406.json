@@ -1,0 +1,37 @@
+{
+	"color": "#ffc4cbca",
+	"description": "",
+	"display_name": "",
+	"display_name_bool": false,
+	"id": "character-1679845406.json",
+	"mirror_portraits": false,
+	"name": "Nom Nom",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 0,
+	"offset_y": 0,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": "res://entities/characters/nom_nom/dialogue_sprite/nom-neutral.png"
+		},
+		{
+			"name": "happy",
+			"path": "res://entities/characters/nom_nom/dialogue_sprite/nom-happy.png"
+		},
+		{
+			"name": "angry",
+			"path": "res://entities/characters/nom_nom/dialogue_sprite/nom-angry.png"
+		},
+		{
+			"name": "sad",
+			"path": "res://entities/characters/nom_nom/dialogue_sprite/nom-sad.png"
+		},
+		{
+			"name": "surprised",
+			"path": "res://entities/characters/nom_nom/dialogue_sprite/nom-suprised.png"
+		}
+	],
+	"scale": 8,
+	"theme": ""
+}

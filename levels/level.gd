@@ -11,7 +11,6 @@ var is_using_game = false
 func get_class() -> String:
   return "Level"
 
-
 func is_class(value):
   if value == "Level":
     return true
@@ -29,6 +28,7 @@ func pre_start(params):
   else:
     GameSignal.emit_signal("level_loaded", spawn.global_position, ysort)
 
-
 func _ready():
   GameSignal.emit_signal("level_entered")
+  var new_dialog = Dialogic.start('test')
+  add_child(new_dialog)

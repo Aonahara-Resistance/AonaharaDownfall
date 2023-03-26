@@ -13,7 +13,6 @@ onready var character = get_node(character_path)
 var cooldown_indicator: float = cooldown_duration * 60
 var current_cooldown_indicator: float = cooldown_duration * 60
 
-
 func _ready() -> void:
   cooldown_indicator = cooldown_duration * 60
   current_cooldown_indicator = cooldown_duration * 60
@@ -25,10 +24,8 @@ func _process(delta) -> void:
     if character.sprite.visible == true:
       GameSignal.emit_signal("skill_cooldown_changed", character)
 
-
 func activate_skill() -> void:
   print("skill activated")
-
 
 func _on_CooldownTimer_timeout() -> void:
   current_cooldown_indicator = cooldown_indicator

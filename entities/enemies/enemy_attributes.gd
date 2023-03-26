@@ -1,7 +1,6 @@
 extends Resource
 class_name EnemeyAttributes
 
-
 func _init(
 	hp: int,
 	max_hp: int,
@@ -18,7 +17,6 @@ func _init(
 	stateless_attributes.acceleration = acceleration
 	stateless_attributes.avoid_force = avoid_force
 	stateless_attributes.receives_knockback = receives_knockback
-
 
 var stateful_attributes = {
 	"hp": 0,
