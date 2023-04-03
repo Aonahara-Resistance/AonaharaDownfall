@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://ui/panel_white_transparent.png" type="Texture" id=1]
+[ext_resource path="res://entities/characters/nom_nom/skills/get_excited/get_excited.png" type="Texture" id=2]
+[ext_resource path="res://entities/characters/nom_nom/skills/scrilspeokr/scrilspeokr_icon.png" type="Texture" id=3]
+[ext_resource path="res://ui/manage_party/party_item.gd" type="Script" id=4]
+[ext_resource path="res://entities/characters/nom_nom/dialogue_sprite/nom-neutral.png" type="Texture" id=5]
+
+[node name="PartyItem" type="NinePatchRect"]
+margin_right = 60.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 60, 0 )
+mouse_filter = 1
+texture = ExtResource( 1 )
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+script = ExtResource( 4 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 3.0
+margin_right = -3.0
+margin_bottom = -3.0
+mouse_filter = 2
+
+[node name="CharacterTexture" type="TextureRect" parent="MarginContainer"]
+unique_name_in_owner = true
+margin_right = 54.0
+margin_bottom = 154.0
+rect_min_size = Vector2( 50, 150 )
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 7
+
+[node name="RichTextLabel" type="Label" parent="MarginContainer"]
+margin_right = 54.0
+margin_bottom = 154.0
+rect_min_size = Vector2( 0, 154 )
+text = "Lvl. 13"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -26.0
+margin_top = -49.0
+margin_right = 26.0
+margin_bottom = -25.0
+mouse_filter = 2
+
+[node name="SkillOneTexture" type="TextureRect" parent="HBoxContainer"]
+unique_name_in_owner = true
+margin_right = 24.0
+margin_bottom = 24.0
+texture = ExtResource( 2 )
+
+[node name="SkillTwoTexture" type="TextureRect" parent="HBoxContainer"]
+unique_name_in_owner = true
+margin_left = 28.0
+margin_right = 52.0
+margin_bottom = 24.0
+texture = ExtResource( 3 )
