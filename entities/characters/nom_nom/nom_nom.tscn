@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://entities/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/characters/nom_nom/nom_nom.gd" type="Script" id=2]
@@ -9,6 +9,10 @@
 [ext_resource path="res://entities/characters/nom_nom/sprites/nom_head.png" type="Texture" id=7]
 [ext_resource path="res://objects/weapons/swords/cum_stained_sword/cum_stained_sword.tscn" type="PackedScene" id=8]
 [ext_resource path="res://entities/characters/nom_nom/skills/get_excited/get_excited.tscn" type="PackedScene" id=9]
+[ext_resource path="res://entities/characters/nom_nom/dialogue_sprite/nom-neutral.png" type="Texture" id=10]
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 3 )
 
 [sub_resource type="CapsuleShape2D" id=6]
 radius = 4.03739
@@ -86,6 +90,8 @@ stamina_regen_rate = 1
 dash_duration = 0.2
 dash_speed = 300
 friction = 0.2
+character_sprite = ExtResource( 10 )
+character_atlas = SubResource( 14 )
 
 [node name="StateMachine" parent="." index="0"]
 script = ExtResource( 4 )

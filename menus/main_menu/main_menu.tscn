@@ -115,9 +115,6 @@ margin_top = 160.0
 margin_right = 299.0
 margin_bottom = 173.0
 text = "Test"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]

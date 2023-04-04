@@ -20,7 +20,7 @@ signal death_continue_button_pressed
 signal party_member_change_requested(index)
 signal party_member_changed(character)
 signal party_member_died
-signal party_spawned(active_character)
+signal party_spawned(active_character, party_members, reserve_member)
 
 signal skill_one_pressed
 signal skill_two_pressed
@@ -38,3 +38,11 @@ signal modifier_item_button_pressed(modifier)
 signal main_menu_button_pressed
 
 signal warp_interacted
+
+signal party_order_changed(old_index, new_index)
+signal deploy_reserve_requested(index)
+signal deploy_reserve_request_sent(index)
+signal deploy_reserve_cancelled
+signal reserve_deployed(party_members, reserve)
+signal remove_party_member_requested(index)
+signal party_member_removed(party_members, reserve)

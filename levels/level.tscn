@@ -36,6 +36,4 @@ position = Vector2( 144.04, 42.5 )
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 
-[node name="Party" type="CanvasLayer" parent="."]
-
-[node name="Control" parent="Party" instance=ExtResource( 2 )]
+[node name="ManageParty" parent="." instance=ExtResource( 2 )]

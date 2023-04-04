@@ -20,7 +20,7 @@ func _on_skill_cooldown_changed(character):
   process_time_label(character)
   process_cooldown(character)
 
-func _on_party_spawned(character):
+func _on_party_spawned(character, _party_members, _reserved_member):
   update_skill(character)
 
 func _on_party_member_changed(character):

@@ -1,9 +1,16 @@
 extends Node
 
+var speed
+
+
 var saved_party_members: Array = [
   preload("res://entities/characters/nom_nom/nom_nom.tscn"),
-  preload("res://entities/characters/emuwaa/emuwaa.tscn"),
 ]
+
+var reserve_member: Array = [
+  preload("res://entities/characters/emuwaa/emuwaa.tscn").instance()
+]
+
 var saved_party: Array = []
 var party_members: Array = []
 const PARTY_MAX: int = 3
@@ -60,7 +67,7 @@ func spawn_at(location: Vector2, target_node: YSort) -> void:
     member.global_position = location
     target_node.add_child(member)
   tactical_character_showing(current_character())
-  GameSignal.emit_signal("party_spawned", current_character())
+  GameSignal.emit_signal("party_spawned", current_character(), party_members, reserve_member)
 
 func add_party_member(member) -> void:
   if party_members.size() < PARTY_MAX:
@@ -91,9 +98,11 @@ func change_party_member(index) -> void:
   var pos = current_character().global_position
   var movement_key = current_character().movement_key
   set_selected_member(index)
+  set_selected_member(index)
   current_character().movement_key = movement_key
   current_character().global_position = pos
   tactical_character_showing(current_character())
+  GameSignal.emit_signal("party_member_changed", current_character())
 
 func tactical_character_hiding(character) -> void:
   # ! Will break if the characters scene nodes renamed
@@ -143,7 +152,6 @@ func _on_level_entered() -> void:
 func _on_party_member_change_requested(index) -> void:
   if party_members.size() > index:
     change_party_member(index)
-  GameSignal.emit_signal("party_member_changed", current_character())
 
 func _on_party_member_died() -> void:
   tactical_character_hiding(current_character())
@@ -183,6 +191,59 @@ func _on_warp_interacted() -> void:
 func _on_main_menu_button_pressed() -> void:
   party_members = []
 
+func _on_party_order_changed(old_index, new_index) -> void:
+  if get_selected_member_index() == old_index:
+    set_selected_member(new_index)
+  elif get_selected_member_index() == new_index:
+    set_selected_member(old_index)
+
+  var temp = party_members[old_index]
+  party_members[old_index] = party_members[new_index]
+  party_members[new_index] = temp
+
+func _on_deploy_reserve_request_sent(index) -> void:
+  add_party_member(reserve_member[index])
+  get_tree().current_scene.ysort.add_child(reserve_member[index])
+  reserve_member.erase(reserve_member[index])
+  GameSignal.emit_signal("reserve_deployed", party_members, reserve_member)
+
+func _on_remove_party_member_requested(index) -> void:
+  if party_members.size() == 1:
+    UiUtils.show_info("No can't do xd")
+    return
+  if selected_member == index:
+    tactical_character_hiding(party_members[index])
+  reserve_member.append(party_members[index])
+  if index == 0:
+    if selected_member == index:
+      var pos = party_members[index].global_position
+      var movement_key = party_members[index].movement_key
+      party_members.erase(party_members[index])
+      party_members[index].movement_key = movement_key
+      party_members[index].global_position = pos
+      tactical_character_showing(party_members[index])
+      set_selected_member(index)
+    else:
+      party_members.erase(party_members[index])
+      set_selected_member(index)
+  if index >= 1:
+    if selected_member == index:
+      var pos = party_members[index].global_position
+      var movement_key = party_members[index].movement_key
+      party_members.erase(party_members[index])
+      party_members[index-1].movement_key = movement_key
+      party_members[index-1].global_position = pos
+      tactical_character_showing(party_members[index-1])
+      set_selected_member(index-1)
+    else:
+      party_members.erase(party_members[index])
+      set_selected_member(index-1)
+    pass
+  
+  GameSignal.emit_signal("party_member_removed", party_members, reserve_member)
+
+
+
 func connect_signals()->void:
   GameSignal.connect("level_restarted", self, "_on_level_restarted")
   GameSignal.connect("level_loaded", self, "_on_level_loaded")
@@ -206,3 +267,9 @@ func connect_signals()->void:
   GameSignal.connect("warp_interacted", self, "_on_warp_interacted")
 
   GameSignal.connect("main_menu_button_pressed", self, "_on_main_menu_button_pressed")
+
+  GameSignal.connect("party_order_changed", self, "_on_party_order_changed")
+  GameSignal.connect("deploy_reserve_request_sent", self, "_on_deploy_reserve_request_sent")
+  GameSignal.connect("remove_party_member_requested", self, "_on_remove_party_member_requested")
+
+
