@@ -38,7 +38,7 @@ func drop_data(_position, data):
   GameSignal.emit_signal("party_order_changed", data["origin"].party_index, party_index)
 
 func _on_MarginContainer_gui_input(event:InputEvent):
-  if event.is_action_pressed("left_click"):
+  if event.is_action_released("left_click"):
     popup.rect_position = get_global_mouse_position()
     popup.popup()
 
