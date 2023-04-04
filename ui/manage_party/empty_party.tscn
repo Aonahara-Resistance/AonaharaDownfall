@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://ui/panel_white_transparent.png" type="Texture" id=1]
+[ext_resource path="res://status/modifiers/heal/heal_icon.png" type="Texture" id=2]
+[ext_resource path="res://ui/manage_party/empty_party.gd" type="Script" id=3]
+
+[node name="EmptyParty" type="NinePatchRect"]
+margin_left = 65.0
+margin_right = 125.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 60, 0 )
+texture = ExtResource( 1 )
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+script = ExtResource( 3 )
+
+[node name="AddIndicator" type="CenterContainer" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Icon" type="TextureRect" parent="AddIndicator"]
+margin_left = 22.0
+margin_top = 72.0
+margin_right = 38.0
+margin_bottom = 88.0
+texture = ExtResource( 2 )
+
+[connection signal="gui_input" from="AddIndicator" to="." method="_on_AddIndicator_gui_input"]

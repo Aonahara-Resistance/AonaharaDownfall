@@ -46,6 +46,9 @@ export var dash_speed: int
 export var friction: float
 export var receives_knockback: bool
 
+export var character_sprite: Texture
+export var character_atlas: AtlasTexture
+
 var active_attributes: Dictionary = {
   "hp": 0,
   "stamina": 0,

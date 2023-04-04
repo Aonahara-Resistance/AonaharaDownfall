@@ -99,7 +99,7 @@ func _on_skill_channel_started(duration) -> void:
 func _on_died() -> void:
   show_death_screen()
 
-func _on_party_spawned(active_character) -> void:
+func _on_party_spawned(active_character, _party_members, _reserved) -> void:
   update_health(active_character)
   update_stamina(active_character)
   character_icon.set_texture(active_character.character_icon)

@@ -6,7 +6,6 @@ onready var checkpoint: Node2D = $Checkpoint
 onready var spawn: Node2D = $Spawn
 onready var ysort: YSort = $YSort
 
-var is_using_game = false
 
 func get_class() -> String:
   return "Level"
@@ -18,8 +17,6 @@ func is_class(value):
     return false
 
 func pre_start(params):
-  print("prestart")
-  is_using_game = true
   if params.has("restart"):
     GameSignal.emit_signal("level_restarted", checkpoint.global_position, ysort)
   elif params.has("destination"):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://entities/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/characters/emuwaa/sprites/emu_spritesheet.png" type="Texture" id=2]
@@ -9,6 +9,10 @@
 [ext_resource path="res://entities/characters/emuwaa/skills/golden_shower/golden_shower.tscn" type="PackedScene" id=7]
 [ext_resource path="res://entities/characters/emuwaa/skills/big_destructive_summon_meteor/big_destructive_summon_meteor.tscn" type="PackedScene" id=8]
 [ext_resource path="res://common/blessings/devil_blessing/devil_blessing.tscn" type="PackedScene" id=9]
+[ext_resource path="res://entities/characters/emuwaa/dialogue_sprite/emu-neutral0.png" type="Texture" id=10]
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 2 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.58169, 3.04918 )
@@ -229,6 +233,8 @@ stamina_regen_rate = 1
 dash_duration = 0.2
 dash_speed = 300
 friction = 0.2
+character_sprite = ExtResource( 10 )
+character_atlas = SubResource( 60 )
 
 [node name="StateMachine" parent="." index="0"]
 script = ExtResource( 4 )
