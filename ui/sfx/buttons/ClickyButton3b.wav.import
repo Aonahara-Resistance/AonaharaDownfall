@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ClickyButton3b.wav-ec66a3a55c8ee7c6092d24310bdaaec0.sample"
+
+[deps]
+
+source_file="res://ui/sfx/buttons/ClickyButton3b.wav"
+dest_files=[ "res://.import/ClickyButton3b.wav-ec66a3a55c8ee7c6092d24310bdaaec0.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
