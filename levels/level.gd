@@ -27,5 +27,3 @@ func pre_start(params):
 
 func _ready():
   GameSignal.emit_signal("level_entered")
-  var new_dialog = Dialogic.start('test')
-  add_child(new_dialog)

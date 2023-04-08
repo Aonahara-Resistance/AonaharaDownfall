@@ -3,8 +3,8 @@
 [ext_resource path="res://assets/fonts/m5x/m5x7.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/license_and_agreement/license_and_agreement.gd" type="Script" id=2]
 [ext_resource path="res://ui/panel_white_transparent.png" type="Texture" id=3]
+[ext_resource path="res://ui/sfx/buttons/GenericButton5.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/particle_textures/star_texture.png" type="Texture" id=5]
-[ext_resource path="res://ui/sfx/buttons/ClickyButton8.wav" type="AudioStream" id=6]
 [ext_resource path="res://ui/sfx/alerts_notification/Success7a.wav" type="AudioStream" id=7]
 
 [sub_resource type="DynamicFont" id=1]
@@ -149,7 +149,7 @@ process_material = SubResource( 10 )
 texture = ExtResource( 5 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )
+stream = ExtResource( 4 )
 
 [node name="Click" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )

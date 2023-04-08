@@ -194,9 +194,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0.0862745, 0.0862745, 0.0862745, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="Black" type="ColorRect" parent="ColorRect"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
 
 [node name="TextureRect" type="TextureRect" parent="ColorRect"]
 anchor_right = 1.0
