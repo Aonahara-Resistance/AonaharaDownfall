@@ -1,16 +1,50 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/fonts/m5x/m5x7.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/license_and_agreement/license_and_agreement.gd" type="Script" id=2]
-[ext_resource path="res://assets/prosperosus_standard_theme.tres" type="Theme" id=3]
-[ext_resource path="res://assets/artworks/kiseki.png" type="Texture" id=4]
+[ext_resource path="res://ui/panel_white_transparent.png" type="Texture" id=3]
+[ext_resource path="res://ui/sfx/buttons/GenericButton5.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/particle_textures/star_texture.png" type="Texture" id=5]
+[ext_resource path="res://ui/sfx/alerts_notification/Success7a.wav" type="AudioStream" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 11
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="Gradient" id=19]
+offsets = PoolRealArray( 0.0378788, 0.992424 )
+colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=20]
+gradient = SubResource( 19 )
+
+[sub_resource type="StyleBoxTexture" id=17]
+texture = SubResource( 20 )
+region_rect = Rect2( 0, 0, 2048, 1 )
+margin_left = 5.0
+margin_right = 5.0
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
+[sub_resource type="StyleBoxEmpty" id=15]
+
+[sub_resource type="Theme" id=16]
+Button/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
+Button/colors/font_color_disabled = Color( 0.901961, 0.901961, 0.901961, 0.2 )
+Button/colors/font_color_focus = Color( 0.94, 0.94, 0.94, 1 )
+Button/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
+Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/constants/hseparation = 2
+Button/fonts/font = null
+Button/styles/disabled = SubResource( 11 )
+Button/styles/focus = SubResource( 17 )
+Button/styles/hover = SubResource( 17 )
+Button/styles/normal = SubResource( 14 )
+Button/styles/pressed = SubResource( 15 )
 
 [sub_resource type="Gradient" id=9]
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
@@ -30,60 +64,46 @@ color_ramp = SubResource( 8 )
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+focus_next = NodePath("NinePatchRect/MarginContainer/VBoxContainer2/Button")
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.180392, 0.192157, 0.254902, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+color = Color( 0, 0, 0, 1 )
 
-[node name="TextureRect" type="TextureRect" parent="."]
-modulate = Color( 1, 1, 1, 0.392157 )
-margin_left = 7.49155
-margin_right = 314.492
-margin_bottom = 307.0
-texture = ExtResource( 4 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 13.0
+margin_top = 17.0
+margin_right = 308.0
+margin_bottom = 163.0
+texture = ExtResource( 3 )
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -147.0
-margin_top = -73.0
-margin_right = 148.0
-margin_bottom = 73.0
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_left = -73.5
+margin_top = 42.0
+margin_right = 73.5
+margin_bottom = 62.0
+alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-margin_right = 295.0
-margin_bottom = 146.0
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 25.0
+margin_right = -25.0
+mouse_filter = 2
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
-margin_right = 295.0
-margin_bottom = 13.0
-theme = ExtResource( 3 )
-custom_constants/hseparation = 10
-text = "i andastand"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
-margin_right = 295.0
+[node name="VBoxContainer2" type="VBoxContainer" parent="NinePatchRect/MarginContainer"]
+margin_right = 245.0
 margin_bottom = 146.0
 mouse_filter = 2
 alignment = 1
@@ -91,22 +111,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2"]
-margin_top = 42.0
-margin_right = 295.0
-margin_bottom = 104.0
+[node name="Label" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer2"]
+margin_top = 23.0
+margin_right = 245.0
+margin_bottom = 111.0
 custom_fonts/font = SubResource( 1 )
-text = "by clicking the button below I understand that:
-- This is a derivative work of aonahara and is not canon in any way shape or form
-- Public distribution is not allowed due to \"borrowed\" stuff in the game
-- The button is actually on top
+text = "By Clicking Agree I acknowledge that:
+
+- Anything present in this build is subject to change
+- The story present in this build is not canon
+- Distribution of this build is prohibited 
+- This is a work of fiction
 "
 autowrap = true
+percent_visible = 0.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Button" type="Button" parent="NinePatchRect/MarginContainer/VBoxContainer2"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 115.0
+margin_right = 245.0
+margin_bottom = 122.0
+focus_mode = 1
+theme = SubResource( 16 )
+text = "Agree"
+icon_align = 1
+
 [node name="Particles2D" type="Particles2D" parent="."]
+visible = false
 position = Vector2( 158.059, 181.832 )
 amount = 20
 lifetime = 5.0
@@ -114,4 +148,12 @@ randomness = 1.0
 process_material = SubResource( 10 )
 texture = ExtResource( 5 )
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="Click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[connection signal="focus_entered" from="NinePatchRect/MarginContainer/VBoxContainer2/Button" to="." method="_on_Button_focus_entered"]
+[connection signal="mouse_entered" from="NinePatchRect/MarginContainer/VBoxContainer2/Button" to="." method="_on_Button_mouse_entered"]
+[connection signal="pressed" from="NinePatchRect/MarginContainer/VBoxContainer2/Button" to="." method="_on_Button_pressed"]

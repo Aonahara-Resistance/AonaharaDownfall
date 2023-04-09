@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Steps_gravel-002.ogg-9c54790586de31caf0994ff4e1ee3c49.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/footsteps/Gravel/Steps_gravel-002.ogg"
+dest_files=[ "res://.import/Steps_gravel-002.ogg-9c54790586de31caf0994ff4e1ee3c49.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

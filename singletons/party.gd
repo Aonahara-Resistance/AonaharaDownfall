@@ -242,6 +242,9 @@ func _on_remove_party_member_requested(index) -> void:
   
   GameSignal.emit_signal("party_member_removed", party_members, reserve_member)
 
+func _on_cutscene_ended(pos):
+  current_character().global_position = pos
+
 
 
 func connect_signals()->void:
@@ -272,4 +275,5 @@ func connect_signals()->void:
   GameSignal.connect("deploy_reserve_request_sent", self, "_on_deploy_reserve_request_sent")
   GameSignal.connect("remove_party_member_requested", self, "_on_remove_party_member_requested")
 
+  GameSignal.connect("cutscene_ended", self, "_on_cutscene_ended")
 

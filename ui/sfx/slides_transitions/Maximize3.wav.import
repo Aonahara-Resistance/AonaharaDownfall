@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Maximize3.wav-2d29e68d4bffe496f40b039e4ac7ea24.sample"
+
+[deps]
+
+source_file="res://ui/sfx/slides_transitions/Maximize3.wav"
+dest_files=[ "res://.import/Maximize3.wav-2d29e68d4bffe496f40b039e4ac7ea24.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

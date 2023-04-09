@@ -54,6 +54,6 @@ func _get_transition() -> int:
 			if round(parent.velocity.length()) > parent.get_attribute("max_speed"):
 				return states.dash
 		states.dash:
-			if parent.dash.is_dashing() != true:
+			if round(parent.velocity.length()) < parent.get_attribute("max_speed"):
 				return states.move
 	return -1

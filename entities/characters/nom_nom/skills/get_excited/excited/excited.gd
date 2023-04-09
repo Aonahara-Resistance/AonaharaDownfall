@@ -15,5 +15,3 @@ func modify_stateless(res):
 	return res
 
 
-func modify_stateful(_host: Character):
-	pass

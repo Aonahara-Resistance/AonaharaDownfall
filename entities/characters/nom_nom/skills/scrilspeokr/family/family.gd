@@ -19,7 +19,8 @@ func spawn_thing(thing, target, damage) -> void:
   instance.get_node("WeaponHitbox").specific_target = target
   instance.get_node("WeaponHitbox").die_after_hit = true
   instance.global_position = get_node("../../").global_position
-  get_tree().current_scene.ysort.add_child(instance)
+  var level = get_tree().get_current_scene() as Level 
+  level.ysort.add_child(instance)
 
 func _on_Area2D_body_exited(body:Node):
   if body is Enemy:

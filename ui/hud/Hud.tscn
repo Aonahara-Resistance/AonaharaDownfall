@@ -23,6 +23,7 @@ buff_indicator = ExtResource( 12 )
 
 [node name="GUI" type="Control" parent="CanvasLayer"]
 visible = false
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -207,9 +208,6 @@ margin_top = 42.0
 margin_right = -45.0
 margin_bottom = -128.0
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Modifiers" type="HBoxContainer" parent="CanvasLayer/GUI/MarginContainer4"]
 margin_right = 230.0

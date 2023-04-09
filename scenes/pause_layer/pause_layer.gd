@@ -37,6 +37,7 @@ func _on_PauseButton_pressed():
   pause_game()
 
 func _on_MainMenu_pressed():
+  get_tree().paused = false
   Game.change_scene("res://menus/main_menu/main_menu.tscn", {"show_progress_bar": false})
   GameSignal.emit_signal("main_menu_button_pressed")
 

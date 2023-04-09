@@ -1,10 +1,10 @@
 [gd_resource type="StyleBoxTexture" load_steps=2 format=2]
 
-[ext_resource path="res://ui/panel_red_transparent.png" type="Texture" id=1]
+[ext_resource path="res://ui/panel_white_transparent.png" type="Texture" id=1]
 
 [resource]
 texture = ExtResource( 1 )
-region_rect = Rect2( 0, 0, 59, 51 )
+region_rect = Rect2( 0, 0, 57, 49 )
 margin_left = 3.0
 margin_right = 3.0
 margin_top = 3.0

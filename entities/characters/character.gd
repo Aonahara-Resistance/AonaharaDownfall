@@ -21,6 +21,8 @@ onready var skill_one: Skill = $Skills.get_child(0)
 onready var skill_two: Skill = $Skills.get_child(1)
 onready var modifiers: Node2D = $Modifiers
 onready var state_label: Label = $StateLabel
+onready var footstep_timer: Timer = $FootstepTimer
+onready var footstep_particle: Particles2D = $FootstepParticle
 
 export var character_name: String
 export var character_icon: Resource
@@ -30,6 +32,8 @@ var is_alive: bool = true
 var inf_stamina: bool = false
 var inf_health: bool = false
 var attributes
+
+
 export var hp: int
 export var stamina: int
 export var stamina_regen: float
@@ -48,6 +52,30 @@ export var receives_knockback: bool
 
 export var character_sprite: Texture
 export var character_atlas: AtlasTexture
+
+var footstep_sounds: Array = [
+  "res://assets/sounds/footsteps/Floor/Steps_floor-001.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-002.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-003.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-004.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-005.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-006.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-007.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-008.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-009.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-010.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-011.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-012.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-013.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-014.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-015.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-016.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-017.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-018.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-019.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-020.ogg",
+  "res://assets/sounds/footsteps/Floor/Steps_floor-021.ogg",
+]
 
 var active_attributes: Dictionary = {
   "hp": 0,
@@ -71,59 +99,13 @@ var is_focus: bool = false
 var is_in_battle: bool = false setget set_is_in_battle, get_is_in_battle
 var movement_key: Dictionary = {"up": false, "down": false, "left": false, "right": false}
 
+var footstep_ready = true
+
 signal battle_state_changed
 
 ## -----------------------------------------------------------------------------
 ##                                Virtual Methods
 ## -----------------------------------------------------------------------------
-
-func init(
-  hp_: int,
-  stamina_: int,
-  stamina_regen_: float,
-  acceleration_: int,
-  max_hp_: int,
-  extra_hp_: int,
-  max_speed_: int,
-  max_stamina_: int,
-  base_damage_: int,
-  stamina_regen_rate_: int,
-  dash_duration_: float,
-  dash_cooldown_: float,
-  dash_speed_: int,
-  friction_: float,
-  receives_knockback_: bool
-) -> void:
-  hp = hp_
-  stamina = stamina_
-  stamina_regen = stamina_regen_
-  acceleration = acceleration_
-  max_hp = max_hp_
-  extra_hp = extra_hp_
-  max_speed = max_speed_
-  max_stamina = max_stamina_
-  base_damage = base_damage_
-  stamina_regen_rate = stamina_regen_rate_
-  dash_duration = dash_duration_
-  dash_cooldown = dash_cooldown_
-  dash_speed = dash_speed_
-  friction = friction_
-  receives_knockback = receives_knockback_
-  attributes = CharacterAttributes.new(
-    hp,
-    stamina,
-    stamina_regen,
-    max_hp,
-    extra_hp,
-    max_speed,
-    max_stamina,
-    base_damage,
-    acceleration,
-    stamina_regen_rate,
-    dash_duration,
-    friction,
-    receives_knockback
-  )
 
 
 func _ready() -> void:
@@ -138,6 +120,7 @@ func _ready() -> void:
       max_stamina,
       base_damage,
       acceleration,
+      acceleration,
       stamina_regen_rate,
       dash_duration,
       friction,
@@ -146,14 +129,21 @@ func _ready() -> void:
   modifier_tick()
   _connect_signals()
 
+
+
 func _process(_delta):
   modifier_tick()
+  if velocity.length() > 100:
+    footstep_timer.wait_time = 0.29
+  if velocity.length() > 200:
+    footstep_timer.wait_time = 0.27
 
 ## -----------------------------------------------------------------------------
 ##                                Input Listeners
 ## -----------------------------------------------------------------------------
 
 func listen_to_input_direction(event) -> void:
+
   if event.is_action_pressed("up"):
     movement_key["up"] = true
   if event.is_action_pressed("down"):
@@ -212,6 +202,29 @@ func listen_to_dash(event) -> void:
 ## -----------------------------------------------------------------------------
 
 func move(delta: float) -> void:
+  # Footstep audio
+  if velocity.length() > 10 && footstep_ready:
+    randomize()
+    var file = File.new()
+    file.open(footstep_sounds[randi() % 20 + 1], File.READ)
+    var buffer = file.get_buffer(file.get_len())
+    var stream = AudioStreamOGGVorbis.new()
+    stream.data = buffer
+    var sfx = AudioStreamPlayer.new()
+    sfx.volume_db = -50
+    sfx.stream = stream
+    sfx.connect("finished", sfx, "queue_free")
+    get_tree().root.add_child(sfx) 
+    sfx.play()
+    footstep_ready = false
+    footstep_timer.start()
+
+  #Footstep Particle
+  if velocity.length() > 10:
+    footstep_particle.emitting = true
+  else:
+    footstep_particle.emitting = false
+
   var input_direction: Vector2 = get_input_direction()
   velocity = move_and_slide(velocity)
   velocity += (get_attribute("acceleration") * input_direction * delta * 60)
@@ -368,6 +381,7 @@ func modifier_tick() -> void:
     "friction": res.friction,
     "receives_knockback": res.receives_knockback,
   }
+  GameSignal.emit_signal("modifier_ticked")
 
 ## -----------------------------------------------------------------------------
 ##                                  Miscs
@@ -424,3 +438,7 @@ func _whiten_sprite(duration: float):
 # warning-ignore-all:return_value_discarded
 func _connect_signals():
   dash.connect("dash_started", self, "_on_Dash_started")
+
+
+func _on_FootstepTimer_timeout():
+  footstep_ready = true

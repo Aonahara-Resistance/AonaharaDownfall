@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/fonts/m5x/m5x7.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://ui/panel.tres" type="StyleBox" id=2]
 [ext_resource path="res://assets/prosperosus_standard_theme.tres" type="Theme" id=3]
 [ext_resource path="res://menus/main_menu/new_game_popup.gd" type="Script" id=4]
+[ext_resource path="res://ui/sfx/buttons/GenericButton5.wav" type="AudioStream" id=5]
+[ext_resource path="res://ui/sfx/alerts_notification/Success7a.wav" type="AudioStream" id=6]
 
 [sub_resource type="DynamicFont" id=3]
 outline_size = 1
@@ -18,9 +20,6 @@ margin_bottom = 120.0
 rect_min_size = Vector2( 120, 60 )
 custom_styles/panel = ExtResource( 2 )
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
@@ -32,9 +31,6 @@ margin_bottom = -6.0
 theme = ExtResource( 3 )
 custom_constants/separation = 10
 alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="LabelContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 6.0
@@ -70,5 +66,15 @@ margin_right = 83.0
 margin_bottom = 13.0
 text = "No"
 
+[node name="Hover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+
+[node name="Start" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[connection signal="focus_entered" from="VBoxContainer/ButtonContainer/Yes" to="." method="_on_Yes_focus_entered"]
+[connection signal="mouse_entered" from="VBoxContainer/ButtonContainer/Yes" to="." method="_on_Yes_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/Yes" to="." method="_on_Yes_pressed"]
+[connection signal="focus_entered" from="VBoxContainer/ButtonContainer/No" to="." method="_on_No_focus_entered"]
+[connection signal="mouse_entered" from="VBoxContainer/ButtonContainer/No" to="." method="_on_No_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/ButtonContainer/No" to="." method="_on_No_pressed"]

@@ -23,43 +23,47 @@ onready var camera = $Camera2D
 var ajig: bool = false
 
 var params = {
-	show_progress_bar = true,
+  show_progress_bar = false,
+  show_tips = false,
+  show_texture = false,
 }
 
 func _ready():
-	$Aonares.gravity_scale = 0
-	var _interpolate: bool = tween.interpolate_property(rect, "modulate:a", 1.0, 0.0, 2.0, 3, 1)
-	var _tween_status: bool = tween.start()
+  $Aonares.gravity_scale = 0
+  var _interpolate: bool = tween.interpolate_property(rect, "modulate:a", 1.0, 0.0, 2.0, 3, 1)
+  var _tween_status: bool = tween.start()
 
 func _on_Tween_tween_completed(_object: Object, _key: NodePath) -> void:
-	$Aonares.gravity_scale = 10
-	$Aonares.sleeping = false
+  $Aonares.gravity_scale = 10
+  $Aonares.sleeping = false
 
 func _on_VisibilityNotifier2D_screen_exited():
-	for bgss in bg.get_children():
-		$ModulateTween.interpolate_property(bgss, "modulate:g", 1.0, 0.0, 2.5, 3, 1)
-		$ModulateTween.interpolate_property(bgss, "modulate:b", 1.0, 0.0, 2.5, 3, 1)
-		$ModulateTween.start()
-	var _interpolate: bool = tween.interpolate_property(rect, "modulate:a", 0.0, 1.0, 5.0, 3, 1)
-	var _tween_status: bool = tween.start()
+  for bgss in bg.get_children():
+    $ModulateTween.interpolate_property(bgss, "modulate:g", 1.0, 0.0, 2.5, 3, 1)
+    $ModulateTween.interpolate_property(bgss, "modulate:b", 1.0, 0.0, 2.5, 3, 1)
+    $ModulateTween.start()
+  var _interpolate: bool = tween.interpolate_property(rect, "modulate:a", 0.0, 1.0, 5.0, 3, 1)
+  var _tween_status: bool = tween.start()
 
 func _on_Aonares_body_entered(body):
-	$Aonares/Particles2D.set_emitting(true)
-	if !ajig:
-		Shake.shake(100, 0.1)
-		$Aonares/boom.play()
-		ajig = true
+  $Aonares/Particles2D.set_emitting(true)
+  if !ajig:
+    Shake.shake(100, 0.1)
+    $Aonares/boom.play()
+    ajig = true
 
 func _on_ModulateTween_tween_completed(object, key):
-	for bgss in bg.get_children():
-		$ModulateTween.stop_all()
-	tween.stop_all()
-	Game.change_scene("res://menus/main_menu/main_menu.tscn", params)
+  for bgss in bg.get_children():
+    $ModulateTween.stop_all()
+  tween.stop_all()
+  #Game.change_scene("res://menus/main_menu/main_menu.tscn", params)
+  Game.change_scene("res://scenes/license_and_agreement/license_and_agreement.tscn", params)
 
 func _unhandled_input(event):
-	if event is InputEventKey:
-		if event.pressed:
-			for bgss in bg.get_children():
-				$ModulateTween.stop_all()
-			tween.stop_all()
-			Game.change_scene("res://menus/main_menu/main_menu.tscn", params)
+  if event is InputEventKey:
+    if event.pressed:
+      for bgss in bg.get_children():
+        $ModulateTween.stop_all()
+      tween.stop_all()
+      #Game.change_scene("res://menus/main_menu/main_menu.tscn", params)
+      Game.change_scene("res://scenes/license_and_agreement/license_and_agreement.tscn", params)

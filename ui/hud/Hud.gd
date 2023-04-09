@@ -89,9 +89,13 @@ func _on_party_member_changed(character) -> void:
 
 func _on_modifier_applied(character) -> void:
   update_modifier_indicator(character)
+  update_health(character)
+  update_stamina(character)
 
 func _on_modifier_reset(character) -> void:
   update_modifier_indicator(character)
+  update_health(character)
+  update_stamina(character)
 
 func _on_skill_channel_started(duration) -> void:
   start_channeling(duration)
@@ -115,6 +119,17 @@ func _on_stamina_changed(character) -> void:
 
 func _on_level_entered() -> void:
   gui.visible = true
+  get_tree().create_tween().tween_property(gui, "modulate", Color(1,1,1,1), 0.5).set_trans(Tween.TRANS_SINE)
+
+func _on_cutscene_started() -> void:
+  var tween = get_tree().create_tween()
+  tween.set_pause_mode(PAUSE_MODE_PROCESS)
+  yield(tween.tween_property(gui, "modulate", Color.transparent, 0.5).set_trans(Tween.TRANS_SINE), "finished")
+  gui.visible = false
+
+func _on_cutscene_ended(_pos) -> void:
+  gui.visible = true
+  get_tree().create_tween().tween_property(gui, "modulate", Color(1,1,1,1), 0.5).set_trans(Tween.TRANS_SINE)
 
 func _connect_signals() -> void:
   GameSignal.connect("dash_started", self, "_on_Dash_started")
@@ -127,3 +142,7 @@ func _connect_signals() -> void:
   GameSignal.connect("health_changed", self, "_on_health_changed")
   GameSignal.connect("stamina_changed", self, "_on_stamina_changed")
   GameSignal.connect("level_entered", self, "_on_level_entered")
+
+  GameSignal.connect("cutscene_started", self, "_on_cutscene_started")
+  GameSignal.connect("cutscene_ended", self, "_on_cutscene_ended")
+

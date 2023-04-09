@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://common/dash/dash.gd" type="Script" id=1]
 [ext_resource path="res://common/dash/dust.png" type="Texture" id=2]
+[ext_resource path="res://common/dash/dash.wav" type="AudioStream" id=3]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 particles_animation = true
@@ -91,6 +92,10 @@ texture = ExtResource( 2 )
 
 [node name="CooldownTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="DashSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = -14.857
 
 [connection signal="timeout" from="DurationTimer" to="." method="_on_DurationTimer_timeout"]
 [connection signal="timeout" from="GhostTimer" to="." method="_on_GhostTimer_timeout"]

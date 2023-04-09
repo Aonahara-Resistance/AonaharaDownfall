@@ -1,39 +1,152 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
 [ext_resource path="res://ui/manage_party/manage_party.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/area_title/area_title.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/pause_layer/pause_layer.tscn" type="PackedScene" id=6]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect2:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 180 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorRect3:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -12 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "in"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect2:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.267943, 2.92817 ),
+"update": 0,
+"values": [ Vector2( 0, 180 ), Vector2( 0, 168 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorRect3:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.267944, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -12 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "out"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect3:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 2.37842, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -12 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorRect2:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 2.37842, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 168 ), Vector2( 0, 180 ) ]
+}
 
 [node name="Level" type="Node2D"]
 position = Vector2( 12, -12 )
 script = ExtResource( 1 )
+area_title = ExtResource( 3 )
 
-[node name="Surface" type="TileMap" parent="."]
+[node name="Gameplay" type="Node2D" parent="."]
+
+[node name="Surface" type="TileMap" parent="Gameplay"]
 z_index = -2
 cell_size = Vector2( 32, 32 )
 collision_mask = 14
 format = 1
 
-[node name="Props" type="TileMap" parent="."]
+[node name="Props" type="TileMap" parent="Gameplay"]
 z_index = -1
 cell_size = Vector2( 32, 32 )
 collision_mask = 14
 format = 1
 
-[node name="YSort" type="YSort" parent="."]
+[node name="YSort" type="YSort" parent="Gameplay"]
 
-[node name="Checkpoint" type="Node2D" parent="."]
+[node name="Checkpoint" type="Node2D" parent="Gameplay"]
 position = Vector2( 568.289, -57.989 )
+
+[node name="PauseLayer" parent="Gameplay" instance=ExtResource( 6 )]
+
+[node name="Spawn" type="Node2D" parent="Gameplay"]
+position = Vector2( 144.04, 42.5 )
+
+[node name="BGM" type="AudioStreamPlayer" parent="Gameplay"]
+
+[node name="ManageParty" parent="Gameplay" instance=ExtResource( 2 )]
+
+[node name="Lights" type="Node2D" parent="Gameplay"]
+
+[node name="Cutscene" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="Cutscene"]
+zoom = Vector2( 1.7, 1.7 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 position = Vector2( -33.5489, 24 )
 color = Color( 0.427451, 0.486275, 0.639216, 1 )
 
-[node name="PauseLayer" parent="." instance=ExtResource( 6 )]
+[node name="Bar" type="CanvasLayer" parent="."]
+pause_mode = 2
 
-[node name="Spawn" type="Node2D" parent="."]
-position = Vector2( 144.04, 42.5 )
+[node name="ColorRect2" type="ColorRect" parent="Bar"]
+margin_top = 180.0
+margin_right = 320.0
+margin_bottom = 192.0
+color = Color( 0, 0, 0, 1 )
 
-[node name="BGM" type="AudioStreamPlayer" parent="."]
+[node name="ColorRect3" type="ColorRect" parent="Bar"]
+margin_top = -12.0
+margin_right = 320.0
+color = Color( 0, 0, 0, 1 )
 
-[node name="ManageParty" parent="." instance=ExtResource( 2 )]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Bar"]
+anims/RESET = SubResource( 1 )
+anims/in = SubResource( 2 )
+anims/out = SubResource( 3 )

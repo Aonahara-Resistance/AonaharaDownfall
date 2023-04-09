@@ -1,0 +1,75 @@
+{
+	"events": [
+		{
+			"animation": "1-fade_in.gd",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1679845406.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "sad",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": true,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"character": "character-1679845406.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Uhh....."
+		},
+		{
+			"character": "character-1679845406.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "What just happened?"
+		},
+		{
+			"character": "character-1679845406.json",
+			"event_id": "dialogic_001",
+			"portrait": "surprised",
+			"text": "Oh I remember, I think"
+		},
+		{
+			"character": "character-1679845406.json",
+			"event_id": "dialogic_001",
+			"portrait": "Default",
+			"text": "I was in a train going to Aonahara"
+		},
+		{
+			"character": "character-1679845406.json",
+			"event_id": "dialogic_001",
+			"portrait": "Default",
+			"text": "This is definitely the station"
+		},
+		{
+			"character": "character-1679845406.json",
+			"event_id": "dialogic_001",
+			"portrait": "sad",
+			"text": "Why is there no one around tho?"
+		},
+		{
+			"character": "character-1679845406.json",
+			"event_id": "dialogic_001",
+			"portrait": "happy",
+			"text": "Whatever, I'll just get going"
+		},
+		{
+			"emit_signal": "end",
+			"event_id": "dialogic_040"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1681014731.json",
+		"name": "opening"
+	}
+}

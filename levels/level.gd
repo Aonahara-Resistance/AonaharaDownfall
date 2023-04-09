@@ -1,10 +1,16 @@
 extends Node2D
 class_name Level
 
+onready var gameplay: Node2D = $Gameplay
+onready var cutscene: Node2D = $Cutscene
 onready var canvas_modulate: CanvasModulate = $CanvasModulate
-onready var checkpoint: Node2D = $Checkpoint
-onready var spawn: Node2D = $Spawn
-onready var ysort: YSort = $YSort
+onready var checkpoint: Node2D = $Gameplay/Checkpoint
+onready var spawn: Node2D = $Gameplay/Spawn
+onready var ysort: YSort = $Gameplay/YSort
+onready var camera_c: Camera2D = $Cutscene/Camera2D
+onready var animation_bar: AnimationPlayer  = $Bar/AnimationPlayer
+
+export var area_title: PackedScene
 
 
 func get_class() -> String:
@@ -27,5 +33,3 @@ func pre_start(params):
 
 func _ready():
   GameSignal.emit_signal("level_entered")
-  var new_dialog = Dialogic.start('test')
-  add_child(new_dialog)

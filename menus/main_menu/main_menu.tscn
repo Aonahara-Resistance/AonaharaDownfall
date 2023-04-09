@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://menus/main_menu/main_menu.gd" type="Script" id=1]
 [ext_resource path="res://assets/artworks/nom_zinia.png" type="Texture" id=2]
@@ -6,12 +6,48 @@
 [ext_resource path="res://assets/fonts/m5x/m5x7.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://menus/main_menu/new_game_popup.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/particle_textures/star_texture.png" type="Texture" id=6]
+[ext_resource path="res://ui/sfx/alerts_notification/Popup1.wav" type="AudioStream" id=7]
+[ext_resource path="res://ui/sfx/buttons/GenericButton5.wav" type="AudioStream" id=8]
+[ext_resource path="res://ui/sfx/slides_transitions/CloseOrDisable4.wav" type="AudioStream" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="Gradient" id=19]
+offsets = PoolRealArray( 0.0378788, 0.992424 )
+colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=20]
+gradient = SubResource( 19 )
+
+[sub_resource type="StyleBoxTexture" id=17]
+texture = SubResource( 20 )
+region_rect = Rect2( 0, 0, 2048, 1 )
+margin_left = 5.0
+margin_right = 5.0
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
+[sub_resource type="StyleBoxEmpty" id=15]
+
+[sub_resource type="Theme" id=16]
+Button/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
+Button/colors/font_color_disabled = Color( 0.901961, 0.901961, 0.901961, 0.2 )
+Button/colors/font_color_focus = Color( 0.94, 0.94, 0.94, 1 )
+Button/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
+Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/constants/hseparation = 2
+Button/fonts/font = null
+Button/styles/disabled = SubResource( 11 )
+Button/styles/focus = SubResource( 17 )
+Button/styles/hover = SubResource( 17 )
+Button/styles/normal = SubResource( 14 )
+Button/styles/pressed = SubResource( 15 )
 
 [sub_resource type="Gradient" id=7]
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
@@ -34,7 +70,13 @@ __meta__ = {
 "_edit_vertical_guides_": [  ]
 }
 
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_bottom = 242.0
@@ -44,6 +86,7 @@ texture = ExtResource( 2 )
 expand = true
 
 [node name="Tittle" type="Label" parent="."]
+visible = false
 anchor_right = 1.0
 margin_top = 20.5061
 margin_bottom = 46.5061
@@ -54,44 +97,49 @@ align = 1
 valign = 1
 
 [node name="CenterContainer" type="MarginContainer" parent="."]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = 24.0
-margin_top = -21.0
-margin_right = 74.0
-margin_bottom = 61.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 123.0
+margin_top = 69.0
+margin_right = -122.0
+margin_bottom = -69.0
 grow_horizontal = 0
 theme = ExtResource( 3 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-margin_right = 50.0
-margin_bottom = 82.0
+margin_right = 75.0
+margin_bottom = 42.0
+theme = SubResource( 16 )
 custom_constants/separation = 10
+alignment = 1
 
 [node name="PlayButton" type="Button" parent="CenterContainer/VBoxContainer"]
-margin_right = 50.0
-margin_bottom = 13.0
-text = "New Game"
+margin_top = 9.0
+margin_right = 75.0
+margin_bottom = 16.0
+text = "Play Demo"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="LoadButton" type="Button" parent="CenterContainer/VBoxContainer"]
-margin_top = 23.0
+visible = false
+margin_top = 29.0
 margin_right = 50.0
 margin_bottom = 36.0
 text = "Load Game"
 
 [node name="OptionButton" type="Button" parent="CenterContainer/VBoxContainer"]
+visible = false
 margin_top = 46.0
 margin_right = 50.0
-margin_bottom = 59.0
+margin_bottom = 53.0
 text = "Option"
 
 [node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer"]
-margin_top = 69.0
-margin_right = 50.0
-margin_bottom = 82.0
+margin_top = 26.0
+margin_right = 75.0
+margin_bottom = 33.0
 text = "Get Milk"
 
 [node name="CenterPopup" type="CenterContainer" parent="."]
@@ -102,6 +150,7 @@ mouse_filter = 2
 [node name="NewGamePopup" parent="CenterPopup" instance=ExtResource( 5 )]
 
 [node name="Particles2D" type="Particles2D" parent="."]
+visible = false
 position = Vector2( 158.059, 181.832 )
 amount = 20
 lifetime = 5.0
@@ -110,12 +159,26 @@ process_material = SubResource( 4 )
 texture = ExtResource( 6 )
 
 [node name="test" type="Button" parent="."]
+visible = false
 margin_left = 272.0
 margin_top = 160.0
 margin_right = 299.0
 margin_bottom = 173.0
 text = "Test"
 
+[node name="Pop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[node name="Hover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+
+[node name="Quit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
+[connection signal="focus_entered" from="CenterContainer/VBoxContainer/PlayButton" to="." method="_on_PlayButton_focus_entered"]
+[connection signal="mouse_entered" from="CenterContainer/VBoxContainer/PlayButton" to="." method="_on_PlayButton_mouse_entered"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="focus_entered" from="CenterContainer/VBoxContainer/QuitButton" to="." method="_on_QuitButton_focus_entered"]
+[connection signal="mouse_entered" from="CenterContainer/VBoxContainer/QuitButton" to="." method="_on_QuitButton_mouse_entered"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="test" to="." method="_on_test_pressed"]
