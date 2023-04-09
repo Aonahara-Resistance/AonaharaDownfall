@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://common/collisions/hurtbox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://common/dash/dash.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://common/shaders/whiten/whiten.gdshader" type="Shader" id=5]
 [ext_resource path="res://common/collisions/blinker.tscn" type="PackedScene" id=6]
 [ext_resource path="res://common/interactions/interaction_component.tscn" type="PackedScene" id=7]
+[ext_resource path="res://common/dash/dust_single.png" type="Texture" id=8]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 5 )
@@ -17,6 +18,26 @@ shader_param/mix_weight = 0.6
 extents = Vector2( 9.44617, 19.4942 )
 
 [sub_resource type="AnimationRootNode" id=3]
+
+[sub_resource type="Gradient" id=5]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.31
+radial_accel = -100.0
+radial_accel_random = 0.6
+tangential_accel = 17.95
+tangential_accel_random = 1.0
+angle = -96.0
+angle_random = 0.49
+scale = 0.5
+color_ramp = SubResource( 6 )
 
 [node name="Character" type="KinematicBody2D"]
 scale = Vector2( 1.00298, 1 )
@@ -99,9 +120,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="FootstepTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="FootstepParticle" type="Particles2D" parent="."]
+position = Vector2( 1.99406, 11 )
+z_index = -1
+emitting = false
+amount = 2
+lifetime = 0.4
+local_coords = false
+process_material = SubResource( 4 )
+texture = ExtResource( 8 )
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="timeout" from="StaminaTimer" to="." method="_on_StaminaTimer_timeout"]
 [connection signal="timeout" from="BattleTimer" to="." method="_on_BattleTimer_timeout"]
+[connection signal="timeout" from="FootstepTimer" to="." method="_on_FootstepTimer_timeout"]
 
 [editable path="Blinker"]
 [editable path="Dash"]

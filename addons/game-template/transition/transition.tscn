@@ -221,9 +221,6 @@ margin_right = -84.1399
 margin_bottom = -9.07364
 mouse_filter = 2
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Spinner" type="TextureRect" parent="ColorRect/Progress"]
 margin_left = -4.66768

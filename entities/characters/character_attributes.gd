@@ -9,6 +9,7 @@ var stateful_attributes = {
 var stateless_attributes = {
 	"stamina_regen": 0.0,
 	"acceleration": 0,
+	"base_acceleration": 0,
 	"max_hp": 0,
 	"extra_hp": 0,
 	"max_speed": 0,
@@ -30,6 +31,7 @@ func _init(
 	max_stamina: int,
 	base_damage: int,
 	acceleration: int,
+	base_acceleration: int,
 	stamina_regen_rate: int,
 	dash_duration: float,
 	friction: float,
@@ -39,6 +41,7 @@ func _init(
 	stateful_attributes.stamina = stamina
 	stateless_attributes.stamina_regen = stamina_regen
 	stateless_attributes.acceleration = acceleration
+	stateless_attributes.base_acceleration = base_acceleration
 	stateless_attributes.max_hp = max_hp
 	stateless_attributes.extra_hp = extra_hp
 	stateless_attributes.max_speed = max_speed

@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/desolated_station.wav-858e2637767bbffdf0dbb87e03623351.sample"
+path="res://.import/dash.wav-7e8f440a4486587a0a95b4258546ef12.sample"
 
 [deps]
 
-source_file="res://levels/desolated_station.wav"
-dest_files=[ "res://.import/desolated_station.wav-858e2637767bbffdf0dbb87e03623351.sample" ]
+source_file="res://common/dash/dash.wav"
+dest_files=[ "res://.import/dash.wav-7e8f440a4486587a0a95b4258546ef12.sample" ]
 
 [params]
 

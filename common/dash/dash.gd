@@ -11,6 +11,7 @@ onready var duration_timer: Timer = $DurationTimer
 onready var cooldown_timer: Timer = $CooldownTimer
 onready var dust_trail: Particles2D = $DustTrail
 onready var dust_burst: Particles2D = $DustBurst
+onready var sfx: AudioStreamPlayer2D = $DashSound
 
 var dash_sprite: Sprite
 var dash_sprite_shader: ShaderMaterial
@@ -25,6 +26,7 @@ func start_dash(new_entity) -> void:
       apply_dash_speed()
       start_timers()
       emit_signal("dash_started")
+      sfx.play()
       GameSignal.emit_signal("dash_started", entity)
   else:
     print("Can't implement dash into this class, requirements are not satisfied")
@@ -39,9 +41,9 @@ func apply_dash_speed() -> void:
 
 func restore_dash_speed() -> void:
   entity.set_attribute(
-    "acceleration", entity.get_attribute("acceleration") - entity.dash_speed
+    "acceleration", entity.acceleration
   )
-  entity.set_attribute("max_speed", entity.get_attribute("max_speed") - entity.dash_speed)
+  entity.set_attribute("max_speed", entity.max_speed)
 
 func setup_dash() -> void:
   duration_timer.set_wait_time(entity.dash_duration)
@@ -101,3 +103,6 @@ func _on_DurationTimer_timeout() -> void:
 
 func _on_GhostTimer_timeout() -> void:
   instance_ghost()
+
+func _on_CooldownTimer_timeout() -> void:
+  pass

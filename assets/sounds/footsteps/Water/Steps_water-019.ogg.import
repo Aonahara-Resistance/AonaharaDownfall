@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Steps_water-019.ogg-bbc0baaa97b3b53feb0a0d3c4357b742.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/footsteps/Water/Steps_water-019.ogg"
+dest_files=[ "res://.import/Steps_water-019.ogg-bbc0baaa97b3b53feb0a0d3c4357b742.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

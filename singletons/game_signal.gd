@@ -46,3 +46,8 @@ signal deploy_reserve_cancelled
 signal reserve_deployed(party_members, reserve)
 signal remove_party_member_requested(index)
 signal party_member_removed(party_members, reserve)
+
+signal cutscene_started
+signal cutscene_ended(position)
+
+signal modifier_ticked

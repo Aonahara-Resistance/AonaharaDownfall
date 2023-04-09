@@ -8,6 +8,7 @@ func _on_Yes_pressed():
   sfx.stream = $Start.stream
   sfx.connect("finished", sfx, "queue_free")
   get_tree().root.add_child(sfx) 
+  sfx.pause_mode = PAUSE_MODE_PROCESS
   sfx.play()
   Game.change_scene(
     "res://levels/demo/demo.tscn",

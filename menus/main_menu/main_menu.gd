@@ -11,6 +11,7 @@ func _on_OptionButton_pressed() -> void:
   pass
 
 func _on_PlayButton_pressed() -> void:
+  print("play")
   new_game_popup.popup()
   $Pop.play()
 
