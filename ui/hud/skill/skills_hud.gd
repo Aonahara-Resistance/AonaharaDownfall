@@ -10,6 +10,12 @@ onready var skill_two_cooldown_progress: TextureProgress = $Skill2/CooldownIndic
 
 onready var skill_one_timer: Timer = $SkillOneTimer
 onready var skill_two_timer: Timer = $SkillTwoTimer
+onready var skill_one_hover_timer: Timer = $SkillOneHoverTimer
+onready var skill_two_hover_timer: Timer = $SkillTwoHoverTimer
+
+var skill_one_tooltip
+var skill_two_tooltip
+
 
 func _ready() -> void:
   GameSignal.connect("party_spawned",self, "_on_party_spawned")
@@ -22,11 +28,15 @@ func _on_skill_cooldown_changed(character):
 
 func _on_party_spawned(character, _party_members, _reserved_member):
   update_skill(character)
+  skill_one_tooltip = character.skill_one.tooltip
+  skill_two_tooltip = character.skill_two.tooltip
 
 func _on_party_member_changed(character):
   update_skill(character)
   process_time_label(character)
   process_cooldown(character)
+  skill_one_tooltip = character.skill_one.tooltip
+  skill_two_tooltip = character.skill_two.tooltip
 
 func update_skill(character) -> void:
   _set_skills_texture(character)
@@ -78,3 +88,30 @@ func _on_Skill1_gui_input(event: InputEvent) -> void:
 func _on_Skill2_gui_input(event: InputEvent) -> void:
   if event.is_action_pressed("left_click"):
     GameSignal.emit_signal("skill_two_pressed")
+
+
+func _on_Skill2_mouse_exited():
+  skill_two_tooltip.rect.visible = false
+  skill_one_hover_timer.stop()
+
+
+func _on_Skill2_mouse_entered():
+  skill_two_hover_timer.start()
+
+
+func _on_Skill1_mouse_exited():
+  skill_one_tooltip.rect.visible = false
+  skill_one_hover_timer.stop()
+
+func _on_Skill1_mouse_entered():
+  skill_one_hover_timer.start()
+
+
+func _on_SkillOneHoverTimer_timeout():
+  skill_one_tooltip.rect.rect_position = get_global_mouse_position() - skill_one_tooltip.rect.rect_size
+  skill_one_tooltip.rect.visible = true
+
+func _on_SkillTwoHoverTimer_timeout():
+  skill_two_tooltip.rect.rect_position = get_global_mouse_position() - skill_two_tooltip.rect.rect_size
+  skill_two_tooltip.rect.visible = true
+

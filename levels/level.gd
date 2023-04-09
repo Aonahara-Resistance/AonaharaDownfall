@@ -3,6 +3,7 @@ class_name Level
 
 onready var gameplay: Node2D = $Gameplay
 onready var cutscene: Node2D = $Cutscene
+onready var bgm: AudioStreamPlayer = $Gameplay/BGM
 onready var canvas_modulate: CanvasModulate = $CanvasModulate
 onready var checkpoint: Node2D = $Gameplay/Checkpoint
 onready var spawn: Node2D = $Gameplay/Spawn

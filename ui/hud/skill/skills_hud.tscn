@@ -11,9 +11,6 @@ margin_bottom = 24.0
 mouse_filter = 2
 alignment = 2
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Skill1" type="TextureRect" parent="."]
 margin_left = 268.0
@@ -82,5 +79,17 @@ one_shot = true
 [node name="SkillTwoTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="SkillOneHoverTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="SkillTwoHoverTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="gui_input" from="Skill1" to="." method="_on_Skill1_gui_input"]
+[connection signal="mouse_entered" from="Skill1" to="." method="_on_Skill1_mouse_entered"]
+[connection signal="mouse_exited" from="Skill1" to="." method="_on_Skill1_mouse_exited"]
 [connection signal="gui_input" from="Skill2" to="." method="_on_Skill2_gui_input"]
+[connection signal="mouse_entered" from="Skill2" to="." method="_on_Skill2_mouse_entered"]
+[connection signal="mouse_exited" from="Skill2" to="." method="_on_Skill2_mouse_exited"]
+[connection signal="timeout" from="SkillOneHoverTimer" to="." method="_on_SkillOneHoverTimer_timeout"]
+[connection signal="timeout" from="SkillTwoHoverTimer" to="." method="_on_SkillTwoHoverTimer_timeout"]

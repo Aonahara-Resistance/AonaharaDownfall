@@ -93,9 +93,9 @@ func _on_modifier_applied(character) -> void:
   update_stamina(character)
 
 func _on_modifier_reset(character) -> void:
-  update_modifier_indicator(character)
   update_health(character)
   update_stamina(character)
+  update_modifier_indicator(character)
 
 func _on_skill_channel_started(duration) -> void:
   start_channeling(duration)

@@ -211,7 +211,7 @@ func move(delta: float) -> void:
     var stream = AudioStreamOGGVorbis.new()
     stream.data = buffer
     var sfx = AudioStreamPlayer.new()
-    sfx.volume_db = -50
+    sfx.volume_db = -40
     sfx.stream = stream
     sfx.connect("finished", sfx, "queue_free")
     get_tree().root.add_child(sfx) 
