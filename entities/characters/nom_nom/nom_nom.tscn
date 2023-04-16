@@ -104,6 +104,7 @@ character_path = NodePath("../..")
 cooldown_duration = 30.0
 
 [node name="Weapon" parent="." index="5"]
+visible = true
 position = Vector2( 0.297298, -0.322042 )
 
 [node name="CumStainedSword" parent="Weapon" index="0" instance=ExtResource( 8 )]
@@ -124,7 +125,6 @@ scale = Vector2( 0.611197, 0.285642 )
 texture = ExtResource( 5 )
 
 [node name="Sprite" parent="." index="10"]
-visible = false
 scale = Vector2( 1, 1 )
 texture = ExtResource( 3 )
 hframes = 8

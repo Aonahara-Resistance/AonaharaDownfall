@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://levels/level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/demo/demo.gd" type="Script" id=2]
@@ -75,8 +75,14 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 [sub_resource type="ConvexPolygonShape2D" id=27]
 points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 
+[sub_resource type="OccluderPolygon2D" id=39]
+polygon = PoolVector2Array( 0, 0, 32, 0, 31.3738, 2.25905, 0.116699, 2.53812 )
+
 [sub_resource type="ConvexPolygonShape2D" id=28]
 points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
+
+[sub_resource type="OccluderPolygon2D" id=40]
+polygon = PoolVector2Array( 31.5667, 32, 28.2177, 32, 28.2177, 0.580505, 31.5667, 0.580505 )
 
 [sub_resource type="ConvexPolygonShape2D" id=29]
 points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -156,6 +162,7 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 3/region = Rect2( 0, 64, 32, 32 )
 3/tile_mode = 0
 3/occluder_offset = Vector2( 0, 0 )
+3/occluder = SubResource( 39 )
 3/navigation_offset = Vector2( 0, 0 )
 3/shape_offset = Vector2( 0, 0 )
 3/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -723,6 +730,7 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 30/region = Rect2( 160, 256, 32, 32 )
 30/tile_mode = 0
 30/occluder_offset = Vector2( 0, 0 )
+30/occluder = SubResource( 40 )
 30/navigation_offset = Vector2( 0, 0 )
 30/shape_offset = Vector2( 0, 0 )
 30/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )

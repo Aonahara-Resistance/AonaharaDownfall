@@ -1,6 +1,6 @@
 extends Node
 
-var default: Resource = preload("res://assets/cursors/default32.png")
+var default: Resource = preload("res://assets/cursors/default64R.png")
 var target: Resource = preload("res://assets/cursors/target32.png")
 
 func _ready() -> void:

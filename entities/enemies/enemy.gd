@@ -16,7 +16,6 @@ onready var attack_timer: Timer = $AttackTimer
 onready var player_detector: Node2D = $PlayerDetector
 onready var range_detector: RayCast2D = $RangeDetector
 onready var wall_detector: RayCast2D = $WallDetector
-onready var whiskers: Node2D = $Whiskers
 onready var patrol_cooldown_timer: Timer = $PatrolCooldown
 onready var state_machine = $StateMachine
 
@@ -28,7 +27,7 @@ var choosen_direction: Vector2 = Vector2.ZERO
 var knockback: Vector2 = Vector2.ZERO
 var spawn_group: String = ""
 var is_pouncing: bool = false setget set_is_pouncing
-var target = self setget set_target, get_target
+var target = self
 var reverse_scan: int = 1
 var spawn_location: Vector2
 
@@ -70,8 +69,6 @@ func _ready():
     hp, max_hp, max_speed, base_damage, acceleration, avoid_force, receives_knockback
   )
   enemy_hitbox.set_damage(get_attribute("base_damage"))
-  for detector in player_detector.get_children():
-    detector.cast_to.x = sight_range
   patrol_cooldown_timer.wait_time = patrol_cooldown
   range_detector.cast_to.x = attack_radius
   modifier_tick()
@@ -84,7 +81,6 @@ func _ready():
 func chase(delta):
   var steering: Vector2 = Vector2.ZERO
   steering += seek_steering() * 60 * delta
-  steering += avoid_obstacles_steering() * 60 * delta
   steering = steering.clamped(get_attribute("acceleration"))
   velocity += steering * 60 * delta
   velocity = velocity.clamped(get_attribute("max_speed"))
@@ -99,7 +95,6 @@ func retreat(delta):
   print(spawn_location)
   var steering: Vector2 = Vector2.ZERO
   steering += arrival_steering() * 60 * delta
-  steering += avoid_obstacles_steering() * 60 * delta
   steering = steering.clamped(get_attribute("acceleration"))
   velocity += steering * 60 * delta
   velocity = velocity.clamped(get_attribute("max_speed"))
@@ -123,7 +118,6 @@ func patrol(delta):
   var steering: Vector2 = Vector2.ZERO
   wall_detector.rotation = velocity.angle()
   steering += arrival_steering() * 60 * delta
-  steering += avoid_obstacles_steering() * 60 * delta
   steering = steering.clamped(get_attribute("acceleration"))
   velocity += steering * 60 * delta
   velocity = velocity.clamped(get_attribute("max_speed"))
@@ -134,10 +128,10 @@ func patrol(delta):
     emit_signal("patrol_finished")
 
 func direction_to_target():
-  if get_target() is Character:
-    return global_position.direction_to(get_target().hurtbox.global_position)
+  if target is Character:
+    return global_position.direction_to(target.hurtbox.global_position)
   else:
-    return global_position.direction_to(get_target().global_position)
+    return global_position.direction_to(target.global_position)
 
 func seek_steering() -> Vector2:
   var desired_velocity: Vector2 = direction_to_target() * get_attribute("max_speed")
@@ -151,33 +145,10 @@ func arrival_steering() -> Vector2:
   var desired_velocity: Vector2 = direction_to_target() * speed
   return desired_velocity - velocity
 
-func avoid_obstacles_steering() -> Vector2:
-  whiskers.rotation = velocity.angle()
-  for whisker in whiskers.get_children():
-    whisker.cast_to.x = velocity.length()
-    if whisker.is_colliding():
-      var obstacle = whisker.get_collider()
-      return (position + velocity - obstacle.position).normalized() * 1000
-  return Vector2.ZERO
-
 ## -----------------------------------------------------------------------------
 ##                                Combat Stuff
 ## -----------------------------------------------------------------------------
 
-func scan_target():
-  player_detector.rotation += 10
-  for detector in player_detector.get_children():
-    var collider = detector.get_collider()
-    if collider is Character:
-      if collider.is_in_control == true:
-        set_target(collider)
-        alert_signal.alert()
-
-func get_target():
-  return target
-
-func set_target(new_target) -> void:
-  target = new_target
 
 func listen_knockback(delta) -> void:
   if get_attribute("receives_knockback"):
