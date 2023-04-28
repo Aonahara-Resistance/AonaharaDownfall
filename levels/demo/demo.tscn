@@ -9,7 +9,6 @@
 [ext_resource path="res://levels/demo/firing_range_props.png" type="Texture" id=7]
 [ext_resource path="res://assets/place_holders/light.png" type="Texture" id=8]
 [ext_resource path="res://assets/solid_colors/poesi_sin.jpg" type="Texture" id=9]
-[ext_resource path="res://entities/enemies/chaser/fromb/fromb.tscn" type="PackedScene" id=10]
 [ext_resource path="res://levels/firing_range/bgm.mp3" type="AudioStream" id=11]
 
 [sub_resource type="ConvexPolygonShape2D" id=7]
@@ -924,6 +923,11 @@ extents = Vector2( 21.5, 32.5 )
 [sub_resource type="RectangleShape2D" id=38]
 extents = Vector2( 20.5, 32.5 )
 
+[sub_resource type="NavigationPolygon" id=41]
+vertices = PoolVector2Array( 510, 869, 932, 874, 933, 1036, 508, 1035 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( 510, 869, 932, 874, 933, 1036, 508, 1035 ) ]
+
 [sub_resource type="Animation" id=1]
 length = 0.001
 tracks/0/type = "value"
@@ -1022,9 +1026,6 @@ It also give i-frames
 which you will need soon"
 percent_visible = 0.0
 
-[node name="Fromb" parent="Gameplay/YSort" index="2" instance=ExtResource( 10 )]
-position = Vector2( 686, 911 )
-
 [node name="Spawn" parent="Gameplay" index="6"]
 position = Vector2( 149, 104 )
 
@@ -1054,6 +1055,11 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Gameplay/Area2D2" index="0"]
 position = Vector2( 67, 24 )
 shape = SubResource( 38 )
+
+[node name="Navigation2D" type="Navigation2D" parent="Gameplay" index="12"]
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Gameplay/Navigation2D" index="0"]
+navpoly = SubResource( 41 )
 
 [node name="Cutscene" parent="." index="1"]
 visible = false
