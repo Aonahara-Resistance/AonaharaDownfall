@@ -78,6 +78,10 @@ func _ready():
 ##                                Movement Stuff
 ## -----------------------------------------------------------------------------
 
+## TODO: PRobably going have to revamp the whole movement stuff 
+## Due to the new movement ai
+## I have o thonk first tho
+
 func chase(delta):
   var steering: Vector2 = Vector2.ZERO
   steering += seek_steering() * 60 * delta
