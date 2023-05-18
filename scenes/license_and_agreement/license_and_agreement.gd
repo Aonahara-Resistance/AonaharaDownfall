@@ -2,6 +2,7 @@ extends Control
 
 onready var tos = $NinePatchRect
 onready var label = $NinePatchRect/MarginContainer/VBoxContainer2/Label
+onready var play_button: Button = $NinePatchRect/MarginContainer/VBoxContainer2/Button
 
 var ready = false
 var button_clicked = false
@@ -23,7 +24,8 @@ func _on_Button_pressed():
   if ready:
     button_clicked = true
     var sfx = AudioStreamPlayer.new()
-    sfx.stream = $Click.stream
+    var click: AudioStreamPlayer = $Click
+    sfx.stream = click.stream
     sfx.connect("finished", sfx, "queue_free")
     get_tree().root.add_child(sfx) 
     sfx.play()
@@ -32,14 +34,16 @@ func _on_Button_pressed():
 
 func _on_Button_mouse_entered():
   if ready:
-    $AudioStreamPlayer.play()
+    var audio: AudioStreamPlayer = $AudioStreamPlayer
+    audio.play()
 
 func _unhandled_input(event: InputEvent):
   if event.is_action_pressed("tab", true):
     print(get_focus_owner())
     if get_focus_owner() == $NinePatchRect/MarginContainer/VBoxContainer2/Button:
-      $NinePatchRect/MarginContainer/VBoxContainer2/Button.release_focus()
+      play_button.release_focus()
     else:
-      $NinePatchRect/MarginContainer/VBoxContainer2/Button.grab_focus()
+      play_button.grab_focus()
       if ready:
-        $AudioStreamPlayer.play()
+        var audio: AudioStreamPlayer = $AudioStreamPlayer
+        audio.play()

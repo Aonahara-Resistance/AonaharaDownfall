@@ -38,7 +38,6 @@ func apply_dash_speed() -> void:
   )
   entity.set_attribute("max_speed", entity.get_attribute("max_speed") + entity.dash_speed)
 
-
 func restore_dash_speed() -> void:
   entity.set_attribute(
     "acceleration", entity.acceleration
@@ -52,7 +51,6 @@ func setup_dash() -> void:
   dash_sprite_shader = dash_sprite.material
 
 func can_dash() -> bool:
-  # TODO: Refactor into signals
   if entity.get_attribute("stamina") <= 0:
     UiUtils.show_info("You skipped leg day")
     return false

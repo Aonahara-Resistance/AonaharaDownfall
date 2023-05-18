@@ -12,7 +12,7 @@ onready var animation: AnimationPlayer = $AnimationPlayer2
 
 var current_velocity: Vector2 = Vector2.ZERO
 
-var target
+var target: Enemy
 
 func die():
   hitbox_collision.call_deferred("set_disabled", true)

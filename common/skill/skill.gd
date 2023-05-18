@@ -25,7 +25,6 @@ func _ready() -> void:
   tooltip.desc.text = skill_description
   tooltip.effect.text = "+ 1 Hp \n+ 25 Movement Speed \n- 1 Stamina Regen"
 
-
 func _process(delta) -> void:
   if !cooldown_timer.is_stopped():
     current_cooldown_indicator -= 60 * delta

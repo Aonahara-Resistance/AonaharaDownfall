@@ -24,7 +24,7 @@ func _ready():
 func modify_stateless(res):
   return res
 
-func modify_stateful(host):
+func modify_stateful(_host):
   pass
 
 func reset_duration():

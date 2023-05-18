@@ -3,6 +3,8 @@ extends CanvasLayer
 onready var new_game_popup: PopupDialog = $CenterPopup/NewGamePopup
 onready var play_button: Button = $CenterContainer/VBoxContainer/PlayButton
 
+onready var hover: AudioStreamPlayer = $Hover
+
 func _ready():
   if OS.has_feature("HTML5"):
     $CenterContainer/VBoxContainer/QuitButton.queue_free()
@@ -13,7 +15,8 @@ func _on_OptionButton_pressed() -> void:
 func _on_PlayButton_pressed() -> void:
   print("play")
   new_game_popup.popup()
-  $Pop.play()
+  var pop: AudioStreamPlayer = $Pop
+  pop.play()
 
 func _on_test_pressed():
   Game.change_scene(
@@ -25,7 +28,8 @@ func _on_test_pressed():
   )
 
 func _on_QuitButton_pressed():
-  $Quit.play()
+  var quit: AudioStreamPlayer = $Quit
+  quit.play()
   var transitions = get_node_or_null("/root/Transitions")
   if transitions:
     transitions.fade_in({"show_progress_bar": false})
@@ -36,14 +40,14 @@ func _on_QuitButton_pressed():
 
 
 func _on_QuitButton_focus_entered():
-  $Hover.play()
+  hover.play()
 
 func _on_PlayButton_mouse_entered():
-  $Hover.play()
+  hover.play()
 
 func _on_PlayButton_focus_entered():
-  $Hover.play()
+  hover.play()
 
 func _on_QuitButton_mouse_entered():
-  $Hover.play()
+  hover.play()
 

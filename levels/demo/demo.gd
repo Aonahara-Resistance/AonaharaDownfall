@@ -50,11 +50,8 @@ func dialog_listener(arg: String):
     GlobalCamera.camera2D.smoothing_enabled = true 
 
 
-func _on_Area2D_body_entered(body:Node):
+func _on_Area2D_body_entered(_body:Node):
   get_tree().create_tween().tween_property($Gameplay/YSort/MovementLabel, "percent_visible", 1.0, 2)
 
-
-
-func _on_Area2D2_body_entered(body:Node):
+func _on_Area2D2_body_entered(_body:Node):
   get_tree().create_tween().tween_property($Gameplay/YSort/DashLabel, "percent_visible", 1.0, 2)
-

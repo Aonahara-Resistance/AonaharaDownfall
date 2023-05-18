@@ -8,8 +8,8 @@ onready var parent = get_node(parent_path)
 var damage: int = 0 setget set_damage
 var character_damage: int = 0 setget set_character_damage
 var knockback_strength: float
-var specific_target
-var die_after_hit = false
+var specific_target: Node2D
+var die_after_hit: bool = false
 
 func _ready() -> void:
 	randomize()
