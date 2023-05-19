@@ -26,6 +26,8 @@ func start_dash(new_entity) -> void:
       apply_dash_speed()
       start_timers()
       emit_signal("dash_started")
+      ## dangerous as hell lmaooo but yeah whatver
+      create_trails(entity.get_input_direction())
       sfx.play()
       GameSignal.emit_signal("dash_started", entity)
   else:

@@ -13,9 +13,6 @@ onready var modifiers: Node2D = $Modifiers
 onready var enemy_hitbox: Hitbox = $Hitbox
 onready var alert_signal = $Alertsignal
 onready var attack_timer: Timer = $AttackTimer
-onready var player_detector: Node2D = $PlayerDetector
-onready var range_detector: RayCast2D = $RangeDetector
-onready var wall_detector: RayCast2D = $WallDetector
 onready var patrol_cooldown_timer: Timer = $PatrolCooldown
 onready var state_machine = $StateMachine
 
@@ -64,13 +61,13 @@ signal died
 
 
 func _ready():
+  # so that it's not null first value(i'm genius )
   spawn_location = global_position
   attributes = EnemeyAttributes.new(
     hp, max_hp, max_speed, base_damage, acceleration, avoid_force, receives_knockback
   )
   enemy_hitbox.set_damage(get_attribute("base_damage"))
   patrol_cooldown_timer.wait_time = patrol_cooldown
-  range_detector.cast_to.x = attack_radius
   modifier_tick()
 
 
@@ -84,9 +81,14 @@ func _ready():
 
 ## Fuck i forgot what all these does
 
+func direction_to_target():
+  # I hate duck typing i hate duck typing
+  if target is Character:
+    return global_position.direction_to(target.hurtbox.global_position)
+  else:
+    return global_position.direction_to(target.global_position)
 
 ## what doestis even do!??!
-
 ## screw this i'm starting over :hyperhanalul:
   # func chase(delta):
   #   var steering: Vector2 = Vector2.ZERO
@@ -137,11 +139,6 @@ func _ready():
   #   if wall_detector.is_colliding():
   #     emit_signal("patrol_finished")
   # 
-  # func direction_to_target():
-  #   if target is Character:
-  #     return global_position.direction_to(target.hurtbox.global_position)
-  #   else:
-  #     return global_position.direction_to(target.global_position)
   # 
   # func seek_steering() -> Vector2:
   #   var desired_velocity: Vector2 = direction_to_target() * get_attribute("max_speed")
