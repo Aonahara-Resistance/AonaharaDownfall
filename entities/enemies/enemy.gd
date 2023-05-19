@@ -82,72 +82,78 @@ func _ready():
 ## Due to the new movement ai
 ## I have o thonk first tho
 
-func chase(delta):
-  var steering: Vector2 = Vector2.ZERO
-  steering += seek_steering() * 60 * delta
-  steering = steering.clamped(get_attribute("acceleration"))
-  velocity += steering * 60 * delta
-  velocity = velocity.clamped(get_attribute("max_speed"))
-  velocity = move_and_slide(velocity)
-  range_detector.rotation = velocity.angle()
-  if (target.global_position - global_position).length() > disengage_radius:
-    emit_signal("target_disengaged")
-  if range_detector.is_colliding():
-    emit_signal("target_in_range")
+## Fuck i forgot what all these does
 
-func retreat(delta):
-  print(spawn_location)
-  var steering: Vector2 = Vector2.ZERO
-  steering += arrival_steering() * 60 * delta
-  steering = steering.clamped(get_attribute("acceleration"))
-  velocity += steering * 60 * delta
-  velocity = velocity.clamped(get_attribute("max_speed"))
-  velocity = move_and_slide(velocity)
-  if global_position.floor() == target.global_position.floor():
-    emit_signal("patrol_finished")
 
-func set_retreat_target() -> Dictionary:
-  return {"global_position": spawn_location}
+## what doestis even do!??!
 
-func generate_patrol_target() -> Dictionary:
-  randomize()
-  return {
-    "global_position":
-    Vector2(
-      rand_range(patrol_range * -1, patrol_range), rand_range(patrol_range * -1, patrol_range)
-    )
-  }
-
-func patrol(delta):
-  var steering: Vector2 = Vector2.ZERO
-  wall_detector.rotation = velocity.angle()
-  steering += arrival_steering() * 60 * delta
-  steering = steering.clamped(get_attribute("acceleration"))
-  velocity += steering * 60 * delta
-  velocity = velocity.clamped(get_attribute("max_speed"))
-  velocity = move_and_slide(velocity)
-  if global_position.floor() == target.global_position.floor():
-    emit_signal("patrol_finished")
-  if wall_detector.is_colliding():
-    emit_signal("patrol_finished")
-
-func direction_to_target():
-  if target is Character:
-    return global_position.direction_to(target.hurtbox.global_position)
-  else:
-    return global_position.direction_to(target.global_position)
-
-func seek_steering() -> Vector2:
-  var desired_velocity: Vector2 = direction_to_target() * get_attribute("max_speed")
-  return desired_velocity - velocity
-
-func arrival_steering() -> Vector2:
-  var speed: float = (
-    ((global_position - target.global_position).length() / 50)
-    * get_attribute("max_speed")
-  )
-  var desired_velocity: Vector2 = direction_to_target() * speed
-  return desired_velocity - velocity
+## screw this i'm starting over :hyperhanalul:
+  # func chase(delta):
+  #   var steering: Vector2 = Vector2.ZERO
+  #   steering += seek_steering() * 60 * delta
+  #   steering = steering.clamped(get_attribute("acceleration"))
+  #   velocity += steering * 60 * delta
+  #   velocity = velocity.clamped(get_attribute("max_speed"))
+  #   velocity = move_and_slide(velocity)
+  #   range_detector.rotation = velocity.angle()
+  #   if (target.global_position - global_position).length() > disengage_radius:
+  #     emit_signal("target_disengaged")
+  #   if range_detector.is_colliding():
+  #     emit_signal("target_in_range")
+  # 
+  # func retreat(delta):
+  #   print(spawn_location)
+  #   var steering: Vector2 = Vector2.ZERO
+  #   steering += arrival_steering() * 60 * delta
+  #   steering = steering.clamped(get_attribute("acceleration"))
+  #   velocity += steering * 60 * delta
+  #   velocity = velocity.clamped(get_attribute("max_speed"))
+  #   velocity = move_and_slide(velocity)
+  #   if global_position.floor() == target.global_position.floor():
+  #     emit_signal("patrol_finished")
+  # 
+  # func set_retreat_target() -> Dictionary:
+  #   return {"global_position": spawn_location}
+  # 
+  # func generate_patrol_target() -> Dictionary:
+  #   randomize()
+  #   return {
+  #     "global_position":
+  #     Vector2(
+  #       rand_range(patrol_range * -1, patrol_range), rand_range(patrol_range * -1, patrol_range)
+  #     )
+  #   }
+  # 
+  # func patrol(delta):
+  #   var steering: Vector2 = Vector2.ZERO
+  #   wall_detector.rotation = velocity.angle()
+  #   steering += arrival_steering() * 60 * delta
+  #   steering = steering.clamped(get_attribute("acceleration"))
+  #   velocity += steering * 60 * delta
+  #   velocity = velocity.clamped(get_attribute("max_speed"))
+  #   velocity = move_and_slide(velocity)
+  #   if global_position.floor() == target.global_position.floor():
+  #     emit_signal("patrol_finished")
+  #   if wall_detector.is_colliding():
+  #     emit_signal("patrol_finished")
+  # 
+  # func direction_to_target():
+  #   if target is Character:
+  #     return global_position.direction_to(target.hurtbox.global_position)
+  #   else:
+  #     return global_position.direction_to(target.global_position)
+  # 
+  # func seek_steering() -> Vector2:
+  #   var desired_velocity: Vector2 = direction_to_target() * get_attribute("max_speed")
+  #   return desired_velocity - velocity
+  # 
+  # func arrival_steering() -> Vector2:
+  #   var speed: float = (
+  #     ((global_position - target.global_position).length() / 50)
+  #     * get_attribute("max_speed")
+  #   )
+  #   var desired_velocity: Vector2 = direction_to_target() * speed
+  #   return desired_velocity - velocity
 
 ## -----------------------------------------------------------------------------
 ##                                Combat Stuff
