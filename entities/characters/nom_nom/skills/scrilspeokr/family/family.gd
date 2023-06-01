@@ -11,7 +11,7 @@ onready var daugther_three = preload("res://entities/characters/nom_nom/skills/s
 func _ready():
   attack_interval_timer.start()
 
-func spawn_thing(thing, target: Enemy, damage) -> void:
+func spawn_thing(thing, target, damage) -> void:
   var instance: Family = thing.instance()
   var instance_hitbox: WeaponHitbox = instance.get_node("WeaponHitbox")
   # dangerous but fuck it
@@ -30,6 +30,7 @@ func _on_Area2D_body_exited(body:Node):
     enemies.erase(body)
 
 func _on_Area2D_body_entered(body:Node):
+  print(body)
   if body is Enemy:
     enemies.append(body)
     body.connect("died", self, "_on_enemy_died")

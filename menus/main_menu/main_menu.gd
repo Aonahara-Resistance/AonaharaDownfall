@@ -23,7 +23,6 @@ func _on_test_pressed():
     "res://levels/firing_range/firing_range.tscn",
     {
       show_progress_bar = true,
-      
     }
   )
 

@@ -18,7 +18,7 @@ func die():
   hitbox_collision.call_deferred("set_disabled", true)
   animation.play("die")
 
-func _on_enemy_died(enemy):
+func _on_enemy_died(enemy: Enemy):
   if target == enemy:
     target = null
 

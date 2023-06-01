@@ -5,21 +5,27 @@ onready var animation_cutscene = $Cutscene/AnimationPlayer
 onready var nom_c = $Cutscene/Nom
 
 func _ready():
-  GameSignal.emit_signal("cutscene_started")
-  cutscene.pause_mode = PAUSE_MODE_PROCESS
-  cutscene.visible = true
-  camera_c.global_position = nom_c.global_position
-  var tween: SceneTreeTween = get_tree().create_tween()
-  tween.tween_property(ambience, "volume_db", -30.0, 5)
-  tween.set_pause_mode(tween.TWEEN_PAUSE_PROCESS)
-  GlobalCamera.camera2D.current = false
-  nom_c.frame = 24
-  gameplay.visible = false
-  get_tree().paused = true
-  animation_bar.play("in")
-  camera_c.current = true
-  yield(tween.tween_property($Cutscene/ColorRect, "modulate", Color.transparent, 5), "finished")
-  animation_cutscene.play("wake_up")
+  GameSignal.emit_signal("level_loaded", spawn.global_position, ysort)
+  pass
+
+  # Run Starting Cutscene:
+  #GameSignal.emit_signal("cutscene_started")
+  #cutscene.pause_mode = PAUSE_MODE_PROCESS
+  #cutscene.visible = true
+  #camera_c.global_position = nom_c.global_position
+  #var tween: SceneTreeTween = get_tree().create_tween()
+  #tween.tween_property(ambience, "volume_db", -30.0, 5)
+  #tween.set_pause_mode(tween.TWEEN_PAUSE_PROCESS)
+  #GlobalCamera.camera2D.current = false
+  #nom_c.frame = 24
+  #gameplay.visible = false
+  #get_tree().paused = true
+  #animation_bar.play("in")
+  #camera_c.current = true
+  #yield(tween.tween_property($Cutscene/ColorRect, "modulate", Color.transparent, 5), "finished")
+  #animation_cutscene.play("wake_up")
+
+
 
   
 func _on_AnimationPlayer_animation_finished(anim_name:String):

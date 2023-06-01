@@ -96,6 +96,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Weapon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -1 ), Vector2( 0, 0 ), Vector2( 0, 1 ), Vector2( 0, 0 ), Vector2( 0, -1 ), Vector2( 0, 0 ), Vector2( 0, 1 ) ]
+}
 
 [sub_resource type="Animation" id=12]
 resource_name = "idle_left"
@@ -112,6 +124,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 16, 17, 18, 19, 20, 21, 22, 23, 24 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Weapon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -1 ), Vector2( 0, 0 ), Vector2( 0, 1 ), Vector2( 0, 0 ), Vector2( 0, -1 ), Vector2( 0, 0 ), Vector2( 0, 1 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -130,6 +154,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 9, 10, 11, 12, 13, 14, 15 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Weapon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 1 ), Vector2( 0, 2 ), Vector2( 0, 1 ), Vector2( 0, 0 ), Vector2( 0, 1 ), Vector2( 0, 2 ) ]
+}
 
 [sub_resource type="Animation" id=11]
 resource_name = "move_left"
@@ -146,6 +182,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 25, 26, 27, 28, 29, 30, 30 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Weapon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 1 ), Vector2( 0, 2 ), Vector2( 0, 1 ), Vector2( 0, 0 ), Vector2( 0, 1 ), Vector2( 0, 2 ) ]
 }
 
 [sub_resource type="AnimationNodeAnimation" id=56]
@@ -242,12 +290,16 @@ script = ExtResource( 4 )
 [node name="GoldenShower" parent="Skills" index="0" instance=ExtResource( 7 )]
 position = Vector2( 9.45283, -0.420448 )
 character_path = NodePath("../..")
+damage = 0
 
 [node name="BigDestructiveSummonMeteor" parent="Skills" index="1" instance=ExtResource( 8 )]
 character_path = NodePath("../..")
 
 [node name="DevilBlessing" parent="Blessing" index="0" instance=ExtResource( 9 )]
 position = Vector2( 0.997029, 0 )
+
+[node name="Weapon" parent="." index="5"]
+visible = true
 
 [node name="ParseidsStaff" parent="Weapon" index="0" instance=ExtResource( 5 )]
 
@@ -258,7 +310,6 @@ scale = Vector2( 0.729361, 0.260693 )
 texture = ExtResource( 3 )
 
 [node name="Sprite" parent="." index="10"]
-visible = false
 scale = Vector2( 1, 1 )
 texture = ExtResource( 2 )
 hframes = 8

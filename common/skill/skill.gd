@@ -4,6 +4,7 @@ class_name Skill
 export var character_path: NodePath
 export var skill_name: String
 export(String, MULTILINE) var skill_description: String
+export(String, MULTILINE) var skill_effect_description: String
 export var skill_icon: Resource
 export var cooldown_duration: float
 
@@ -23,7 +24,8 @@ func _ready() -> void:
   tooltip.skill_name.text = skill_name
   tooltip.texture.texture = skill_icon
   tooltip.desc.text = skill_description
-  tooltip.effect.text = "+ 1 Hp \n+ 25 Movement Speed \n- 1 Stamina Regen"
+  tooltip.effect.text = skill_effect_description
+
 
 func _process(delta) -> void:
   if !cooldown_timer.is_stopped():

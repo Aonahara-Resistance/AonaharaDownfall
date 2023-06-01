@@ -203,8 +203,7 @@ func _on_party_order_changed(old_index, new_index) -> void:
 
 func _on_deploy_reserve_request_sent(index) -> void:
   add_party_member(reserve_member[index])
-  var current_scene: Level = get_tree().current_scene
-  current_scene.ysort.add_child(reserve_member[index])
+  get_tree().current_scene.ysort.add_child(reserve_member[index])
   reserve_member.erase(reserve_member[index])
   GameSignal.emit_signal("reserve_deployed", party_members, reserve_member)
 
@@ -277,4 +276,3 @@ func connect_signals()->void:
   GameSignal.connect("remove_party_member_requested", self, "_on_remove_party_member_requested")
 
   GameSignal.connect("cutscene_ended", self, "_on_cutscene_ended")
-

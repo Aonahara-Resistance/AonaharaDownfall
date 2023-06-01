@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/sweat.wav-99de5e09a0159ace551ee6b8eb63e6dd.sample"
+
+[deps]
+
+source_file="res://assets/sounds/dialogue_effects/sweat.wav"
+dest_files=[ "res://.import/sweat.wav-99de5e09a0159ace551ee6b8eb63e6dd.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

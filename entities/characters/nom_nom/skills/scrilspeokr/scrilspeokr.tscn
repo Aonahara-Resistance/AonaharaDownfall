@@ -8,5 +8,6 @@
 script = ExtResource( 1 )
 skill_name = "Scrilspeokr"
 skill_description = "nom nom starts hallucinating and sees her so called \"family\" attack enemies to aid her. After activating the skill, nearby enemies will have a chance of being attacked by her family member. If all four members of nom nom's family attack a single enemy, they will deal a large amount of damage based on the enemy total hp. "
+skill_effect_description = "Add the Family Buff to nom."
 skill_icon = ExtResource( 3 )
 cooldown_duration = 20.0
