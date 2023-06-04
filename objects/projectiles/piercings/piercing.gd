@@ -29,3 +29,11 @@ func _on_LifeTime_timeout():
 
 func _on_Lifetime_timeout():
   queue_free()
+
+
+func _on_Piercing_body_entered(body:Node):
+  # TODO: Add breaking animation
+  if body is TileMap:
+    disable()
+    queue_free()
+

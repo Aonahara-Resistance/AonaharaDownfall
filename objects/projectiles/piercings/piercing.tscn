@@ -26,4 +26,5 @@ script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PiercingHitbox"]
 
+[connection signal="body_entered" from="." to="." method="_on_Piercing_body_entered"]
 [connection signal="timeout" from="Lifetime" to="." method="_on_Lifetime_timeout"]
