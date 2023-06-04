@@ -7,6 +7,7 @@ signal skill_channel_started(duration)
 
 signal modifier_applied(character)
 signal modifier_reset(character)
+signal modifier_ended(character)
 
 signal died
 
