@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://common/collisions/hurtbox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://common/dash/dash.tscn" type="PackedScene" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://common/collisions/blinker.tscn" type="PackedScene" id=6]
 [ext_resource path="res://common/interactions/interaction_component.tscn" type="PackedScene" id=7]
 [ext_resource path="res://common/dash/dust_single.png" type="Texture" id=8]
+[ext_resource path="res://ui/combat/h_attack_empty.png" type="Texture" id=9]
+[ext_resource path="res://ui/combat/h_attack_filled.png" type="Texture" id=10]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 5 )
@@ -38,6 +40,34 @@ angle = -96.0
 angle_random = 0.49
 scale = 0.5
 color_ramp = SubResource( 6 )
+
+[sub_resource type="Shader" id=9]
+code = "shader_type canvas_item;
+
+
+uniform vec4 shine_color : hint_color = vec4(1.0);
+uniform float shine_progress : hint_range(0.0, 1.0, 0.01) = 0.0;
+uniform float shine_size : hint_range(0.01, 1.0, 0.01) = 0.1;
+uniform float shine_angle : hint_range(0.0, 89.9, 0.1) = 45.0;
+
+float scale(float value, float inMin, float inMax, float outMin, float outMax) {
+    return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+}
+
+void fragment() {
+    COLOR = texture(TEXTURE, UV);
+	float slope = tan(radians(shine_angle));
+	float progress = scale(shine_progress, 0.0, 1.0, -1.0 - shine_size - shine_size * slope, 1.0 * slope);
+    float shine = step(slope * UV.x - UV.y, progress + shine_size + shine_size * slope) - step(slope * UV.x - UV.y, progress);
+    COLOR.rgb = mix(COLOR.rgb, shine_color.rgb, shine * shine_color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 9 )
+shader_param/shine_color = Color( 0.298039, 0.67451, 0.988235, 1 )
+shader_param/shine_progress = 0.0
+shader_param/shine_size = 0.33
+shader_param/shine_angle = 89.9
 
 [node name="Character" type="KinematicBody2D"]
 scale = Vector2( 1.00298, 1 )
@@ -134,10 +164,25 @@ local_coords = false
 process_material = SubResource( 4 )
 texture = ExtResource( 8 )
 
+[node name="HeavyCooldownI" type="TextureProgress" parent="."]
+visible = false
+material = SubResource( 8 )
+margin_left = -5.98217
+margin_top = -22.0
+margin_right = 6.01783
+margin_bottom = -10.0
+texture_under = ExtResource( 9 )
+texture_progress = ExtResource( 10 )
+
+[node name="FadeoutTimer" type="Timer" parent="HeavyCooldownI"]
+one_shot = true
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="timeout" from="StaminaTimer" to="." method="_on_StaminaTimer_timeout"]
 [connection signal="timeout" from="BattleTimer" to="." method="_on_BattleTimer_timeout"]
 [connection signal="timeout" from="FootstepTimer" to="." method="_on_FootstepTimer_timeout"]
+[connection signal="value_changed" from="HeavyCooldownI" to="." method="_on_HeavyCooldownI_value_changed"]
+[connection signal="timeout" from="HeavyCooldownI/FadeoutTimer" to="." method="_on_FadeoutTimer_timeout"]
 
 [editable path="Blinker"]
 [editable path="Dash"]

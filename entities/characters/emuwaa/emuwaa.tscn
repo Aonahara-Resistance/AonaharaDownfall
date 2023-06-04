@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://entities/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/characters/emuwaa/sprites/emu_spritesheet.png" type="Texture" id=2]
@@ -264,6 +264,34 @@ graph_offset = Vector2( 79.325, 64.32 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=15]
 
+[sub_resource type="Shader" id=9]
+code = "shader_type canvas_item;
+
+
+uniform vec4 shine_color : hint_color = vec4(1.0);
+uniform float shine_progress : hint_range(0.0, 1.0, 0.01) = 0.0;
+uniform float shine_size : hint_range(0.01, 1.0, 0.01) = 0.1;
+uniform float shine_angle : hint_range(0.0, 89.9, 0.1) = 45.0;
+
+float scale(float value, float inMin, float inMax, float outMin, float outMax) {
+    return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+}
+
+void fragment() {
+    COLOR = texture(TEXTURE, UV);
+	float slope = tan(radians(shine_angle));
+	float progress = scale(shine_progress, 0.0, 1.0, -1.0 - shine_size - shine_size * slope, 1.0 * slope);
+    float shine = step(slope * UV.x - UV.y, progress + shine_size + shine_size * slope) - step(slope * UV.x - UV.y, progress);
+    COLOR.rgb = mix(COLOR.rgb, shine_color.rgb, shine * shine_color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id=61]
+shader = SubResource( 9 )
+shader_param/shine_color = Color( 0.298039, 0.67451, 0.988235, 1 )
+shader_param/shine_progress = 0.0
+shader_param/shine_size = 0.33
+shader_param/shine_angle = 89.9
+
 [node name="Emuwaa" instance=ExtResource( 1 )]
 collision_mask = 1
 character_name = "Emuwaa"
@@ -341,6 +369,9 @@ parameters/playback = SubResource( 15 )
 parameters/casting/blend_position = 0.163293
 parameters/idle/blend_position = -0.00264549
 parameters/walk/blend_position = -0.0198367
+
+[node name="HeavyCooldownI" parent="." index="22"]
+material = SubResource( 61 )
 
 [editable path="Blinker"]
 [editable path="Dash"]

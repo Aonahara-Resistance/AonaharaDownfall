@@ -66,7 +66,7 @@ margin_top = 6.0
 margin_right = 284.0
 margin_bottom = 6.0
 mouse_filter = 2
-custom_constants/separation = 0
+custom_constants/separation = -2
 alignment = 2
 
 [node name="Top" type="VBoxContainer" parent="CanvasLayer/GUI/MarginContainer"]
@@ -95,7 +95,7 @@ margin_top = 6.0
 margin_right = 284.0
 margin_bottom = 11.0
 mouse_filter = 2
-custom_constants/separation = 0
+custom_constants/separation = -2
 alignment = 2
 
 [node name="StaminaBarFilled" parent="CanvasLayer/GUI/MarginContainer/Top/Stamina" instance=ExtResource( 11 )]

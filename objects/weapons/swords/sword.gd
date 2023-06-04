@@ -18,44 +18,46 @@ export var light_cooldown_time: float
 
 var character: Character
 
+signal heavy_attack_released
 
 func _ready() -> void:
-	# ! Very dangerous and unsage but i like it :HenryMatsuri:
-	# Actually this might be safe
-	character = get_node("../../")
-	if light_cooldown_time != 0:
-		light_cooldown_timer.set_wait_time(light_cooldown_time)
-	if heavy_cooldown_time != 0:
-		heavy_cooldown_timer.set_wait_time(heavy_cooldown_time)
-	hit_box.set_damage(damage)
-	#???? wtf
+  # ! Very dangerous and unsage but i like it :HenryMatsuri:
+  # Actually this might be safe
+  character = get_node("../../")
+  if light_cooldown_time != 0:
+    light_cooldown_timer.set_wait_time(light_cooldown_time)
+  if heavy_cooldown_time != 0:
+    heavy_cooldown_timer.set_wait_time(heavy_cooldown_time)
+  hit_box.set_damage(damage)
+  #???? wtf
 
 
 # Nullify enemy's projectile if it hits active hitbox
 func delete_oncoming_projectile() -> void:
-	pass
+  pass
 
 
 # TODO: Set input handler so it's not being fucky wucky
 func light_attack() -> void:
-	if !animation.is_playing() && light_cooldown_timer.is_stopped():
-		character.set_is_in_battle(true)
-		character.battle_timer.start()
-		#??? wtf
-		animation.play("attack")
+  if !animation.is_playing() && light_cooldown_timer.is_stopped():
+    character.set_is_in_battle(true)
+    character.battle_timer.start()
+    #??? wtf
+    animation.play("attack")
 
 
 func light_attack_release() -> void:
-	pass
+  pass
 
 
 func heavy_attack() -> void:
-	if !animation.is_playing() && heavy_cooldown_timer.is_stopped():
-		character.set_is_in_battle(true)
-		character.battle_timer.start()
-		animation.play("spin")
-		heavy_cooldown_timer.start()
+  if !animation.is_playing() && heavy_cooldown_timer.is_stopped():
+    emit_signal("heavy_attack_released")
+    character.set_is_in_battle(true)
+    character.battle_timer.start()
+    animation.play("spin")
+    heavy_cooldown_timer.start()
 
 
 func heavy_attack_release() -> void:
-	pass
+  pass
