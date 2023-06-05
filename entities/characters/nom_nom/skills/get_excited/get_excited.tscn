@@ -8,5 +8,8 @@
 script = ExtResource( 2 )
 skill_name = "Get Excited"
 skill_description = "nom nom remembers last night's talk about something lewd and starts to become excited, boosting her stats and allowing her to swing faster. In addition to this, her stamina cooldown is temporarily decreased, but she becomes unable to regenerate stamina for some time after the skill duration ends."
+skill_effect_description = "+ 1 HP
++ 25 Movement Speed
+- 1 stamina regen upon dispell"
 skill_icon = ExtResource( 3 )
 cooldown_duration = 15.0

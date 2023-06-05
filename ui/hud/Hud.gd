@@ -97,6 +97,11 @@ func _on_modifier_reset(character) -> void:
   update_stamina(character)
   update_modifier_indicator(character)
 
+func _on_modifier_ended(character) -> void:
+  print(character.get_modifiers())
+  update_health(character)
+  update_stamina(character)
+
 func _on_skill_channel_started(duration) -> void:
   start_channeling(duration)
 
@@ -135,6 +140,7 @@ func _connect_signals() -> void:
   GameSignal.connect("dash_started", self, "_on_Dash_started")
   GameSignal.connect("modifier_applied", self, "_on_modifier_applied")
   GameSignal.connect("modifier_reset", self, "_on_modifier_reset")
+  GameSignal.connect("modifier_ended", self, "_on_modifier_ended")
   GameSignal.connect("skill_channel_started", self, "_on_skill_channel_started")
   GameSignal.connect("died", self, "_on_died")
   GameSignal.connect("party_member_changed", self, "_on_party_member_changed")

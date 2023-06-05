@@ -92,7 +92,7 @@ func _on_Skill2_gui_input(event: InputEvent) -> void:
 
 func _on_Skill2_mouse_exited():
   skill_two_tooltip.rect.visible = false
-  skill_one_hover_timer.stop()
+  skill_two_hover_timer.stop()
 
 
 func _on_Skill2_mouse_entered():
@@ -109,9 +109,13 @@ func _on_Skill1_mouse_entered():
 
 func _on_SkillOneHoverTimer_timeout():
   skill_one_tooltip.rect.rect_position = get_global_mouse_position() - skill_one_tooltip.rect.rect_size
+  var content_size = skill_one_tooltip.vbox.get_combined_minimum_size()
+  skill_one_tooltip.rect.rect_min_size  = Vector2(content_size + Vector2(10,10))
   skill_one_tooltip.rect.visible = true
 
 func _on_SkillTwoHoverTimer_timeout():
   skill_two_tooltip.rect.rect_position = get_global_mouse_position() - skill_two_tooltip.rect.rect_size
+  var content_size = skill_two_tooltip.vbox.get_combined_minimum_size()
+  skill_two_tooltip.rect.rect_min_size  = Vector2(content_size + Vector2(10,10))
   skill_two_tooltip.rect.visible = true
 

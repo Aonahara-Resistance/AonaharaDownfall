@@ -375,7 +375,6 @@ max_hp = 100
 max_speed = 100
 base_damage = 1
 acceleration = 80
-friction = 0.2
 
 [node name="StateMachine" parent="." index="0"]
 script = ExtResource( 3 )
@@ -419,7 +418,7 @@ shape = SubResource( 12 )
 position = Vector2( 0, 3 )
 shape = SubResource( 11 )
 
-[node name="AttackTimer" parent="." index="9"]
+[node name="AttackTimer" parent="." index="10"]
 wait_time = 3.0
 
 [editable path="Hurtbox"]

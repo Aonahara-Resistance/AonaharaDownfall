@@ -8,15 +8,24 @@ export var buff_name: String
 export var buff_icon: Resource
 export(String, MULTILINE) var buff_description: String
 export var duration: float
-onready var duration_timer: Timer = $Duration
 export var effect: PackedScene
+
+onready var duration_timer: Timer = $Duration
+
 var instanced_effect
+var is_active
+
+signal modifier_ended
+
 
 func _ready():
+  is_active = true
   duration_timer.set_wait_time(duration)
   duration_timer.start()
   if effect != null:
     # Assumption is evil
+    # but hey idk it works 
+    # it it doesn;'t'
     var effect_container = get_node("../../Vfx")
     instanced_effect = effect.instance()
     effect_container.add_child(instanced_effect)
@@ -24,7 +33,7 @@ func _ready():
 func modify_stateless(res):
   return res
 
-func modify_stateful(host):
+func modify_stateful(_host):
   pass
 
 func reset_duration():
@@ -39,4 +48,6 @@ func _on_Duration_timeout():
   if effect != null:
     instanced_effect.get_parent().remove_child(instanced_effect)
     instanced_effect.queue_free()
-  call_deferred("queue_free")
+  queue_free()
+  is_active = false
+  emit_signal("modifier_ended")

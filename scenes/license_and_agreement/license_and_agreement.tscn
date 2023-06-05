@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/fonts/m5x/m5x7.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/license_and_agreement/license_and_agreement.gd" type="Script" id=2]
-[ext_resource path="res://ui/panel_white_transparent.png" type="Texture" id=3]
+[ext_resource path="res://ui/panel_blue_1.png" type="Texture" id=3]
 [ext_resource path="res://ui/sfx/buttons/GenericButton5.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/particle_textures/star_texture.png" type="Texture" id=5]
 [ext_resource path="res://ui/sfx/alerts_notification/Success7a.wav" type="AudioStream" id=7]
@@ -16,8 +16,8 @@ font_data = ExtResource( 1 )
 [sub_resource type="StyleBoxEmpty" id=11]
 
 [sub_resource type="Gradient" id=19]
-offsets = PoolRealArray( 0.0378788, 0.992424 )
-colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 0 )
+offsets = PoolRealArray( 0, 0.992424 )
+colors = PoolColorArray( 0.176471, 0.654902, 0.890196, 0.686275, 0, 0.484375, 1, 0 )
 
 [sub_resource type="GradientTexture" id=20]
 gradient = SubResource( 19 )
@@ -70,7 +70,7 @@ script = ExtResource( 2 )
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 1 )
+color = Color( 0.027451, 0.0313726, 0.0431373, 1 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -79,10 +79,10 @@ margin_top = 17.0
 margin_right = 308.0
 margin_bottom = 163.0
 texture = ExtResource( 3 )
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect"]
 anchor_left = 0.5
@@ -118,9 +118,9 @@ margin_bottom = 111.0
 custom_fonts/font = SubResource( 1 )
 text = "By Clicking Agree I acknowledge that:
 
-- Anything present in this build is subject to change
-- The story present in this build is not canon
-- Distribution of this build is prohibited 
+- Anything present in this version is subject to change
+- The story present in this version is not canon
+- Distribution of this version is prohibited 
 - This is a work of fiction
 "
 autowrap = true

@@ -12,13 +12,13 @@ onready var animation: AnimationPlayer = $AnimationPlayer2
 
 var current_velocity: Vector2 = Vector2.ZERO
 
-var target
+var target: Enemy
 
 func die():
   hitbox_collision.call_deferred("set_disabled", true)
   animation.play("die")
 
-func _on_enemy_died(enemy):
+func _on_enemy_died(enemy: Enemy):
   if target == enemy:
     target = null
 

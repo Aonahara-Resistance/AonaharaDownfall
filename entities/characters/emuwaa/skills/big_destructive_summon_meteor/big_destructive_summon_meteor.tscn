@@ -65,19 +65,19 @@ tracks/1/keys = {
 script = ExtResource( 2 )
 skill_name = "Big Destructive Summon Meteor"
 skill_description = "Emuwaa unleashes her BDSM to destroy everything in her path. Due to the impact of BDSM on their lives, enemies hit will be stunned for 2 seconds.\"I will put an end to this pitiful world using this meteor of mine!\""
+skill_effect_description = "Summon meteor that deal 10 damage upon impact
+leaves fire that deal 5 DoT"
 skill_icon = ExtResource( 3 )
 cooldown_duration = 30.0
 cast_duration = 3.0
 meteor = ExtResource( 4 )
-
-[node name="CooldownTimer" parent="." index="0"]
-one_shot = true
 
 [node name="CastTimer" type="Timer" parent="." index="1"]
 one_shot = true
 
 [node name="SpawningCircle" type="Sprite" parent="." index="2"]
 visible = false
+self_modulate = Color( 1, 1, 1, 0.54902 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 5 )
 

@@ -80,9 +80,11 @@ one_shot = true
 one_shot = true
 
 [node name="SkillOneHoverTimer" type="Timer" parent="."]
+wait_time = 0.2
 one_shot = true
 
 [node name="SkillTwoHoverTimer" type="Timer" parent="."]
+wait_time = 0.2
 one_shot = true
 
 [connection signal="gui_input" from="Skill1" to="." method="_on_Skill1_gui_input"]

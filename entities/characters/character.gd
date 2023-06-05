@@ -23,6 +23,9 @@ onready var modifiers: Node2D = $Modifiers
 onready var state_label: Label = $StateLabel
 onready var footstep_timer: Timer = $FootstepTimer
 onready var footstep_particle: Particles2D = $FootstepParticle
+onready var heavy_cooldown_indicator = $HeavyCooldownI
+onready var heavy_cooldown_indicator_timer: Timer = $HeavyCooldownI/FadeoutTimer
+
 
 export var character_name: String
 export var character_icon: Resource
@@ -108,6 +111,11 @@ signal battle_state_changed
 ## -----------------------------------------------------------------------------
 
 
+# get the time and assign to idk the progress bar
+# start timer on attack
+# send signal
+# start cooldown indicator
+
 func _ready() -> void:
   if attributes == null:
     attributes = CharacterAttributes.new(
@@ -127,16 +135,25 @@ func _ready() -> void:
       receives_knockback
     )
   modifier_tick()
+
+  heavy_cooldown_indicator.max_value = equiped_weapon().heavy_cooldown_time * 60
+
+
   _connect_signals()
 
 
-
-func _process(_delta):
+func _process(delta):
   modifier_tick()
+
   if velocity.length() > 100:
     footstep_timer.wait_time = 0.29
   if velocity.length() > 200:
     footstep_timer.wait_time = 0.27
+
+  if heavy_cooldown_indicator.value == equiped_weapon().heavy_cooldown_time * 60:
+    heavy_cooldown_indicator.material.set_shader_param("shine_progress", heavy_cooldown_indicator.material.get_shader_param("shine_progress") + 0.1)
+
+  heavy_cooldown_indicator.value += 1 * delta * 60
 
 ## -----------------------------------------------------------------------------
 ##                                Input Listeners
@@ -264,13 +281,22 @@ func apply_knockback(direction, strength) -> void:
   knockback = (direction.direction_to(self.global_position) * strength)
 
 func _on_Hurtbox_area_entered(hitbox) -> void:
-  if hitbox is WeaponHitbox:
-    set_is_in_battle(false)
+  if hitbox.has_method("get_hitbox_damage"):
+    _take_damage(hitbox.get_hitbox_damage())
     blinker.start_blinking(sprite)
     _whiten_sprite(0.3)
-    _take_damage(hitbox.damage)
-    apply_knockback(hitbox.global_position, hitbox.knockback_strength)
-    _enable_iframes(1.0)
+    Shake.shake(1.0, 0.2, 1)
+
+  # idk what is this  but it doesn't work because i coded it like 2 yeas ago
+  #print(hitbox)
+  #if hitbox is WeaponHitbox:
+  #  print("here")
+  #  set_is_in_battle(false)
+  #  blinker.start_blinking(sprite)
+  #  _whiten_sprite(0.3)
+  #  _take_damage(hitbox.damage)
+  #  apply_knockback(hitbox.global_position, hitbox.knockback_strength)
+  #  _enable_iframes(1.0)
 
 func regenerate_stamina() -> void:
   while get_attribute("stamina") < get_attribute("max_stamina") && stamina_timer.is_stopped():
@@ -348,6 +374,7 @@ func apply_modifier(new_modifier: Modifier) -> void:
     if modifier.buff_name == new_modifier.buff_name:
       modifier.reset_duration()
       return
+  new_modifier.connect("modifier_ended", self, "_on_modifier_ended")
   modifiers.add_child(new_modifier)
   modifier_tick()
   new_modifier.modify_stateful(self)
@@ -366,7 +393,8 @@ func modifier_tick() -> void:
   var res: Dictionary = attributes.stateless_attributes.duplicate()
   var modifier_list: Array = get_modifiers()
   for modifier in modifier_list:
-    res = modifier.modify_stateless(res)
+    if modifier.is_active:
+      res = modifier.modify_stateless(res)
   active_attributes = {
     "hp": attributes.stateful_attributes.hp + res.extra_hp,
     "stamina": attributes.stateful_attributes.stamina,
@@ -438,7 +466,29 @@ func _whiten_sprite(duration: float):
 # warning-ignore-all:return_value_discarded
 func _connect_signals():
   dash.connect("dash_started", self, "_on_Dash_started")
+  equiped_weapon().connect("heavy_attack_released", self, "_on_heavy_attack_released")
+
+func _on_heavy_attack_released():
+  heavy_cooldown_indicator.value = 0
+  heavy_cooldown_indicator.visible = true
+  get_tree().create_tween().tween_property(heavy_cooldown_indicator, "modulate", Color(1,1,1,1), 0.5).set_trans(Tween.TRANS_SINE)
+  if !heavy_cooldown_indicator_timer.is_stopped():
+    heavy_cooldown_indicator_timer.stop()
 
 
 func _on_FootstepTimer_timeout():
   footstep_ready = true
+
+
+func _on_HeavyCooldownI_value_changed(value:float) -> void:
+  if value == equiped_weapon().heavy_cooldown_time * 60:
+    heavy_cooldown_indicator.material.set_shader_param("shine_progress", 0)
+    heavy_cooldown_indicator_timer.start()
+
+func _on_modifier_ended() -> void:
+  modifier_tick()
+  GameSignal.emit_signal("modifier_ended", self)
+
+func _on_FadeoutTimer_timeout():
+  get_tree().create_tween().tween_property(heavy_cooldown_indicator, "modulate", Color.transparent, 0.5).set_trans(Tween.TRANS_SINE)
+

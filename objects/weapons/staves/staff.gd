@@ -2,6 +2,7 @@ extends Node2D
 class_name Staff
 
 export var heavy_cooldown_time: float = 0
+export var light_cooldown_time: float = 0
 export var light_projectile: PackedScene
 export var heavy_projectile: PackedScene
 export var chargable_light: bool
@@ -19,6 +20,8 @@ var character: Character
 
 enum { LIGHT, HEAVY }
 
+signal heavy_attack_released
+
 # Upon creating an inherited scenes based on staff
 # please create the following animations name:
 # light_charge, light_attack, heavy_charge, heavy_attack
@@ -31,8 +34,11 @@ enum { LIGHT, HEAVY }
 func _ready():
   # ! Very dangerous and unsage but i like it :HenryMatsuri:
   # Actually this might be safe
+  if light_cooldown_time != 0:
+    light_cooldown_timer.set_wait_time(light_cooldown_time)
+  if heavy_cooldown_time != 0:
+    heavy_cooldown_timer.set_wait_time(heavy_cooldown_time)
   character = get_node("../../")
-  heavy_cooldown_timer.set_wait_time(heavy_cooldown_time)
 
 
 func light_attack():
@@ -59,6 +65,7 @@ func heavy_attack():
     animation.play("heavy_charge")
   else:
     animation.play("heavy_attack")
+    emit_signal("heavy_attack_released")
 
 
 func heavy_attack_release():
@@ -66,6 +73,7 @@ func heavy_attack_release():
   if !heavy_cooldown_timer.is_stopped():
     UiUtils.show_info("heavy on cooldown")
   if chargable_heavy && heavy_cooldown_timer.is_stopped() && heavy_charged:
+    emit_signal("heavy_attack_released")
     heavy_charged = false
     animation.play("heavy_attack")
     heavy_cooldown_timer.start()

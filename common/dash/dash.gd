@@ -26,6 +26,8 @@ func start_dash(new_entity) -> void:
       apply_dash_speed()
       start_timers()
       emit_signal("dash_started")
+      ## dangerous as hell lmaooo but yeah whatver
+      create_trails(entity.get_input_direction())
       sfx.play()
       GameSignal.emit_signal("dash_started", entity)
   else:
@@ -37,7 +39,6 @@ func apply_dash_speed() -> void:
     "acceleration", entity.get_attribute("acceleration") + entity.dash_speed
   )
   entity.set_attribute("max_speed", entity.get_attribute("max_speed") + entity.dash_speed)
-
 
 func restore_dash_speed() -> void:
   entity.set_attribute(
@@ -52,7 +53,6 @@ func setup_dash() -> void:
   dash_sprite_shader = dash_sprite.material
 
 func can_dash() -> bool:
-  # TODO: Refactor into signals
   if entity.get_attribute("stamina") <= 0:
     UiUtils.show_info("You skipped leg day")
     return false

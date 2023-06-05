@@ -111,7 +111,8 @@ func tactical_character_hiding(character) -> void:
   character.get_node("Sprite"),
   character.get_node("ShadowSprite"),
   character.get_node("Weapon"),
-  character.get_node("StateLabel")
+  character.get_node("StateLabel"),
+  character.get_node("HeavyCooldownI"),
   ]
   character.get_node("Hurtbox/CollisionShape2D").set_deferred("disabled", true)
   character.get_node("InteractionComponent/CollisionShape2D").set_deferred("disabled", true)
@@ -125,7 +126,8 @@ func tactical_character_showing(character) -> void:
   character.get_node("Sprite"),
   character.get_node("ShadowSprite"),
   character.get_node("Weapon"),
-  character.get_node("StateLabel")
+  #character.get_node("StateLabel"),
+  character.get_node("HeavyCooldownI"),
   ]
   character.get_node("Hurtbox/CollisionShape2D").set_deferred("disabled", false)
   character.get_node("InteractionComponent/CollisionShape2D").set_deferred("disabled", false)
@@ -276,4 +278,3 @@ func connect_signals()->void:
   GameSignal.connect("remove_party_member_requested", self, "_on_remove_party_member_requested")
 
   GameSignal.connect("cutscene_ended", self, "_on_cutscene_ended")
-

@@ -299,11 +299,12 @@ height = 0.0
 radius = 5.0
 
 [node name="Pinthus" instance=ExtResource( 1 )]
+collision_layer = 4
+collision_mask = 10
 projectile = ExtResource( 4 )
 hp = 100
 max_hp = 100
 base_damage = 1
-agro_radius = 10
 
 [node name="StateMachine" parent="." index="0"]
 script = ExtResource( 3 )
@@ -343,7 +344,7 @@ shape = SubResource( 5 )
 position = Vector2( 0, -2 )
 shape = SubResource( 6 )
 
-[node name="AttackTimer" parent="." index="9"]
+[node name="AttackTimer" parent="." index="10"]
 wait_time = 2.0
 
 [editable path="Hurtbox"]

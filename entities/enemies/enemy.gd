@@ -13,11 +13,8 @@ onready var modifiers: Node2D = $Modifiers
 onready var enemy_hitbox: Hitbox = $Hitbox
 onready var alert_signal = $Alertsignal
 onready var attack_timer: Timer = $AttackTimer
-onready var player_detector: Node2D = $PlayerDetector
-onready var range_detector: RayCast2D = $RangeDetector
-onready var wall_detector: RayCast2D = $WallDetector
 onready var patrol_cooldown_timer: Timer = $PatrolCooldown
-onready var state_machine = $StateMachine
+onready var health_bar: TextureProgress = $Healthbar
 
 signal patrol_finished
 signal target_disengaged
@@ -64,68 +61,25 @@ signal died
 
 
 func _ready():
+  # so that it's not null first value(i'm genius )
   spawn_location = global_position
   attributes = EnemeyAttributes.new(
     hp, max_hp, max_speed, base_damage, acceleration, avoid_force, receives_knockback
   )
   enemy_hitbox.set_damage(get_attribute("base_damage"))
   patrol_cooldown_timer.wait_time = patrol_cooldown
-  range_detector.cast_to.x = attack_radius
   modifier_tick()
+
+  #Setup healthbar
+  health_bar.max_value = max_hp
+  health_bar.value = hp
 
 
 ## -----------------------------------------------------------------------------
 ##                                Movement Stuff
 ## -----------------------------------------------------------------------------
 
-func chase(delta):
-  var steering: Vector2 = Vector2.ZERO
-  steering += seek_steering() * 60 * delta
-  steering = steering.clamped(get_attribute("acceleration"))
-  velocity += steering * 60 * delta
-  velocity = velocity.clamped(get_attribute("max_speed"))
-  velocity = move_and_slide(velocity)
-  range_detector.rotation = velocity.angle()
-  if (target.global_position - global_position).length() > disengage_radius:
-    emit_signal("target_disengaged")
-  if range_detector.is_colliding():
-    emit_signal("target_in_range")
-
-func retreat(delta):
-  print(spawn_location)
-  var steering: Vector2 = Vector2.ZERO
-  steering += arrival_steering() * 60 * delta
-  steering = steering.clamped(get_attribute("acceleration"))
-  velocity += steering * 60 * delta
-  velocity = velocity.clamped(get_attribute("max_speed"))
-  velocity = move_and_slide(velocity)
-  if global_position.floor() == target.global_position.floor():
-    emit_signal("patrol_finished")
-
-func set_retreat_target() -> Dictionary:
-  return {"global_position": spawn_location}
-
-func generate_patrol_target() -> Dictionary:
-  randomize()
-  return {
-    "global_position":
-    Vector2(
-      rand_range(patrol_range * -1, patrol_range), rand_range(patrol_range * -1, patrol_range)
-    )
-  }
-
-func patrol(delta):
-  var steering: Vector2 = Vector2.ZERO
-  wall_detector.rotation = velocity.angle()
-  steering += arrival_steering() * 60 * delta
-  steering = steering.clamped(get_attribute("acceleration"))
-  velocity += steering * 60 * delta
-  velocity = velocity.clamped(get_attribute("max_speed"))
-  velocity = move_and_slide(velocity)
-  if global_position.floor() == target.global_position.floor():
-    emit_signal("patrol_finished")
-  if wall_detector.is_colliding():
-    emit_signal("patrol_finished")
+## TODO: PRobably going have to revamp the whole movement stuff 
 
 func direction_to_target():
   if target is Character:
@@ -133,17 +87,6 @@ func direction_to_target():
   else:
     return global_position.direction_to(target.global_position)
 
-func seek_steering() -> Vector2:
-  var desired_velocity: Vector2 = direction_to_target() * get_attribute("max_speed")
-  return desired_velocity - velocity
-
-func arrival_steering() -> Vector2:
-  var speed: float = (
-    ((global_position - target.global_position).length() / 50)
-    * get_attribute("max_speed")
-  )
-  var desired_velocity: Vector2 = direction_to_target() * speed
-  return desired_velocity - velocity
 
 ## -----------------------------------------------------------------------------
 ##                                Combat Stuff
@@ -158,6 +101,7 @@ func listen_knockback(delta) -> void:
 func apply_knockback(direction, strength) -> void:
   knockback = (direction.direction_to(self.global_position) * strength)
 
+# whatr the fuc kis going on
 func _on_Hurtbox_area_entered(hitbox) -> void:
   if hitbox.has_method("get_hitbox_damage"):
     if hitbox.specific_target != null:
@@ -182,16 +126,17 @@ func _on_Hurtbox_area_entered(hitbox) -> void:
 
 func _take_damage(damage: int) -> void:
   set_attribute("hp", get_attribute("hp") - damage)
+  health_bar.value = get_attribute("hp")
+  if get_attribute("hp") < get_attribute("max_hp"):
+    health_bar.visible = true
   if get_attribute("hp") <= 0:
     _die()
 
 func _die() -> void:
   emit_signal("died", self)
   if !animation.has_animation("die_right") || !animation.has_animation("die_left"):
-    print("1")
     queue_free()
     return
-  print("2")
   emit_signal("died")
 
 func remove_from_spawn_group():

@@ -149,7 +149,7 @@ heavy_cooldown_time = 3.0
 
 [node name="WeaponContainer" parent="." index="0"]
 position = Vector2( -0.00150087, -0.00423738 )
-rotation = -26.3714
+rotation = -1.18857
 
 [node name="Sprite" parent="WeaponContainer" index="0"]
 position = Vector2( -0.387979, -0.0990992 )

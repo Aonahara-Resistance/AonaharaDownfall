@@ -12,13 +12,16 @@ func _ready():
   attack_interval_timer.start()
 
 func spawn_thing(thing, target, damage) -> void:
-  var instance = thing.instance()
+  var instance: Family = thing.instance()
+  var instance_hitbox: WeaponHitbox = instance.get_node("WeaponHitbox")
+  # dangerous but fuck it
+  var character: Character = get_node("../..")
   instance.damage = damage
   instance.target = target
   target.connect("died", instance, "_on_enemy_died")
-  instance.get_node("WeaponHitbox").specific_target = target
-  instance.get_node("WeaponHitbox").die_after_hit = true
-  instance.global_position = get_node("../../").global_position
+  instance_hitbox.specific_target = target
+  instance_hitbox.die_after_hit = true
+  instance.global_position = character.global_position
   var level = get_tree().get_current_scene() as Level 
   level.ysort.add_child(instance)
 
@@ -27,6 +30,7 @@ func _on_Area2D_body_exited(body:Node):
     enemies.erase(body)
 
 func _on_Area2D_body_entered(body:Node):
+  print(body)
   if body is Enemy:
     enemies.append(body)
     body.connect("died", self, "_on_enemy_died")
@@ -35,6 +39,8 @@ func _on_enemy_died(enemy):
   if enemies.has(enemy):
     enemies.erase(enemy)
 
+
+# This is an asbolute shit of code but it works fuck
 func _on_AttackIntervalTimer_timeout():
   if enemies.size() == 0:
     return

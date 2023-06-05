@@ -170,16 +170,16 @@ z_index = 5
 script = ExtResource( 5 )
 skill_name = "Golden Shower"
 skill_description = "Emuwaa conjures up rock shards using raw life energy and uses them to rain down on her foes. During the duration of the skill, rock shards will fall from the sky and damage enemies within its AOE."
+skill_effect_description = "Summon shower of rocks that deals 2 damage each."
 skill_icon = ExtResource( 4 )
 cooldown_duration = 10.0
-
-[node name="CooldownTimer" parent="." index="0"]
-one_shot = true
+damage = 2
 
 [node name="YSort" type="YSort" parent="." index="1"]
 
 [node name="SpawningCircle" type="Sprite" parent="." index="2"]
 modulate = Color( 1, 1, 1, 0 )
+self_modulate = Color( 1, 1, 1, 0.54902 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 
@@ -198,6 +198,7 @@ one_shot = true
 
 [node name="AoE" type="Sprite" parent="." index="6"]
 visible = false
+self_modulate = Color( 1, 1, 1, 0.54902 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 
