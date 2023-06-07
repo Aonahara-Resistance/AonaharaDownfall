@@ -136,6 +136,7 @@ func _die() -> void:
   emit_signal("died", self)
   if !animation.has_animation("die_right") || !animation.has_animation("die_left"):
     queue_free()
+    spawn_death_effect()
     return
   emit_signal("died")
 
@@ -170,6 +171,7 @@ func spawn_effect(EFFECT: PackedScene, effect_position: Vector2 = global_positio
   var effect = EFFECT.instance()
   get_tree().current_scene.add_child(effect)
   effect.global_position = effect_position
+  effect.rotation = randf()
   return effect
 
 func spawn_death_effect() -> void:

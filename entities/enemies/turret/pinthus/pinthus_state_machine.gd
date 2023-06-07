@@ -35,6 +35,8 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
       animation_mode.travel("shoot")
     states.die:
       animation_mode.travel("die")
+      yield(get_tree().create_timer(0.6),"timeout")
+      parent.spawn_death_effect()
 
 func _get_transition() -> int:
   match state:

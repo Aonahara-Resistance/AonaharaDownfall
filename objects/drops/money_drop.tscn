@@ -1,0 +1,9 @@
+[gd_scene format=2]
+
+[node name="MoneyDrop" type="Area2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]

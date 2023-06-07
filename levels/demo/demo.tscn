@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=2]
+[gd_scene load_steps=98 format=2]
 
 [ext_resource path="res://levels/level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/demo/demo.gd" type="Script" id=2]
@@ -17,6 +17,8 @@
 [ext_resource path="res://entities/enemies/dummy/dummy.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/artworks/kiseki.png" type="Texture" id=16]
 [ext_resource path="res://ui/cheat_panel/cheat_panel.tscn" type="PackedScene" id=17]
+[ext_resource path="res://objects/destructible/destructible_luggage.tscn" type="PackedScene" id=18]
+[ext_resource path="res://objects/destructible/destructible.gd" type="Script" id=19]
 
 [sub_resource type="OccluderPolygon2D" id=52]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -1765,7 +1767,7 @@ position = Vector2( 674, 967 )
 position = Vector2( 402, 1730 )
 frames = SubResource( 51 )
 animation = "New Anim"
-frame = 3
+frame = 5
 playing = true
 
 [node name="Dummy" parent="Gameplay/YSort" index="21" instance=ExtResource( 15 )]
@@ -1811,6 +1813,51 @@ position = Vector2( 235, 2056 )
 position = Vector2( -46, 1900 )
 scale = Vector2( 0.0798122, 0.0798122 )
 texture = ExtResource( 16 )
+
+[node name="DestructibleLuggage" parent="Gameplay/YSort" index="35" instance=ExtResource( 18 )]
+position = Vector2( 177, 101 )
+collision_mask = 0
+script = ExtResource( 19 )
+
+[node name="DestructibleLuggage2" parent="Gameplay/YSort" index="36" instance=ExtResource( 18 )]
+position = Vector2( 206, 119 )
+collision_mask = 0
+script = ExtResource( 19 )
+
+[node name="DestructibleLuggage3" parent="Gameplay/YSort" index="37" instance=ExtResource( 18 )]
+position = Vector2( 143, 135 )
+collision_mask = 0
+script = ExtResource( 19 )
+
+[node name="DestructibleLuggage4" parent="Gameplay/YSort" index="38" instance=ExtResource( 18 )]
+position = Vector2( 156, 37 )
+collision_mask = 0
+script = ExtResource( 19 )
+
+[node name="DestructibleLuggage5" parent="Gameplay/YSort" index="39" instance=ExtResource( 18 )]
+position = Vector2( 252, 70 )
+collision_mask = 0
+script = ExtResource( 19 )
+
+[node name="DestructibleLuggage6" parent="Gameplay/YSort" index="40" instance=ExtResource( 18 )]
+position = Vector2( 317, 26 )
+collision_mask = 0
+script = ExtResource( 19 )
+
+[node name="DestructibleLuggage7" parent="Gameplay/YSort" index="41" instance=ExtResource( 18 )]
+position = Vector2( 420, 32 )
+collision_mask = 0
+script = ExtResource( 19 )
+
+[node name="DestructibleLuggage8" parent="Gameplay/YSort" index="42" instance=ExtResource( 18 )]
+position = Vector2( 512, 28 )
+collision_mask = 0
+script = ExtResource( 19 )
+
+[node name="DestructibleLuggage9" parent="Gameplay/YSort" index="43" instance=ExtResource( 18 )]
+position = Vector2( 571, 25 )
+collision_mask = 0
+script = ExtResource( 19 )
 
 [node name="Spawn" parent="Gameplay" index="6"]
 position = Vector2( 149, 104 )
