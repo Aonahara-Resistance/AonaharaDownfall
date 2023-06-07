@@ -1815,48 +1815,47 @@ scale = Vector2( 0.0798122, 0.0798122 )
 texture = ExtResource( 16 )
 
 [node name="DestructibleLuggage" parent="Gameplay/YSort" index="35" instance=ExtResource( 18 )]
-position = Vector2( 177, 101 )
-collision_mask = 0
+position = Vector2( 261, 66 )
 script = ExtResource( 19 )
 
 [node name="DestructibleLuggage2" parent="Gameplay/YSort" index="36" instance=ExtResource( 18 )]
-position = Vector2( 206, 119 )
-collision_mask = 0
+position = Vector2( 233, 105 )
 script = ExtResource( 19 )
 
 [node name="DestructibleLuggage3" parent="Gameplay/YSort" index="37" instance=ExtResource( 18 )]
-position = Vector2( 143, 135 )
-collision_mask = 0
+position = Vector2( 171, 51 )
 script = ExtResource( 19 )
 
 [node name="DestructibleLuggage4" parent="Gameplay/YSort" index="38" instance=ExtResource( 18 )]
-position = Vector2( 156, 37 )
-collision_mask = 0
+position = Vector2( 74, 55 )
 script = ExtResource( 19 )
 
 [node name="DestructibleLuggage5" parent="Gameplay/YSort" index="39" instance=ExtResource( 18 )]
-position = Vector2( 252, 70 )
-collision_mask = 0
+position = Vector2( 262, 34 )
 script = ExtResource( 19 )
 
 [node name="DestructibleLuggage6" parent="Gameplay/YSort" index="40" instance=ExtResource( 18 )]
-position = Vector2( 317, 26 )
-collision_mask = 0
+position = Vector2( 418, 55 )
 script = ExtResource( 19 )
 
 [node name="DestructibleLuggage7" parent="Gameplay/YSort" index="41" instance=ExtResource( 18 )]
-position = Vector2( 420, 32 )
-collision_mask = 0
+position = Vector2( 462, 32 )
 script = ExtResource( 19 )
 
 [node name="DestructibleLuggage8" parent="Gameplay/YSort" index="42" instance=ExtResource( 18 )]
-position = Vector2( 512, 28 )
-collision_mask = 0
+position = Vector2( 666, 22 )
 script = ExtResource( 19 )
 
 [node name="DestructibleLuggage9" parent="Gameplay/YSort" index="43" instance=ExtResource( 18 )]
-position = Vector2( 571, 25 )
-collision_mask = 0
+position = Vector2( 726, 137 )
+script = ExtResource( 19 )
+
+[node name="DestructibleLuggage10" parent="Gameplay/YSort" index="44" instance=ExtResource( 18 )]
+position = Vector2( 724, 264 )
+script = ExtResource( 19 )
+
+[node name="DestructibleLuggage11" parent="Gameplay/YSort" index="45" instance=ExtResource( 18 )]
+position = Vector2( 724, 264 )
 script = ExtResource( 19 )
 
 [node name="Spawn" parent="Gameplay" index="6"]
@@ -1979,17 +1978,6 @@ position = Vector2( 380, 1455 )
 texture = ExtResource( 8 )
 texture_scale = 0.4
 color = Color( 0.462745, 0.827451, 0.909804, 1 )
-energy = 0.8
-shadow_enabled = true
-shadow_color = Color( 0.564706, 0.168627, 0.168627, 0 )
-
-[node name="Light2D6" type="Light2D" parent="Gameplay/Lights" index="13"]
-position = Vector2( 311, 110 )
-scale = Vector2( -2.50383, 8.48962 )
-enabled = false
-texture = ExtResource( 8 )
-texture_scale = 0.4
-color = Color( 0.623529, 0.909804, 0.462745, 1 )
 energy = 0.8
 shadow_enabled = true
 shadow_color = Color( 0.564706, 0.168627, 0.168627, 0 )

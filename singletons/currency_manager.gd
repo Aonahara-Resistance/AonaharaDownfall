@@ -7,4 +7,4 @@ func _ready():
 
 func _on_money_picked_up(value: int) -> void:
   money += value
-  GameSignal.emit_signal("money_changed")
+  GameSignal.emit_signal("money_changed", money)

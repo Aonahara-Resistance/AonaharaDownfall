@@ -53,5 +53,5 @@ signal cutscene_ended(position)
 
 signal modifier_ticked
 
-signal money_picked_up
-signal money_changed
+signal money_picked_up(value)
+signal money_changed(value)
