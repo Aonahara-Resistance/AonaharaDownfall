@@ -15,6 +15,8 @@ onready var alert_signal = $Alertsignal
 onready var attack_timer: Timer = $AttackTimer
 onready var patrol_cooldown_timer: Timer = $PatrolCooldown
 onready var health_bar: TextureProgress = $Healthbar
+onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
+onready var path_timer: Timer = $PathTimer
 
 signal patrol_finished
 signal target_disengaged
@@ -27,6 +29,7 @@ var is_pouncing: bool = false setget set_is_pouncing
 var target = self
 var reverse_scan: int = 1
 var spawn_location: Vector2
+var paths: Array = []
 
 export var hp: int
 export var max_hp: int
@@ -61,6 +64,7 @@ signal died
 
 
 func _ready():
+
   # so that it's not null first value(i'm genius )
   spawn_location = global_position
   attributes = EnemeyAttributes.new(
@@ -74,13 +78,22 @@ func _ready():
   health_bar.max_value = max_hp
   health_bar.value = hp
 
+func _physics_process(delta):
+  move(delta)
 
 ## -----------------------------------------------------------------------------
 ##                                Movement Stuff
 ## -----------------------------------------------------------------------------
 
-## TODO: PRobably going have to revamp the whole movement stuff 
+func move(delta) -> void:
+  var direction = global_position.direction_to(nav_agent.get_next_location())
+  var desired_velocipy = direction * 100
+  var steering = (desired_velocipy - velocity) * delta * 4.0
+  velocity += steering
+  velocity = move_and_slide(velocity)
 
+
+## TODO: PRobably going have to revamp the whole movement stuff 
 func direction_to_target():
   if target is Character:
     return global_position.direction_to(target.hurtbox.global_position)
@@ -225,3 +238,6 @@ func modifier_tick() -> void:
     "acceleration": res.acceleration,
     "receives_knockback": res.receives_knockback,
   }
+
+func _on_PathTimer_timeout():
+  nav_agent.set_target_location(get_global_mouse_position())
