@@ -211,4 +211,9 @@ margin_right = 230.0
 margin_bottom = 10.0
 alignment = 2
 
+[node name="Money" type="Label" parent="CanvasLayer/GUI"]
+margin_right = 40.0
+margin_bottom = 7.0
+text = "0"
+
 [connection signal="value_changed" from="CanvasLayer/GUI/MarginContainer2/Bottom/Channeling/Progress" to="." method="_on_Progress_value_changed"]

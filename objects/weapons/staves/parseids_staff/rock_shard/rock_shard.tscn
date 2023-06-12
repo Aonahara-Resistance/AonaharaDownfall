@@ -10,7 +10,7 @@ radius = 6.28823
 radius = 7.07107
 
 [node name="RockShard" instance=ExtResource( 1 )]
-collision_mask = 5
+collision_mask = 1
 speed = 400
 damage = 10
 
@@ -20,6 +20,9 @@ texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource( 1 )
+
+[node name="PiercingHitbox" parent="." index="4"]
+collision_mask = 68
 
 [node name="CollisionShape2D" parent="PiercingHitbox" index="0"]
 shape = SubResource( 2 )

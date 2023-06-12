@@ -4,6 +4,8 @@ export var pop_up: PackedScene
 export var death_screen: PackedScene
 export var buff_indicator: PackedScene
 
+
+
 onready var gui: Control = $CanvasLayer/GUI
 onready var health_container: HBoxContainer = $CanvasLayer/GUI/MarginContainer/Top/Health
 onready var empty_health_container: HBoxContainer = $CanvasLayer/GUI/MarginContainer/TopBackground/HealthEmpty
@@ -13,6 +15,7 @@ onready var skill: SkillHud = $CanvasLayer/GUI/MarginContainer2/Bottom/SkillsHud
 onready var channeling: TextureProgress = $CanvasLayer/GUI/MarginContainer2/Bottom/Channeling/Progress
 onready var character_icon: TextureRect = $CanvasLayer/GUI/MarginContainer3/HBoxContainer/CharacterIcon
 onready var modifier_container: HBoxContainer = $CanvasLayer/GUI/MarginContainer4/Modifiers
+onready var money: Label = $CanvasLayer/GUI/Money
 
 var health_full = preload("res://ui/hud/health/health_full.tscn")
 var health_empty = preload("res://ui/hud/health/health_empty.tscn")
@@ -136,6 +139,9 @@ func _on_cutscene_ended(_pos) -> void:
   gui.visible = true
   get_tree().create_tween().tween_property(gui, "modulate", Color(1,1,1,1), 0.5).set_trans(Tween.TRANS_SINE)
 
+func _on_money_changed(value: int) -> void:
+  money.text =  str(value)
+
 func _connect_signals() -> void:
   GameSignal.connect("dash_started", self, "_on_Dash_started")
   GameSignal.connect("modifier_applied", self, "_on_modifier_applied")
@@ -152,3 +158,4 @@ func _connect_signals() -> void:
   GameSignal.connect("cutscene_started", self, "_on_cutscene_started")
   GameSignal.connect("cutscene_ended", self, "_on_cutscene_ended")
 
+  GameSignal.connect("money_changed", self, "_on_money_changed")

@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://common/dash/dash.gd"
 }, {
+"base": "Area2D",
+"class": "Destructible",
+"language": "GDScript",
+"path": "res://objects/destructible/destructible.gd"
+}, {
 "base": "Node",
 "class": "Dialogic",
 "language": "GDScript",
@@ -254,6 +259,7 @@ _global_script_class_icons={
 "ConsumableItem": "",
 "DTS": "",
 "Dash": "",
+"Destructible": "",
 "Dialogic": "",
 "DialogicAnimaPropertiesHelper": "",
 "DialogicAnimaResources": "",
@@ -333,6 +339,7 @@ Cursor="*res://singletons/cursor.gd"
 Utils="*res://addons/game-template/utils.gd"
 Transitions="*res://addons/game-template/transition/transition.tscn"
 UiUtils="*res://singletons/ui_utils.gd"
+CurrencyManager="*res://singletons/currency_manager.gd"
 
 [debug]
 
@@ -540,6 +547,9 @@ tab={
 2d_physics/layer_4="player_projectile"
 2d_physics/layer_5="enemy_projectile"
 2d_physics/layer_6="interactables"
+2d_physics/layer_7="desctrubtible"
+2d_physics/layer_8="money_magnet"
+2d_physics/layer_9="money_drop"
 
 [physics]
 
