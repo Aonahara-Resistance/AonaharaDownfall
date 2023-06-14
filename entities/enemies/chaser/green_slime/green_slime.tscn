@@ -421,5 +421,7 @@ shape = SubResource( 11 )
 [node name="AttackTimer" parent="." index="10"]
 wait_time = 3.0
 
+[connection signal="alerted" from="Alertsignal" to="StateMachine" method="_on_Alertsignal_alerted"]
+
 [editable path="Hurtbox"]
 [editable path="Hitbox"]

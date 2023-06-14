@@ -200,7 +200,6 @@ radius = 60.531
 
 [node name="Fromb" instance=ExtResource( 2 )]
 scale = Vector2( 1.01339, 1.02196 )
-collision_layer = 4
 collision_mask = 7
 script = ExtResource( 4 )
 hp = 30
@@ -210,18 +209,35 @@ base_damage = 1
 acceleration = 3
 receives_knockback = true
 
-[node name="StateMachine" parent="." index="0"]
+[node name="Whiskers@RayCast2D" type="RayCast2D" parent="." index="0"]
+enabled = true
+cast_to = Vector2( 48, 0 )
+collision_mask = 5
+
+[node name="Whiskers@RayCast2D2" type="RayCast2D" parent="." index="1"]
+position = Vector2( 0, 4.89256 )
+enabled = true
+cast_to = Vector2( 48, 0 )
+collision_mask = 5
+
+[node name="Whiskers@RayCast2D3" type="RayCast2D" parent="." index="2"]
+position = Vector2( 0, -4.89256 )
+enabled = true
+cast_to = Vector2( 48, 0 )
+collision_mask = 5
+
+[node name="StateMachine" parent="." index="3"]
 script = ExtResource( 5 )
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="5"]
 texture = ExtResource( 1 )
 hframes = 5
 vframes = 6
 
-[node name="CollisionShape2D" parent="." index="4"]
+[node name="CollisionShape2D" parent="." index="7"]
 shape = SubResource( 19 )
 
-[node name="AnimationPlayer" parent="." index="5"]
+[node name="AnimationPlayer" parent="." index="8"]
 anims/RESET = SubResource( 18 )
 anims/die_left = SubResource( 13 )
 anims/die_right = SubResource( 1 )
@@ -232,7 +248,7 @@ anims/idle_right = SubResource( 2 )
 anims/walk_left = SubResource( 15 )
 anims/walk_right = SubResource( 3 )
 
-[node name="AnimationTree" parent="." index="6"]
+[node name="AnimationTree" parent="." index="9"]
 tree_root = ExtResource( 3 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
@@ -252,55 +268,11 @@ disabled = true
 [node name="CollisionShape2D" parent="Alertsignal" index="0"]
 shape = SubResource( 22 )
 
-[node name="StateLabel" parent="." index="12"]
+[node name="StateLabel" parent="." index="15"]
 margin_left = 0.44545
 margin_top = -2.6727
 margin_right = 40.4454
 margin_bottom = 4.3273
-
-[node name="RayCast2D" type="RayCast2D" parent="Whiskers" index="0"]
-enabled = true
-cast_to = Vector2( 48, 0 )
-collision_mask = 5
-
-[node name="RayCast2D2" type="RayCast2D" parent="Whiskers" index="1"]
-position = Vector2( 0, 4.89256 )
-enabled = true
-cast_to = Vector2( 48, 0 )
-collision_mask = 5
-
-[node name="RayCast2D3" type="RayCast2D" parent="Whiskers" index="2"]
-position = Vector2( 0, -4.89256 )
-enabled = true
-cast_to = Vector2( 48, 0 )
-collision_mask = 5
-
-[node name="PlayerDetector" parent="PlayerDetector" index="0"]
-collision_mask = 3
-
-[node name="PlayerDetector2" parent="PlayerDetector" index="1"]
-collision_mask = 3
-
-[node name="PlayerDetector3" parent="PlayerDetector" index="2"]
-collision_mask = 3
-
-[node name="PlayerDetector4" parent="PlayerDetector" index="3"]
-collision_mask = 3
-
-[node name="PlayerDetector5" parent="PlayerDetector" index="4"]
-collision_mask = 3
-
-[node name="PlayerDetector6" parent="PlayerDetector" index="5"]
-collision_mask = 3
-
-[node name="PlayerDetector7" parent="PlayerDetector" index="6"]
-collision_mask = 3
-
-[node name="PlayerDetector8" parent="PlayerDetector" index="7"]
-collision_mask = 3
-
-[node name="RangeDetector" parent="." index="17"]
-collision_mask = 2
 
 [connection signal="patrol_finished" from="." to="StateMachine" method="_on_Fromb_patrol_finished"]
 [connection signal="target_disengaged" from="." to="StateMachine" method="_on_Fromb_target_disengaged"]

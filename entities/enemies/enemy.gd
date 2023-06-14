@@ -17,6 +17,7 @@ onready var patrol_cooldown_timer: Timer = $PatrolCooldown
 onready var health_bar: TextureProgress = $Healthbar
 onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 onready var path_timer: Timer = $PathTimer
+onready var player_detector: Node2D = $PlayerDetector
 
 signal patrol_finished
 signal target_disengaged
@@ -78,14 +79,14 @@ func _ready():
   health_bar.max_value = max_hp
   health_bar.value = hp
 
-func _physics_process(delta):
-  move(delta)
+  #signas
+  GameSignal.connect("party_member_changed", self, "_on_party_member_changed")
 
 ## -----------------------------------------------------------------------------
 ##                                Movement Stuff
 ## -----------------------------------------------------------------------------
 
-func move(delta) -> void:
+func chase(delta) -> void:
   var direction = global_position.direction_to(nav_agent.get_next_location())
   var desired_velocipy = direction * 100
   var steering = (desired_velocipy - velocity) * delta * 4.0
@@ -99,6 +100,15 @@ func direction_to_target():
     return global_position.direction_to(target.hurtbox.global_position)
   else:
     return global_position.direction_to(target.global_position)
+
+func scan_target():
+  player_detector.rotation += 10
+  for detector in player_detector.get_children():
+    var collider = detector.get_collider()
+    if collider is Character:
+      if collider.is_in_control == true:
+        target = collider
+        alert_signal.alert()
 
 
 ## -----------------------------------------------------------------------------
@@ -240,4 +250,11 @@ func modifier_tick() -> void:
   }
 
 func _on_PathTimer_timeout():
-  nav_agent.set_target_location(get_global_mouse_position())
+  if target is Vector2:
+    nav_agent.set_target_location(target)
+  if target is Character:
+    nav_agent.set_target_location(target.global_position)
+
+func _on_party_member_changed(character):
+  if target is Character && target != character:
+    target = character

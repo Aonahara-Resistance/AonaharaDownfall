@@ -9,18 +9,19 @@ onready var parent = get_parent()
 signal alerted
 
 func _ready() -> void:
-	receiver.set_shape(collision.get_shape())
+  receiver.set_shape(collision.get_shape())
 
 func alert() -> void:
-	animation.play("alert")
-	collision.set_deferred("disabled", false)
-	yield(get_tree().create_timer(0.5), "timeout")
-	collision.set_deferred("disabled", true)
+  animation.play("alert")
+  collision.set_deferred("disabled", false)
+  yield(get_tree().create_timer(0.5), "timeout")
+  collision.set_deferred("disabled", true)
+  emit_signal("alerted")
 
 func _on_Receiver_area_entered(area) -> void:
-	if !area.has_method("alert"):
-		return
-	animation.play("alert")
-	parent.target = area.get_parent().target
-	print("alerted")
-	emit_signal("alerted")
+  if !area.has_method("alert"):
+    return
+  animation.play("alert")
+  parent.target = area.get_parent().target
+  print("alerted")
+  emit_signal("alerted")

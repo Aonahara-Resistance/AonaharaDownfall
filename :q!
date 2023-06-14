@@ -24,7 +24,7 @@ func _state_logic(delta) -> void:
   if state == states.idle:
     parent.scan_target()
   if state == states.patrol:
-    :sarent.scan_target()
+    :arent.scan_target()
     parent.patrol(delta)
   #if state == states.retreat:
   #  parent.scan_target()
