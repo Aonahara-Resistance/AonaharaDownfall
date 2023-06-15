@@ -208,6 +208,7 @@ max_speed = 100
 base_damage = 1
 acceleration = 3
 receives_knockback = true
+patrol_range = 200
 
 [node name="Whiskers@RayCast2D" type="RayCast2D" parent="." index="0"]
 enabled = true

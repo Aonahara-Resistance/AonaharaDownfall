@@ -421,7 +421,12 @@ shape = SubResource( 11 )
 [node name="AttackTimer" parent="." index="10"]
 wait_time = 3.0
 
+[node name="PatrolCooldown" parent="." index="13"]
+wait_time = 5.0
+
+[connection signal="patrol_finished" from="." to="StateMachine" method="_on_GreenSlime_patrol_finished"]
 [connection signal="alerted" from="Alertsignal" to="StateMachine" method="_on_Alertsignal_alerted"]
+[connection signal="timeout" from="PatrolCooldown" to="StateMachine" method="_on_PatrolCooldown_timeout"]
 
 [editable path="Hurtbox"]
 [editable path="Hitbox"]

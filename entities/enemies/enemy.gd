@@ -29,7 +29,7 @@ var spawn_group: String = ""
 var is_pouncing: bool = false setget set_is_pouncing
 var target = self
 var reverse_scan: int = 1
-var spawn_location: Vector2
+var spawn_location: Vector2 = Vector2.ZERO
 var paths: Array = []
 
 export var hp: int
@@ -41,7 +41,7 @@ export var receives_knockback: bool
 export var avoid_force: float = 1000
 
 export var arrival_radius: int = 50
-export var patrol_range: int = 200
+export var patrol_range: int = 50
 export var patrol_cooldown: int = 2
 export var sight_range: int = 100
 export var attack_radius: int = 20
@@ -66,8 +66,6 @@ signal died
 
 func _ready():
 
-  # so that it's not null first value(i'm genius )
-  spawn_location = global_position
   attributes = EnemeyAttributes.new(
     hp, max_hp, max_speed, base_damage, acceleration, avoid_force, receives_knockback
   )
@@ -82,17 +80,31 @@ func _ready():
   #signas
   GameSignal.connect("party_member_changed", self, "_on_party_member_changed")
 
+  spawn_location = global_position
+
 ## -----------------------------------------------------------------------------
 ##                                Movement Stuff
 ## -----------------------------------------------------------------------------
 
 func chase(delta) -> void:
   var direction = global_position.direction_to(nav_agent.get_next_location())
-  var desired_velocipy = direction * 100
+  var desired_velocipy = direction * acceleration
   var steering = (desired_velocipy - velocity) * delta * 4.0
   velocity += steering
   velocity = move_and_slide(velocity)
 
+
+func patrol(delta):
+  var steering: Vector2 = Vector2.ZERO
+
+  steering += arrival_steering() * 60 * delta
+  velocity += steering * 60 * delta
+  velocity = velocity.clamped(get_attribute("max_speed"))
+  velocity = move_and_slide(velocity)
+  if global_position.floor() == target.global_position.floor():
+    emit_signal("patrol_finished")
+    #if wall_detector.is_colliding():
+    #  emit_signal("patrol_finished")
 
 ## TODO: PRobably going have to revamp the whole movement stuff 
 func direction_to_target():
@@ -100,6 +112,14 @@ func direction_to_target():
     return global_position.direction_to(target.hurtbox.global_position)
   else:
     return global_position.direction_to(target.global_position)
+
+func arrival_steering() -> Vector2:
+  var speed: float = (
+    ((global_position - target.global_position).length() / 50)
+    * get_attribute("max_speed")
+  )
+  var desired_velocity: Vector2 = global_position.direction_to(nav_agent.get_next_location()) * speed
+  return desired_velocity - velocity
 
 func scan_target():
   player_detector.rotation += 10
@@ -110,6 +130,22 @@ func scan_target():
         target = collider
         alert_signal.alert()
 
+func generate_patrol_target() -> Dictionary:
+  randomize()
+  if spawn_location != Vector2.ZERO:
+    return {
+      "global_position":
+      Vector2(
+        spawn_location.x + rand_range(patrol_range * -1, patrol_range), spawn_location.y + rand_range(patrol_range * -1, patrol_range)
+      )
+    }
+  else:
+    return {
+      "global_position":
+      Vector2(
+        global_position.x + rand_range(patrol_range * -1, patrol_range), global_position.y + rand_range(patrol_range * -1, patrol_range)
+      )
+    }
 
 ## -----------------------------------------------------------------------------
 ##                                Combat Stuff
@@ -250,10 +286,7 @@ func modifier_tick() -> void:
   }
 
 func _on_PathTimer_timeout():
-  if target is Vector2:
-    nav_agent.set_target_location(target)
-  if target is Character:
-    nav_agent.set_target_location(target.global_position)
+  nav_agent.set_target_location(target.global_position)
 
 func _on_party_member_changed(character):
   if target is Character && target != character:

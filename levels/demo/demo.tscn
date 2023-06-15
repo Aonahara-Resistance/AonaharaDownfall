@@ -1752,92 +1752,114 @@ anims/RESET = SubResource( 42 )
 [node name="Pinthus" parent="Gameplay/YSort" index="11" instance=ExtResource( 14 )]
 position = Vector2( 307, 1025 )
 script = ExtResource( 19 )
+patrol_range = 50
 
 [node name="Pinthus2" parent="Gameplay/YSort" index="12" instance=ExtResource( 14 )]
 position = Vector2( 177, 1113 )
 script = ExtResource( 19 )
+patrol_range = 50
 
 [node name="Pinthus3" parent="Gameplay/YSort" index="13" instance=ExtResource( 14 )]
 position = Vector2( 303, 1204 )
 script = ExtResource( 19 )
+patrol_range = 50
 
 [node name="Pinthus4" parent="Gameplay/YSort" index="14" instance=ExtResource( 14 )]
 position = Vector2( 175, 1301 )
 script = ExtResource( 19 )
+patrol_range = 50
 
 [node name="Pinthus5" parent="Gameplay/YSort" index="15" instance=ExtResource( 14 )]
 position = Vector2( 304, 1374 )
 script = ExtResource( 19 )
+patrol_range = 50
 
 [node name="GreenSlime" parent="Gameplay/YSort" index="16" instance=ExtResource( 13 )]
 position = Vector2( 552, 982 )
 collision_layer = 1
 collision_mask = 1
 script = ExtResource( 19 )
+patrol_range = 50
 
 [node name="GreenSlime2" parent="Gameplay/YSort" index="17" instance=ExtResource( 13 )]
 position = Vector2( 709, 1034 )
 collision_layer = 1
 collision_mask = 1
 script = ExtResource( 19 )
+patrol_range = 50
 
 [node name="GreenSlime3" parent="Gameplay/YSort" index="18" instance=ExtResource( 13 )]
 position = Vector2( 866, 977 )
 collision_layer = 1
 collision_mask = 1
 script = ExtResource( 19 )
+patrol_range = 50
 
 [node name="GreenSlime4" parent="Gameplay/YSort" index="19" instance=ExtResource( 13 )]
 position = Vector2( 674, 967 )
 collision_layer = 1
 collision_mask = 1
 script = ExtResource( 19 )
+patrol_range = 50
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Gameplay/YSort" index="20"]
 position = Vector2( 402, 1730 )
 frames = SubResource( 51 )
 animation = "New Anim"
-frame = 7
+frame = 2
 playing = true
 
 [node name="Dummy" parent="Gameplay/YSort" index="21" instance=ExtResource( 15 )]
 position = Vector2( 158, 1962 )
+patrol_range = 50
 
 [node name="Dummy2" parent="Gameplay/YSort" index="22" instance=ExtResource( 15 )]
 position = Vector2( 207, 1953 )
+patrol_range = 50
 
 [node name="Dummy3" parent="Gameplay/YSort" index="23" instance=ExtResource( 15 )]
 position = Vector2( 224, 1982 )
+patrol_range = 50
 
 [node name="Dummy4" parent="Gameplay/YSort" index="24" instance=ExtResource( 15 )]
 position = Vector2( 182, 2016 )
+patrol_range = 50
 
 [node name="Dummy5" parent="Gameplay/YSort" index="25" instance=ExtResource( 15 )]
 position = Vector2( 175, 1907 )
+patrol_range = 50
 
 [node name="Dummy6" parent="Gameplay/YSort" index="26" instance=ExtResource( 15 )]
 position = Vector2( 257, 1944 )
+patrol_range = 50
 
 [node name="Dummy7" parent="Gameplay/YSort" index="27" instance=ExtResource( 15 )]
 position = Vector2( 241, 2012 )
+patrol_range = 50
 
 [node name="Dummy8" parent="Gameplay/YSort" index="28" instance=ExtResource( 15 )]
 position = Vector2( 276, 2021 )
+patrol_range = 50
 
 [node name="Dummy9" parent="Gameplay/YSort" index="29" instance=ExtResource( 15 )]
 position = Vector2( 309, 1978 )
+patrol_range = 50
 
 [node name="Dummy10" parent="Gameplay/YSort" index="30" instance=ExtResource( 15 )]
 position = Vector2( 249, 1898 )
+patrol_range = 50
 
 [node name="Dummy11" parent="Gameplay/YSort" index="31" instance=ExtResource( 15 )]
 position = Vector2( 209, 1915 )
+patrol_range = 50
 
 [node name="Dummy12" parent="Gameplay/YSort" index="32" instance=ExtResource( 15 )]
 position = Vector2( 140, 2007 )
+patrol_range = 50
 
 [node name="Dummy13" parent="Gameplay/YSort" index="33" instance=ExtResource( 15 )]
 position = Vector2( 235, 2056 )
+patrol_range = 50
 
 [node name="Sprite2" type="Sprite" parent="Gameplay/YSort" index="34"]
 position = Vector2( -46, 1900 )
@@ -2176,6 +2198,9 @@ volume_db = -10.0
 autoplay = true
 
 [node name="CheatPanel" parent="." index="5" instance=ExtResource( 17 )]
+
+[node name="Camera2D" type="Camera2D" parent="." index="6"]
+position = Vector2( 676, 975 )
 
 [connection signal="body_entered" from="Gameplay/Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_entered" from="Gameplay/Area2D2" to="." method="_on_Area2D2_body_entered"]

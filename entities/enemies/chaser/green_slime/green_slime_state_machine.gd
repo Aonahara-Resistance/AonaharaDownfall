@@ -24,7 +24,7 @@ func _state_logic(delta) -> void:
   if state == states.idle:
     parent.scan_target()
   if state == states.patrol:
-    :sarent.scan_target()
+    parent.scan_target()
     parent.patrol(delta)
   #if state == states.retreat:
   #  parent.scan_target()
@@ -36,7 +36,7 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
     states.idle:
       animation_mode.travel("idle")
       parent.get_node("PatrolCooldown").start()
-      #parent.target = parent.generate_patrol_target()
+      parent.target = parent.generate_patrol_target()
     states.patrol:
       animation_mode.travel("move")
     states.chase:
@@ -83,13 +83,6 @@ func _on_PatrolCooldown_timeout():
     states.idle:
       set_state(states.patrol)
 
-func _on_Fromb_patrol_finished():
-  match state:
-    states.patrol:
-      set_state(states.idle)
-    states.retreat:
-      set_state(states.idle)
-
 func _on_Fromb_target_disengaged():
   match state:
     states.chase:
@@ -99,3 +92,12 @@ func _on_Fromb_target_in_range():
   match state:
     states.chase:
       set_state(states.explode)
+
+
+func _on_GreenSlime_patrol_finished():
+  match state:
+    states.patrol:
+      set_state(states.idle)
+    states.retreat:
+      set_state(states.idle)
+
