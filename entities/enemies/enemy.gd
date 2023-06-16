@@ -18,6 +18,7 @@ onready var health_bar: TextureProgress = $Healthbar
 onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 onready var path_timer: Timer = $PathTimer
 onready var player_detector: Node2D = $PlayerDetector
+onready var range_detector: Node2D = $RangeDetector
 
 signal patrol_finished
 signal target_disengaged
@@ -95,6 +96,11 @@ func chase(delta) -> void:
   if (target.global_position - global_position).length() > disengage_radius:
     emit_signal("target_disengaged")
 
+func pounce() -> void:
+  yield(get_tree().create_tween().tween_property(self, "global_position", target.global_position, 0.5).set_trans(Tween.TRANS_CIRC),"finished")
+  emit_signal("patrol_finished")
+
+
 
 func patrol(delta):
   var steering: Vector2 = Vector2.ZERO
@@ -128,6 +134,13 @@ func scan_target():
       if collider.is_in_control == true:
         target = collider
         alert_signal.alert()
+
+func scan_range():
+  range_detector.rotation += 10
+  for detector in range_detector.get_children():
+    var collider = detector.get_collider()
+    if collider is Character:
+      emit_signal("target_in_range")
 
 func generate_patrol_target() -> Dictionary:
   randomize()
@@ -215,11 +228,11 @@ func set_is_pouncing(value):
     attack_timer.start()
   is_pouncing = value
 
-func pounce(delta) -> void:
-  if is_pouncing:
-    velocity = move_and_slide(velocity)
-    velocity += 10 * direction_to_target() * delta * 60
-    velocity = lerp(velocity, Vector2.ZERO, get_attribute("friction"))
+  #func pounce(delta) -> void:
+  #  if is_pouncing:
+  #    velocity = move_and_slide(velocity)
+  #    velocity += 10 * direction_to_target() * delta * 60
+  #    velocity = lerp(velocity, Vector2.ZERO, get_attribute("friction"))
 
 ## -----------------------------------------------------------------------------
 ##                                Sprites

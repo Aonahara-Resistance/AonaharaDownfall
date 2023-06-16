@@ -432,6 +432,7 @@ wait_time = 5.0
 
 [connection signal="patrol_finished" from="." to="StateMachine" method="_on_GreenSlime_patrol_finished"]
 [connection signal="target_disengaged" from="." to="StateMachine" method="_on_GreenSlime_target_disengaged"]
+[connection signal="target_in_range" from="." to="StateMachine" method="_on_GreenSlime_target_in_range"]
 [connection signal="alerted" from="Alertsignal" to="StateMachine" method="_on_Alertsignal_alerted"]
 [connection signal="timeout" from="PatrolCooldown" to="StateMachine" method="_on_PatrolCooldown_timeout"]
 

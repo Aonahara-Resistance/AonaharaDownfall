@@ -98,6 +98,27 @@ collision_mask = 3
 enabled = true
 collision_mask = 3
 
+[node name="RangeDetector" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="RangeDetector"]
+enabled = true
+collision_mask = 2
+
+[node name="RayCast2D2" type="RayCast2D" parent="RangeDetector"]
+rotation = -1.57079
+enabled = true
+collision_mask = 2
+
+[node name="RayCast2D3" type="RayCast2D" parent="RangeDetector"]
+rotation = 3.14159
+enabled = true
+collision_mask = 2
+
+[node name="RayCast2D4" type="RayCast2D" parent="RangeDetector"]
+rotation = 1.57079
+enabled = true
+collision_mask = 2
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
 [connection signal="timeout" from="PathTimer" to="." method="_on_PathTimer_timeout"]

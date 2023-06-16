@@ -24,9 +24,6 @@ func _ready():
   #camera_c.current = true
   #yield(tween.tween_property($Cutscene/ColorRect, "modulate", Color.transparent, 5), "finished")
   #animation_cutscene.play("wake_up")
-
-
-
   
 func _on_AnimationPlayer_animation_finished(anim_name:String):
   if anim_name == "wake_up":

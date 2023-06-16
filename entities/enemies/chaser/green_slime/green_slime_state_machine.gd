@@ -20,6 +20,7 @@ func _state_logic(delta) -> void:
   animation_tree.set("parameters/die/blend_position", parent.direction_to_target().x)
   parent.listen_knockback(delta)
   if state == states.chase:
+    parent.scan_range()
     parent.chase(delta)
   if state == states.idle:
     parent.scan_target()
@@ -46,6 +47,7 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
       animation_mode.travel("move")
     states.attack:
       animation_mode.travel("attack")
+      parent.pounce()
     states.die:
       animation_mode.travel("die")
 
@@ -84,11 +86,6 @@ func _on_PatrolCooldown_timeout():
       set_state(states.patrol)
 
 
-func _on_Fromb_target_in_range():
-  match state:
-    states.chase:
-      set_state(states.explode)
-
 
 func _on_GreenSlime_patrol_finished():
   match state:
@@ -96,11 +93,18 @@ func _on_GreenSlime_patrol_finished():
       set_state(states.idle)
     states.retreat:
       set_state(states.idle)
-
-
+    states.attack:
+      set_state(states.chase)
 
 func _on_GreenSlime_target_disengaged():
   match state:
     states.chase:
       set_state(states.retreat)
+
+
+
+func _on_GreenSlime_target_in_range():
+  match state:
+    states.chase:
+      set_state(states.attack)
 

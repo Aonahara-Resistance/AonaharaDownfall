@@ -11,7 +11,7 @@ func _process(_delta):
   # var new_offset = current_offset.linear_interpolate(camera_target_offset, camera_speed * delta)
   # camera2D.offset = new_offset
   if !Party.is_party_empty():
-    camera2D.current = false
+    camera2D.current = true
     global_position = Party.current_character().global_position
   else:
     camera2D.current = false
