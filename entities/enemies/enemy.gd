@@ -92,6 +92,8 @@ func chase(delta) -> void:
   var steering = (desired_velocipy - velocity) * delta * 4.0
   velocity += steering
   velocity = move_and_slide(velocity)
+  if (target.global_position - global_position).length() > disengage_radius:
+    emit_signal("target_disengaged")
 
 
 func patrol(delta):
@@ -103,10 +105,7 @@ func patrol(delta):
   velocity = move_and_slide(velocity)
   if global_position.floor() == target.global_position.floor():
     emit_signal("patrol_finished")
-    #if wall_detector.is_colliding():
-    #  emit_signal("patrol_finished")
 
-## TODO: PRobably going have to revamp the whole movement stuff 
 func direction_to_target():
   if target is Character:
     return global_position.direction_to(target.hurtbox.global_position)

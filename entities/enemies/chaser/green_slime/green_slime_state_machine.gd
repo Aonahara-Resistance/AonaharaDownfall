@@ -26,9 +26,9 @@ func _state_logic(delta) -> void:
   if state == states.patrol:
     parent.scan_target()
     parent.patrol(delta)
-  #if state == states.retreat:
-  #  parent.scan_target()
-  #  parent.retreat(delta)
+  if state == states.retreat:
+    parent.scan_target()
+    parent.patrol(delta)
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
   ._enter_state(_previous_state, new_state)
@@ -83,10 +83,6 @@ func _on_PatrolCooldown_timeout():
     states.idle:
       set_state(states.patrol)
 
-func _on_Fromb_target_disengaged():
-  match state:
-    states.chase:
-      set_state(states.retreat)
 
 func _on_Fromb_target_in_range():
   match state:
@@ -100,4 +96,11 @@ func _on_GreenSlime_patrol_finished():
       set_state(states.idle)
     states.retreat:
       set_state(states.idle)
+
+
+
+func _on_GreenSlime_target_disengaged():
+  match state:
+    states.chase:
+      set_state(states.retreat)
 

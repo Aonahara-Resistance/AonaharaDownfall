@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://entities/enemies/enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/enemies/chaser/green_slime/green_slime_spritesheet.png" type="Texture" id=2]
@@ -369,6 +369,9 @@ graph_offset = Vector2( 16, 108 )
 [sub_resource type="CircleShape2D" id=11]
 radius = 9.0
 
+[sub_resource type="CircleShape2D" id=36]
+radius = 61.131
+
 [node name="GreenSlime" instance=ExtResource( 1 )]
 hp = 100
 max_hp = 100
@@ -418,6 +421,9 @@ shape = SubResource( 12 )
 position = Vector2( 0, 3 )
 shape = SubResource( 11 )
 
+[node name="CollisionShape2D" parent="Alertsignal" index="0"]
+shape = SubResource( 36 )
+
 [node name="AttackTimer" parent="." index="10"]
 wait_time = 3.0
 
@@ -425,8 +431,10 @@ wait_time = 3.0
 wait_time = 5.0
 
 [connection signal="patrol_finished" from="." to="StateMachine" method="_on_GreenSlime_patrol_finished"]
+[connection signal="target_disengaged" from="." to="StateMachine" method="_on_GreenSlime_target_disengaged"]
 [connection signal="alerted" from="Alertsignal" to="StateMachine" method="_on_Alertsignal_alerted"]
 [connection signal="timeout" from="PatrolCooldown" to="StateMachine" method="_on_PatrolCooldown_timeout"]
 
 [editable path="Hurtbox"]
 [editable path="Hitbox"]
+[editable path="Alertsignal"]
