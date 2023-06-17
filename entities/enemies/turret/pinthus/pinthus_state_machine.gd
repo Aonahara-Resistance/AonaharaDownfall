@@ -56,6 +56,7 @@ func _on_host_died():
 
 
 func _on_Pinthus_target_disengaged():
+  print("huh")
   match state:
     states.shoot:
       parent.attack_timer.stop()
@@ -65,7 +66,6 @@ func _on_Pinthus_target_disengaged():
       set_state(states.idle)
 
 func _on_Pinthus_target_in_range():
-  print("huh")
   match state:
     states.aiming:
       set_state(states.shoot)

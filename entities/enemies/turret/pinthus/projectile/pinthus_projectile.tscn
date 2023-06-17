@@ -24,6 +24,10 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource( 1 )
 
+[node name="Lifetime" parent="." index="4"]
+wait_time = 30.0
+one_shot = true
+
 [node name="SingleTargetHitbox" parent="." index="5"]
 collision_layer = 16
 collision_mask = 2

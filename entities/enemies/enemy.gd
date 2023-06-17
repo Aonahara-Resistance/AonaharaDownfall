@@ -98,6 +98,7 @@ func chase(delta) -> void:
   velocity += steering
   velocity = move_and_slide(velocity)
   if (target.global_position - global_position).length() > disengage_radius:
+    print("huh")
     emit_signal("target_disengaged")
 
 func pounce() -> void:
@@ -147,6 +148,8 @@ func scan_range():
     var collider = detector.get_collider()
     if collider is Character:
       emit_signal("target_in_range")
+  if (target.global_position - global_position).length() > disengage_radius:
+    emit_signal("target_disengaged")
 
 func generate_patrol_target() -> Dictionary:
   randomize()
