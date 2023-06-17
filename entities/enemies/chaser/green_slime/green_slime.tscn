@@ -379,20 +379,23 @@ max_speed = 100
 base_damage = 1
 acceleration = 80
 
-[node name="StateMachine" parent="." index="0"]
+[node name="ShadowSprite" parent="." index="0"]
+position = Vector2( 0, 7 )
+scale = Vector2( 1.04, 0.52 )
+
+[node name="StateMachine" parent="." index="1"]
 script = ExtResource( 3 )
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="3"]
 texture = ExtResource( 2 )
 hframes = 5
 vframes = 4
 
-[node name="CollisionShape2D" parent="." index="4"]
+[node name="CollisionShape2D" parent="." index="5"]
 position = Vector2( 0, 3 )
 shape = SubResource( 9 )
-disabled = true
 
-[node name="AnimationPlayer" parent="." index="5"]
+[node name="AnimationPlayer" parent="." index="6"]
 anims/RESET = SubResource( 1 )
 anims/attack_left = SubResource( 6 )
 anims/attack_right = SubResource( 4 )
@@ -403,7 +406,7 @@ anims/idle_right = SubResource( 2 )
 anims/move_left = SubResource( 10 )
 anims/move_right = SubResource( 5 )
 
-[node name="AnimationTree" parent="." index="6"]
+[node name="AnimationTree" parent="." index="7"]
 tree_root = SubResource( 34 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
@@ -424,12 +427,16 @@ shape = SubResource( 11 )
 [node name="CollisionShape2D" parent="Alertsignal" index="0"]
 shape = SubResource( 36 )
 
-[node name="AttackTimer" parent="." index="10"]
+[node name="AttackTimer" parent="." index="11"]
 wait_time = 3.0
 
-[node name="PatrolCooldown" parent="." index="13"]
+[node name="StateLabel" parent="." index="13"]
+visible = false
+
+[node name="PatrolCooldown" parent="." index="14"]
 wait_time = 5.0
 
+[connection signal="attack_finished" from="." to="StateMachine" method="_on_GreenSlime_attack_finished"]
 [connection signal="patrol_finished" from="." to="StateMachine" method="_on_GreenSlime_patrol_finished"]
 [connection signal="target_disengaged" from="." to="StateMachine" method="_on_GreenSlime_target_disengaged"]
 [connection signal="target_in_range" from="." to="StateMachine" method="_on_GreenSlime_target_in_range"]

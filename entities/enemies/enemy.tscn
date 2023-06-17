@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://common/collisions/hitbox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://common/collisions/hurtbox.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://common/collisions/alert_signal.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ui/enemy/health.png" type="Texture" id=7]
 [ext_resource path="res://ui/enemy/health_empty.png" type="Texture" id=8]
+[ext_resource path="res://assets/characters/shadow.png" type="Texture" id=9]
 
 [sub_resource type="AnimationRootNode" id=1]
 
@@ -16,6 +17,11 @@ z_index = 1
 collision_layer = 4
 collision_mask = 5
 script = ExtResource( 3 )
+
+[node name="ShadowSprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.172549 )
+position = Vector2( 0, 5 )
+texture = ExtResource( 9 )
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 5 )
@@ -102,22 +108,22 @@ collision_mask = 3
 
 [node name="RayCast2D" type="RayCast2D" parent="RangeDetector"]
 enabled = true
-collision_mask = 2
+collision_mask = 3
 
 [node name="RayCast2D2" type="RayCast2D" parent="RangeDetector"]
 rotation = -1.57079
 enabled = true
-collision_mask = 2
+collision_mask = 3
 
 [node name="RayCast2D3" type="RayCast2D" parent="RangeDetector"]
 rotation = 3.14159
 enabled = true
-collision_mask = 2
+collision_mask = 3
 
 [node name="RayCast2D4" type="RayCast2D" parent="RangeDetector"]
 rotation = 1.57079
 enabled = true
-collision_mask = 2
+collision_mask = 3
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

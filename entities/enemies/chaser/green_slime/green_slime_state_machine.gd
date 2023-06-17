@@ -46,6 +46,7 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
       parent.target = parent.generate_patrol_target()
       animation_mode.travel("move")
     states.attack:
+      parent.attack_timer.start()
       animation_mode.travel("attack")
       parent.pounce()
     states.die:
@@ -71,7 +72,6 @@ func _on_host_died():
   set_state(states.die)
 
 func _on_Alertsignal_alerted():
-  print("pog")
   match state:
     states.idle:
       set_state(states.chase)
@@ -86,25 +86,27 @@ func _on_PatrolCooldown_timeout():
       set_state(states.patrol)
 
 
-
 func _on_GreenSlime_patrol_finished():
   match state:
     states.patrol:
       set_state(states.idle)
     states.retreat:
       set_state(states.idle)
-    states.attack:
-      set_state(states.chase)
 
 func _on_GreenSlime_target_disengaged():
   match state:
     states.chase:
       set_state(states.retreat)
 
-
-
 func _on_GreenSlime_target_in_range():
   match state:
     states.chase:
-      set_state(states.attack)
+      if parent.attack_timer.is_stopped():
+        set_state(states.attack)
+
+
+func _on_GreenSlime_attack_finished():
+  match state:
+    states.attack:
+      set_state(states.chase)
 

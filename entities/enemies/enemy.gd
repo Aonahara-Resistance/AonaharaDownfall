@@ -23,6 +23,7 @@ onready var range_detector: Node2D = $RangeDetector
 signal patrol_finished
 signal target_disengaged
 signal target_in_range
+signal attack_finished
 var velocity: Vector2 = Vector2.ZERO
 var choosen_direction: Vector2 = Vector2.ZERO
 var knockback: Vector2 = Vector2.ZERO
@@ -83,6 +84,9 @@ func _ready():
 
   spawn_location = global_position
 
+  for detector in range_detector.get_children():
+    detector.cast_to.x = attack_radius
+
 ## -----------------------------------------------------------------------------
 ##                                Movement Stuff
 ## -----------------------------------------------------------------------------
@@ -97,9 +101,11 @@ func chase(delta) -> void:
     emit_signal("target_disengaged")
 
 func pounce() -> void:
-  yield(get_tree().create_tween().tween_property(self, "global_position", target.global_position, 0.5).set_trans(Tween.TRANS_CIRC),"finished")
-  emit_signal("patrol_finished")
+  yield(get_tree().create_tween().tween_method(self, "set_position", global_position,  target.global_position + Vector2(30,30) * velocity.normalized(), 0.5).set_trans(Tween.TRANS_CIRC),"finished")
+  emit_signal("attack_finished")
 
+func set_position(new_position: Vector2):
+  move_and_collide(new_position - global_position)
 
 
 func patrol(delta):
@@ -228,12 +234,6 @@ func set_is_pouncing(value):
     attack_timer.start()
   is_pouncing = value
 
-  #func pounce(delta) -> void:
-  #  if is_pouncing:
-  #    velocity = move_and_slide(velocity)
-  #    velocity += 10 * direction_to_target() * delta * 60
-  #    velocity = lerp(velocity, Vector2.ZERO, get_attribute("friction"))
-
 ## -----------------------------------------------------------------------------
 ##                                Sprites
 ## -----------------------------------------------------------------------------
@@ -303,3 +303,4 @@ func _on_PathTimer_timeout():
 func _on_party_member_changed(character):
   if target is Character && target != character:
     target = character
+
