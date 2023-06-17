@@ -221,13 +221,22 @@ func remove_from_spawn_group():
   if spawn_group != "":
     remove_from_group(spawn_group)
 
-func shoot_projectile() -> void:
-  var active_projectile = projectile.instance()
-  get_tree().current_scene.add_child(active_projectile)
-  active_projectile.direction = direction_to_target()
-  active_projectile.global_position = self.global_position
-  active_projectile.launch_at_player(target)
-  attack_timer.start()
+func shoot_projectile(projectile_count: int, circle_size: float) -> void:
+  var angle_midpoint = atan2(target.global_position.y - global_position.y, target.global_position.x - global_position.x)
+  var start_angle = angle_midpoint - PI * circle_size
+  var end_angle = angle_midpoint + PI * circle_size
+  for i in range(projectile_count):
+      var final_count = projectile_count
+      if projectile_count == 1:
+        final_count = 2
+      var projectile_instance = projectile.instance()
+      var angle = lerp(start_angle, end_angle, float(i) / float(final_count - 1))
+      var direction = Vector2(cos(angle), sin(angle)) 
+      
+      projectile_instance.global_position = global_position
+      projectile_instance.target = target
+      projectile_instance.direction = direction
+      get_tree().current_scene.add_child(projectile_instance)
 
 func set_is_pouncing(value):
   if value == false:
@@ -303,4 +312,3 @@ func _on_PathTimer_timeout():
 func _on_party_member_changed(character):
   if target is Character && target != character:
     target = character
-

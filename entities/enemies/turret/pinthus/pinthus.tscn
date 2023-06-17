@@ -186,7 +186,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0.1 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [ 5, "fan" ],
+"args": [ 3, 0.15 ],
 "method": "shoot_projectile"
 } ]
 }
@@ -228,7 +228,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0.1 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [ 5, "fan" ],
+"args": [ 3, 0.15 ],
 "method": "shoot_projectile"
 } ]
 }
@@ -351,7 +351,7 @@ shape = SubResource( 6 )
 shape = SubResource( 26 )
 
 [node name="AttackTimer" parent="." index="11"]
-wait_time = 2.0
+wait_time = 3.0
 one_shot = false
 
 [connection signal="target_disengaged" from="." to="StateMachine" method="_on_Pinthus_target_disengaged"]

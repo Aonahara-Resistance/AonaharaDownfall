@@ -1797,7 +1797,6 @@ script = ExtResource( 19 )
 position = Vector2( 402, 1730 )
 frames = SubResource( 51 )
 animation = "New Anim"
-frame = 2
 playing = true
 
 [node name="Dummy" parent="Gameplay/YSort" index="21" instance=ExtResource( 15 )]

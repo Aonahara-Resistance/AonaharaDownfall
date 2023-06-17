@@ -109,4 +109,3 @@ func _on_GreenSlime_attack_finished():
   match state:
     states.attack:
       set_state(states.chase)
-

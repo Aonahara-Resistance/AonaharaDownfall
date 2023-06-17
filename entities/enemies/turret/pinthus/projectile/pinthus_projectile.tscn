@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://objects/projectiles/single_target/single_target.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/enemies/turret/pinthus/pinthus_projectile_sheet.png" type="Texture" id=2]
+[ext_resource path="res://assets/place_holders/light.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 3.16228
@@ -15,6 +16,7 @@ scale = Vector2( 2, 2 )
 collision_layer = 16
 collision_mask = 2
 speed = 100
+homing = true
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )
@@ -28,5 +30,11 @@ collision_mask = 2
 
 [node name="CollisionShape2D" parent="SingleTargetHitbox" index="0"]
 shape = SubResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="." index="6"]
+scale = Vector2( 0.225837, 0.225837 )
+texture = ExtResource( 3 )
+color = Color( 0.94902, 0.784314, 0.4, 1 )
+energy = 0.3
 
 [editable path="SingleTargetHitbox"]
