@@ -1657,7 +1657,12 @@ cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 29, 3, 0, 30, 5, 0, 31, 4, 0, 131086, 0, 0, 196621, 1, 0, 196622, 2, 0, 196623, 3, 0 )
 
-[node name="MovementLabel" type="Label" parent="Gameplay/YSort" index="0"]
+[node name="Camera2D" type="Camera2D" parent="Gameplay/YSort" index="0"]
+position = Vector2( 714, 946 )
+current = true
+zoom = Vector2( 2, 2 )
+
+[node name="MovementLabel" type="Label" parent="Gameplay/YSort" index="1"]
 margin_left = 337.0
 margin_top = 15.0
 margin_right = 410.0
@@ -1665,7 +1670,7 @@ margin_bottom = 22.0
 text = "Yep that's how you move"
 percent_visible = 0.0
 
-[node name="Tag" type="Label" parent="Gameplay/YSort" index="1"]
+[node name="Tag" type="Label" parent="Gameplay/YSort" index="2"]
 margin_left = 682.0
 margin_top = 913.0
 margin_right = 755.0
@@ -1674,7 +1679,7 @@ text = "Basic Combat
 
 Green Sline"
 
-[node name="Tag2" type="Label" parent="Gameplay/YSort" index="2"]
+[node name="Tag2" type="Label" parent="Gameplay/YSort" index="3"]
 margin_left = 205.0
 margin_top = 1018.0
 margin_right = 278.0
@@ -1684,14 +1689,14 @@ Projectile attack
 
 Pinthus"
 
-[node name="Tag3" type="Label" parent="Gameplay/YSort" index="3"]
+[node name="Tag3" type="Label" parent="Gameplay/YSort" index="4"]
 margin_left = 278.0
 margin_top = 1493.0
 margin_right = 351.0
 margin_bottom = 1530.0
 text = "Conbumable tutorial"
 
-[node name="Tag4" type="Label" parent="Gameplay/YSort" index="4"]
+[node name="Tag4" type="Label" parent="Gameplay/YSort" index="5"]
 margin_left = 406.0
 margin_top = 1687.0
 margin_right = 479.0
@@ -1699,28 +1704,28 @@ margin_bottom = 1724.0
 text = "Meet Emu
 add to paty"
 
-[node name="Tag5" type="Label" parent="Gameplay/YSort" index="5"]
+[node name="Tag5" type="Label" parent="Gameplay/YSort" index="6"]
 margin_left = 287.0
 margin_top = 1888.0
 margin_right = 360.0
 margin_bottom = 1925.0
 text = "Emu testing ground"
 
-[node name="Tag7" type="Label" parent="Gameplay/YSort" index="6"]
+[node name="Tag7" type="Label" parent="Gameplay/YSort" index="7"]
 margin_left = 287.0
 margin_top = 1888.0
 margin_right = 360.0
 margin_bottom = 1925.0
 text = "Emu testing ground"
 
-[node name="Tag8" type="Label" parent="Gameplay/YSort" index="7"]
+[node name="Tag8" type="Label" parent="Gameplay/YSort" index="8"]
 margin_left = 980.0
 margin_top = 2029.0
 margin_right = 1053.0
 margin_bottom = 2066.0
 text = "Boss room"
 
-[node name="Tag6" type="Label" parent="Gameplay/YSort" index="8"]
+[node name="Tag6" type="Label" parent="Gameplay/YSort" index="9"]
 margin_left = -24.0
 margin_top = 1891.0
 margin_right = 49.0
@@ -1728,7 +1733,7 @@ margin_bottom = 1928.0
 text = "Leveling at shrine
 tutorial"
 
-[node name="DashLabel" type="Label" parent="Gameplay/YSort" index="9"]
+[node name="DashLabel" type="Label" parent="Gameplay/YSort" index="10"]
 margin_left = 640.0
 margin_top = 3.0
 margin_right = 819.0
@@ -1738,7 +1743,7 @@ It also give i-frames
 which you will need soon"
 percent_visible = 0.0
 
-[node name="Sprite" type="Sprite" parent="Gameplay/YSort" index="10"]
+[node name="Sprite" type="Sprite" parent="Gameplay/YSort" index="11"]
 position = Vector2( 315, 1530 )
 rotation = -1.57079
 scale = Vector2( 2.19097, 1.82874 )
@@ -1749,132 +1754,132 @@ autoplay = "New Anim"
 "anims/New Anim" = SubResource( 41 )
 anims/RESET = SubResource( 42 )
 
-[node name="Pinthus" parent="Gameplay/YSort" index="11" instance=ExtResource( 14 )]
+[node name="Pinthus" parent="Gameplay/YSort" index="12" instance=ExtResource( 14 )]
 position = Vector2( 307, 1025 )
 script = ExtResource( 19 )
 
-[node name="Pinthus2" parent="Gameplay/YSort" index="12" instance=ExtResource( 14 )]
+[node name="Pinthus2" parent="Gameplay/YSort" index="13" instance=ExtResource( 14 )]
 position = Vector2( 177, 1113 )
 script = ExtResource( 19 )
 
-[node name="Pinthus3" parent="Gameplay/YSort" index="13" instance=ExtResource( 14 )]
+[node name="Pinthus3" parent="Gameplay/YSort" index="14" instance=ExtResource( 14 )]
 position = Vector2( 303, 1204 )
 script = ExtResource( 19 )
 
-[node name="Pinthus4" parent="Gameplay/YSort" index="14" instance=ExtResource( 14 )]
+[node name="Pinthus4" parent="Gameplay/YSort" index="15" instance=ExtResource( 14 )]
 position = Vector2( 175, 1301 )
 script = ExtResource( 19 )
 
-[node name="Pinthus5" parent="Gameplay/YSort" index="15" instance=ExtResource( 14 )]
+[node name="Pinthus5" parent="Gameplay/YSort" index="16" instance=ExtResource( 14 )]
 position = Vector2( 304, 1374 )
 script = ExtResource( 19 )
 
-[node name="GreenSlime" parent="Gameplay/YSort" index="16" instance=ExtResource( 13 )]
+[node name="GreenSlime" parent="Gameplay/YSort" index="17" instance=ExtResource( 13 )]
 position = Vector2( 552, 982 )
 collision_layer = 1
 collision_mask = 1
 script = ExtResource( 19 )
 
-[node name="GreenSlime2" parent="Gameplay/YSort" index="17" instance=ExtResource( 13 )]
+[node name="GreenSlime2" parent="Gameplay/YSort" index="18" instance=ExtResource( 13 )]
 position = Vector2( 709, 1034 )
 collision_layer = 1
 collision_mask = 1
 script = ExtResource( 19 )
 
-[node name="GreenSlime3" parent="Gameplay/YSort" index="18" instance=ExtResource( 13 )]
+[node name="GreenSlime3" parent="Gameplay/YSort" index="19" instance=ExtResource( 13 )]
 position = Vector2( 866, 977 )
 collision_layer = 1
 collision_mask = 1
 script = ExtResource( 19 )
 
-[node name="GreenSlime4" parent="Gameplay/YSort" index="19" instance=ExtResource( 13 )]
+[node name="GreenSlime4" parent="Gameplay/YSort" index="20" instance=ExtResource( 13 )]
 position = Vector2( 674, 967 )
 collision_layer = 1
 collision_mask = 1
 script = ExtResource( 19 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Gameplay/YSort" index="20"]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Gameplay/YSort" index="21"]
 position = Vector2( 402, 1730 )
 frames = SubResource( 51 )
 animation = "New Anim"
-frame = 3
+frame = 4
 playing = true
 
-[node name="Dummy" parent="Gameplay/YSort" index="21" instance=ExtResource( 15 )]
+[node name="Dummy" parent="Gameplay/YSort" index="22" instance=ExtResource( 15 )]
 position = Vector2( 158, 1962 )
 
-[node name="Dummy2" parent="Gameplay/YSort" index="22" instance=ExtResource( 15 )]
+[node name="Dummy2" parent="Gameplay/YSort" index="23" instance=ExtResource( 15 )]
 position = Vector2( 207, 1953 )
 
-[node name="Dummy3" parent="Gameplay/YSort" index="23" instance=ExtResource( 15 )]
+[node name="Dummy3" parent="Gameplay/YSort" index="24" instance=ExtResource( 15 )]
 position = Vector2( 224, 1982 )
 
-[node name="Dummy4" parent="Gameplay/YSort" index="24" instance=ExtResource( 15 )]
+[node name="Dummy4" parent="Gameplay/YSort" index="25" instance=ExtResource( 15 )]
 position = Vector2( 182, 2016 )
 
-[node name="Dummy5" parent="Gameplay/YSort" index="25" instance=ExtResource( 15 )]
+[node name="Dummy5" parent="Gameplay/YSort" index="26" instance=ExtResource( 15 )]
 position = Vector2( 175, 1907 )
 
-[node name="Dummy6" parent="Gameplay/YSort" index="26" instance=ExtResource( 15 )]
+[node name="Dummy6" parent="Gameplay/YSort" index="27" instance=ExtResource( 15 )]
 position = Vector2( 257, 1944 )
 
-[node name="Dummy7" parent="Gameplay/YSort" index="27" instance=ExtResource( 15 )]
+[node name="Dummy7" parent="Gameplay/YSort" index="28" instance=ExtResource( 15 )]
 position = Vector2( 241, 2012 )
 
-[node name="Dummy8" parent="Gameplay/YSort" index="28" instance=ExtResource( 15 )]
+[node name="Dummy8" parent="Gameplay/YSort" index="29" instance=ExtResource( 15 )]
 position = Vector2( 276, 2021 )
 
-[node name="Dummy9" parent="Gameplay/YSort" index="29" instance=ExtResource( 15 )]
+[node name="Dummy9" parent="Gameplay/YSort" index="30" instance=ExtResource( 15 )]
 position = Vector2( 309, 1978 )
 
-[node name="Dummy10" parent="Gameplay/YSort" index="30" instance=ExtResource( 15 )]
+[node name="Dummy10" parent="Gameplay/YSort" index="31" instance=ExtResource( 15 )]
 position = Vector2( 249, 1898 )
 
-[node name="Dummy11" parent="Gameplay/YSort" index="31" instance=ExtResource( 15 )]
+[node name="Dummy11" parent="Gameplay/YSort" index="32" instance=ExtResource( 15 )]
 position = Vector2( 209, 1915 )
 
-[node name="Dummy12" parent="Gameplay/YSort" index="32" instance=ExtResource( 15 )]
+[node name="Dummy12" parent="Gameplay/YSort" index="33" instance=ExtResource( 15 )]
 position = Vector2( 140, 2007 )
 
-[node name="Dummy13" parent="Gameplay/YSort" index="33" instance=ExtResource( 15 )]
+[node name="Dummy13" parent="Gameplay/YSort" index="34" instance=ExtResource( 15 )]
 position = Vector2( 235, 2056 )
 
-[node name="Sprite2" type="Sprite" parent="Gameplay/YSort" index="34"]
+[node name="Sprite2" type="Sprite" parent="Gameplay/YSort" index="35"]
 position = Vector2( -46, 1900 )
 scale = Vector2( 0.0798122, 0.0798122 )
 texture = ExtResource( 16 )
 
-[node name="DestructibleLuggage" parent="Gameplay/YSort" index="35" instance=ExtResource( 18 )]
+[node name="DestructibleLuggage" parent="Gameplay/YSort" index="36" instance=ExtResource( 18 )]
 position = Vector2( 261, 66 )
 
-[node name="DestructibleLuggage2" parent="Gameplay/YSort" index="36" instance=ExtResource( 18 )]
+[node name="DestructibleLuggage2" parent="Gameplay/YSort" index="37" instance=ExtResource( 18 )]
 position = Vector2( 233, 105 )
 
-[node name="DestructibleLuggage3" parent="Gameplay/YSort" index="37" instance=ExtResource( 18 )]
+[node name="DestructibleLuggage3" parent="Gameplay/YSort" index="38" instance=ExtResource( 18 )]
 position = Vector2( 171, 51 )
 
-[node name="DestructibleLuggage4" parent="Gameplay/YSort" index="38" instance=ExtResource( 18 )]
+[node name="DestructibleLuggage4" parent="Gameplay/YSort" index="39" instance=ExtResource( 18 )]
 position = Vector2( 74, 55 )
 
-[node name="DestructibleLuggage5" parent="Gameplay/YSort" index="39" instance=ExtResource( 18 )]
+[node name="DestructibleLuggage5" parent="Gameplay/YSort" index="40" instance=ExtResource( 18 )]
 position = Vector2( 262, 34 )
 
-[node name="DestructibleLuggage6" parent="Gameplay/YSort" index="40" instance=ExtResource( 18 )]
+[node name="DestructibleLuggage6" parent="Gameplay/YSort" index="41" instance=ExtResource( 18 )]
 position = Vector2( 418, 55 )
 
-[node name="DestructibleLuggage7" parent="Gameplay/YSort" index="41" instance=ExtResource( 18 )]
+[node name="DestructibleLuggage7" parent="Gameplay/YSort" index="42" instance=ExtResource( 18 )]
 position = Vector2( 462, 32 )
 
-[node name="DestructibleLuggage8" parent="Gameplay/YSort" index="42" instance=ExtResource( 18 )]
+[node name="DestructibleLuggage8" parent="Gameplay/YSort" index="43" instance=ExtResource( 18 )]
 position = Vector2( 666, 22 )
 
-[node name="DestructibleLuggage9" parent="Gameplay/YSort" index="43" instance=ExtResource( 18 )]
+[node name="DestructibleLuggage9" parent="Gameplay/YSort" index="44" instance=ExtResource( 18 )]
 position = Vector2( 726, 137 )
 
-[node name="DestructibleLuggage10" parent="Gameplay/YSort" index="44" instance=ExtResource( 18 )]
+[node name="DestructibleLuggage10" parent="Gameplay/YSort" index="45" instance=ExtResource( 18 )]
 position = Vector2( 724, 264 )
 
-[node name="DestructibleLuggage11" parent="Gameplay/YSort" index="45" instance=ExtResource( 18 )]
+[node name="DestructibleLuggage11" parent="Gameplay/YSort" index="46" instance=ExtResource( 18 )]
 position = Vector2( 724, 264 )
 
 [node name="Spawn" parent="Gameplay" index="6"]
@@ -2173,9 +2178,6 @@ volume_db = -10.0
 autoplay = true
 
 [node name="CheatPanel" parent="." index="5" instance=ExtResource( 17 )]
-
-[node name="Camera2D" type="Camera2D" parent="." index="6"]
-position = Vector2( 676, 975 )
 
 [connection signal="body_entered" from="Gameplay/Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_entered" from="Gameplay/Area2D2" to="." method="_on_Area2D2_body_entered"]

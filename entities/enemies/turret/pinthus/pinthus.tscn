@@ -309,6 +309,10 @@ max_hp = 100
 base_damage = 1
 attack_radius = 200
 
+[node name="ShadowSprite" parent="." index="0"]
+position = Vector2( 0, 10 )
+scale = Vector2( 0.734675, 0.414453 )
+
 [node name="StateMachine" parent="." index="1"]
 script = ExtResource( 3 )
 
@@ -352,8 +356,8 @@ shape = SubResource( 26 )
 
 [node name="AttackTimer" parent="." index="11"]
 wait_time = 3.0
-one_shot = false
 
+[connection signal="attack_finished" from="." to="StateMachine" method="_on_Pinthus_attack_finished"]
 [connection signal="target_disengaged" from="." to="StateMachine" method="_on_Pinthus_target_disengaged"]
 [connection signal="target_in_range" from="." to="StateMachine" method="_on_Pinthus_target_in_range"]
 [connection signal="alerted" from="Alertsignal" to="StateMachine" method="_on_Alertsignal_alerted"]

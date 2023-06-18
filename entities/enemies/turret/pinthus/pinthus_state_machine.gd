@@ -36,10 +36,12 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
       animation_mode.travel("idle")
     states.shoot:
       parent.attack_timer.start()
+      animation_mode.travel("shoot")
     states.die:
       animation_mode.travel("die")
       yield(get_tree().create_timer(0.6),"timeout")
       parent.spawn_death_effect()
+      parent.queue_free()
 
 func _get_transition() -> int:
   match state:
@@ -56,7 +58,6 @@ func _on_host_died():
 
 
 func _on_Pinthus_target_disengaged():
-  print("huh")
   match state:
     states.shoot:
       parent.attack_timer.stop()
@@ -68,12 +69,16 @@ func _on_Pinthus_target_disengaged():
 func _on_Pinthus_target_in_range():
   match state:
     states.aiming:
-      set_state(states.shoot)
+      if parent.attack_timer.is_stopped():
+        set_state(states.shoot)
     
 func _on_Alertsignal_alerted():
   match state:
     states.idle:
       set_state(states.aiming)
 
-func _on_AttackTimer_timeout():
-  animation_mode.travel("shoot")
+
+func _on_Pinthus_attack_finished():
+  match state:
+    states.shoot:
+      set_state(states.aiming)

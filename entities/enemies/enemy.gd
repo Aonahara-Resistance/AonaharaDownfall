@@ -19,6 +19,7 @@ onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 onready var path_timer: Timer = $PathTimer
 onready var player_detector: Node2D = $PlayerDetector
 onready var range_detector: Node2D = $RangeDetector
+onready var hurt_audio: AudioStreamPlayer2D = $Hurt
 
 signal patrol_finished
 signal target_disengaged
@@ -42,7 +43,6 @@ export var acceleration: int
 export var receives_knockback: bool
 export var avoid_force: float = 1000
 
-export var arrival_radius: int = 50
 export var patrol_range: int = 50
 export var patrol_cooldown: int = 2
 export var sight_range: int = 100
@@ -87,6 +87,9 @@ func _ready():
   for detector in range_detector.get_children():
     detector.cast_to.x = attack_radius
 
+  for sight in player_detector.get_children():
+    sight.cast_to.x = sight_range
+
 ## -----------------------------------------------------------------------------
 ##                                Movement Stuff
 ## -----------------------------------------------------------------------------
@@ -102,7 +105,7 @@ func chase(delta) -> void:
     emit_signal("target_disengaged")
 
 func pounce() -> void:
-  yield(get_tree().create_tween().tween_method(self, "set_position", global_position,  target.global_position + Vector2(30,30) * velocity.normalized(), 0.5).set_trans(Tween.TRANS_CIRC),"finished")
+  yield(get_tree().create_tween().tween_method(self, "set_position", global_position,  target.global_position + Vector2(50,50) * velocity.normalized(), 0.5).set_trans(Tween.TRANS_CIRC),"finished")
   emit_signal("attack_finished")
 
 func set_position(new_position: Vector2):
@@ -205,6 +208,7 @@ func _on_Hurtbox_area_entered(hitbox) -> void:
         hitbox.die()
 
 func _take_damage(damage: int) -> void:
+  hurt_audio.play()
   set_attribute("hp", get_attribute("hp") - damage)
   health_bar.value = get_attribute("hp")
   if get_attribute("hp") < get_attribute("max_hp"):
@@ -240,6 +244,7 @@ func shoot_projectile(projectile_count: int, circle_size: float) -> void:
       projectile_instance.target = target
       projectile_instance.direction = direction
       get_tree().current_scene.add_child(projectile_instance)
+  emit_signal("attack_finished")
 
 func set_is_pouncing(value):
   if value == false:
