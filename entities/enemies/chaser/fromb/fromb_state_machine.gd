@@ -82,6 +82,7 @@ func _on_PatrolCooldown_timeout():
     states.idle:
       set_state(states.patrol)
 
+
 func _on_Fromb_patrol_finished():
   match state:
     states.patrol:
@@ -89,10 +90,12 @@ func _on_Fromb_patrol_finished():
     states.retreat:
       set_state(states.idle)
 
+
 func _on_Fromb_target_disengaged():
   match state:
     states.chase:
       set_state(states.retreat)
+
 
 func _on_Fromb_target_in_range():
   match state:

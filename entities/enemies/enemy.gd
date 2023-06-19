@@ -17,10 +17,14 @@ onready var patrol_cooldown_timer: Timer = $PatrolCooldown
 onready var health_bar: TextureProgress = $Healthbar
 onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 onready var path_timer: Timer = $PathTimer
+onready var player_detector: Node2D = $PlayerDetector
+onready var range_detector: Node2D = $RangeDetector
+onready var hurt_audio: AudioStreamPlayer2D = $Hurt
 
 signal patrol_finished
 signal target_disengaged
 signal target_in_range
+signal attack_finished
 var velocity: Vector2 = Vector2.ZERO
 var choosen_direction: Vector2 = Vector2.ZERO
 var knockback: Vector2 = Vector2.ZERO
@@ -28,7 +32,7 @@ var spawn_group: String = ""
 var is_pouncing: bool = false setget set_is_pouncing
 var target = self
 var reverse_scan: int = 1
-var spawn_location: Vector2
+var spawn_location: Vector2 = Vector2.ZERO
 var paths: Array = []
 
 export var hp: int
@@ -39,8 +43,7 @@ export var acceleration: int
 export var receives_knockback: bool
 export var avoid_force: float = 1000
 
-export var arrival_radius: int = 50
-export var patrol_range: int = 200
+export var patrol_range: int = 50
 export var patrol_cooldown: int = 2
 export var sight_range: int = 100
 export var attack_radius: int = 20
@@ -65,8 +68,6 @@ signal died
 
 func _ready():
 
-  # so that it's not null first value(i'm genius )
-  spawn_location = global_position
   attributes = EnemeyAttributes.new(
     hp, max_hp, max_speed, base_damage, acceleration, avoid_force, receives_knockback
   )
@@ -78,28 +79,97 @@ func _ready():
   health_bar.max_value = max_hp
   health_bar.value = hp
 
-func _physics_process(delta):
-  move(delta)
+  #signas
+  GameSignal.connect("party_member_changed", self, "_on_party_member_changed")
+
+  spawn_location = global_position
+
+  for detector in range_detector.get_children():
+    detector.cast_to.x = attack_radius
+
+  for sight in player_detector.get_children():
+    sight.cast_to.x = sight_range
 
 ## -----------------------------------------------------------------------------
 ##                                Movement Stuff
 ## -----------------------------------------------------------------------------
 
-func move(delta) -> void:
+func chase(delta) -> void:
   var direction = global_position.direction_to(nav_agent.get_next_location())
-  var desired_velocipy = direction * 100
+  var desired_velocipy = direction * acceleration
   var steering = (desired_velocipy - velocity) * delta * 4.0
   velocity += steering
   velocity = move_and_slide(velocity)
+  if (target.global_position - global_position).length() > disengage_radius:
+    print("huh")
+    emit_signal("target_disengaged")
+
+func pounce() -> void:
+  yield(get_tree().create_tween().tween_method(self, "set_position", global_position,  target.global_position + Vector2(50,50) * velocity.normalized(), 0.5).set_trans(Tween.TRANS_CIRC),"finished")
+  emit_signal("attack_finished")
+
+func set_position(new_position: Vector2):
+  move_and_collide(new_position - global_position)
 
 
-## TODO: PRobably going have to revamp the whole movement stuff 
+func patrol(delta):
+  var steering: Vector2 = Vector2.ZERO
+
+  steering += arrival_steering() * 60 * delta
+  velocity += steering * 60 * delta
+  velocity = velocity.clamped(get_attribute("max_speed"))
+  velocity = move_and_slide(velocity)
+  if global_position.floor() == target.global_position.floor():
+    emit_signal("patrol_finished")
+
 func direction_to_target():
   if target is Character:
     return global_position.direction_to(target.hurtbox.global_position)
   else:
     return global_position.direction_to(target.global_position)
 
+func arrival_steering() -> Vector2:
+  var speed: float = (
+    ((global_position - target.global_position).length() / 50)
+    * get_attribute("max_speed")
+  )
+  var desired_velocity: Vector2 = global_position.direction_to(nav_agent.get_next_location()) * speed
+  return desired_velocity - velocity
+
+func scan_target():
+  player_detector.rotation += 10
+  for detector in player_detector.get_children():
+    var collider = detector.get_collider()
+    if collider is Character:
+      if collider.is_in_control == true:
+        target = collider
+        alert_signal.alert()
+
+func scan_range():
+  range_detector.rotation += 10
+  for detector in range_detector.get_children():
+    var collider = detector.get_collider()
+    if collider is Character:
+      emit_signal("target_in_range")
+  if (target.global_position - global_position).length() > disengage_radius:
+    emit_signal("target_disengaged")
+
+func generate_patrol_target() -> Dictionary:
+  randomize()
+  if spawn_location != Vector2.ZERO:
+    return {
+      "global_position":
+      Vector2(
+        spawn_location.x + rand_range(patrol_range * -1, patrol_range), spawn_location.y + rand_range(patrol_range * -1, patrol_range)
+      )
+    }
+  else:
+    return {
+      "global_position":
+      Vector2(
+        global_position.x + rand_range(patrol_range * -1, patrol_range), global_position.y + rand_range(patrol_range * -1, patrol_range)
+      )
+    }
 
 ## -----------------------------------------------------------------------------
 ##                                Combat Stuff
@@ -138,6 +208,7 @@ func _on_Hurtbox_area_entered(hitbox) -> void:
         hitbox.die()
 
 func _take_damage(damage: int) -> void:
+  hurt_audio.play()
   set_attribute("hp", get_attribute("hp") - damage)
   health_bar.value = get_attribute("hp")
   if get_attribute("hp") < get_attribute("max_hp"):
@@ -157,24 +228,28 @@ func remove_from_spawn_group():
   if spawn_group != "":
     remove_from_group(spawn_group)
 
-func shoot_projectile() -> void:
-  var active_projectile = projectile.instance()
-  get_tree().current_scene.add_child(active_projectile)
-  active_projectile.direction = direction_to_target()
-  active_projectile.global_position = self.global_position
-  active_projectile.launch_at_player(target)
-  attack_timer.start()
+func shoot_projectile(projectile_count: int, circle_size: float) -> void:
+  var angle_midpoint = atan2(target.global_position.y - global_position.y, target.global_position.x - global_position.x)
+  var start_angle = angle_midpoint - PI * circle_size
+  var end_angle = angle_midpoint + PI * circle_size
+  for i in range(projectile_count):
+      var final_count = projectile_count
+      if projectile_count == 1:
+        final_count = 2
+      var projectile_instance = projectile.instance()
+      var angle = lerp(start_angle, end_angle, float(i) / float(final_count - 1))
+      var direction = Vector2(cos(angle), sin(angle)) 
+      
+      projectile_instance.global_position = global_position
+      projectile_instance.target = target
+      projectile_instance.direction = direction
+      get_tree().current_scene.add_child(projectile_instance)
+  emit_signal("attack_finished")
 
 func set_is_pouncing(value):
   if value == false:
     attack_timer.start()
   is_pouncing = value
-
-func pounce(delta) -> void:
-  if is_pouncing:
-    velocity = move_and_slide(velocity)
-    velocity += 10 * direction_to_target() * delta * 60
-    velocity = lerp(velocity, Vector2.ZERO, get_attribute("friction"))
 
 ## -----------------------------------------------------------------------------
 ##                                Sprites
@@ -240,4 +315,8 @@ func modifier_tick() -> void:
   }
 
 func _on_PathTimer_timeout():
-  nav_agent.set_target_location(get_global_mouse_position())
+  nav_agent.set_target_location(target.global_position)
+
+func _on_party_member_changed(character):
+  if target is Character && target != character:
+    target = character

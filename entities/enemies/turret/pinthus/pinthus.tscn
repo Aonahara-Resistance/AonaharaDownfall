@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://entities/enemies/enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/enemies/turret/pinthus/pinthus_spritesheet.png" type="Texture" id=2]
@@ -186,7 +186,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0.1 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [  ],
+"args": [ 3, 0.15 ],
 "method": "shoot_projectile"
 } ]
 }
@@ -228,7 +228,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0.1 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [  ],
+"args": [ 3, 0.15 ],
 "method": "shoot_projectile"
 } ]
 }
@@ -298,26 +298,34 @@ height = 0.0
 [sub_resource type="CircleShape2D" id=6]
 radius = 5.0
 
+[sub_resource type="CircleShape2D" id=26]
+radius = 131.034
+
 [node name="Pinthus" instance=ExtResource( 1 )]
 collision_mask = 14
 projectile = ExtResource( 4 )
 hp = 100
 max_hp = 100
 base_damage = 1
+attack_radius = 200
 
-[node name="StateMachine" parent="." index="0"]
+[node name="ShadowSprite" parent="." index="0"]
+position = Vector2( 0, 10 )
+scale = Vector2( 0.734675, 0.414453 )
+
+[node name="StateMachine" parent="." index="1"]
 script = ExtResource( 3 )
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="3"]
 texture = ExtResource( 2 )
 hframes = 7
 vframes = 3
 
-[node name="CollisionShape2D" parent="." index="4"]
+[node name="CollisionShape2D" parent="." index="5"]
 position = Vector2( 0, 9 )
 shape = SubResource( 4 )
 
-[node name="AnimationPlayer" parent="." index="5"]
+[node name="AnimationPlayer" parent="." index="6"]
 anims/RESET = SubResource( 1 )
 anims/die_left = SubResource( 9 )
 anims/die_right = SubResource( 10 )
@@ -326,7 +334,7 @@ anims/idle_right = SubResource( 2 )
 anims/shoot_left = SubResource( 8 )
 anims/shoot_right = SubResource( 3 )
 
-[node name="AnimationTree" parent="." index="6"]
+[node name="AnimationTree" parent="." index="7"]
 tree_root = SubResource( 11 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
@@ -343,8 +351,18 @@ shape = SubResource( 5 )
 position = Vector2( 0, -2 )
 shape = SubResource( 6 )
 
-[node name="AttackTimer" parent="." index="10"]
-wait_time = 2.0
+[node name="CollisionShape2D" parent="Alertsignal" index="0"]
+shape = SubResource( 26 )
+
+[node name="AttackTimer" parent="." index="11"]
+wait_time = 3.0
+
+[connection signal="attack_finished" from="." to="StateMachine" method="_on_Pinthus_attack_finished"]
+[connection signal="target_disengaged" from="." to="StateMachine" method="_on_Pinthus_target_disengaged"]
+[connection signal="target_in_range" from="." to="StateMachine" method="_on_Pinthus_target_in_range"]
+[connection signal="alerted" from="Alertsignal" to="StateMachine" method="_on_Alertsignal_alerted"]
+[connection signal="timeout" from="AttackTimer" to="StateMachine" method="_on_AttackTimer_timeout"]
 
 [editable path="Hurtbox"]
 [editable path="Hitbox"]
+[editable path="Alertsignal"]

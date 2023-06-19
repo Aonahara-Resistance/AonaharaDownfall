@@ -284,6 +284,7 @@ func _on_Hurtbox_area_entered(hitbox) -> void:
   if hitbox.has_method("get_hitbox_damage"):
     _take_damage(hitbox.get_hitbox_damage())
     blinker.start_blinking(sprite)
+    _enable_iframes(1.0)
     _whiten_sprite(0.3)
     Shake.shake(1.0, 0.2, 1)
 

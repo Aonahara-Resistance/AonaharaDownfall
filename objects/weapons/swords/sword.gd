@@ -7,6 +7,7 @@ onready var sound: AudioStreamPlayer2D = $SoundEffect
 onready var light_cooldown_timer: Timer = $LightCooldown
 onready var heavy_cooldown_timer: Timer = $HeavyCooldown
 onready var hit_box: WeaponHitbox = $WeaponContainer/WeaponHitbox
+onready var sprite: Sprite = $WeaponContainer/Sprite
 
 export var damage: int
 export var holdable_light: bool
@@ -31,10 +32,8 @@ func _ready() -> void:
   hit_box.set_damage(damage)
   #???? wtf
 
-
-# Nullify enemy's projectile if it hits active hitbox
-func delete_oncoming_projectile() -> void:
-  pass
+func delete_oncoming_projectile(projectile) -> void:
+  projectile.queue_free()
 
 
 # TODO: Set input handler so it's not being fucky wucky
@@ -61,3 +60,9 @@ func heavy_attack() -> void:
 
 func heavy_attack_release() -> void:
   pass
+
+func _on_WeaponHitbox_area_entered(area:Area2D):
+  if area.has_method("launch_at_player"):
+    delete_oncoming_projectile(area)
+  print(area)
+
