@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=2]
+[gd_scene load_steps=99 format=2]
 
 [ext_resource path="res://levels/level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/demo/demo.gd" type="Script" id=2]
@@ -18,7 +18,6 @@
 [ext_resource path="res://assets/artworks/kiseki.png" type="Texture" id=16]
 [ext_resource path="res://ui/cheat_panel/cheat_panel.tscn" type="PackedScene" id=17]
 [ext_resource path="res://objects/destructible/destructible_luggage.tscn" type="PackedScene" id=18]
-[ext_resource path="res://entities/enemies/enemy.gd" type="Script" id=19]
 
 [sub_resource type="OccluderPolygon2D" id=52]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -1756,53 +1755,44 @@ anims/RESET = SubResource( 42 )
 
 [node name="Pinthus" parent="Gameplay/YSort" index="12" instance=ExtResource( 14 )]
 position = Vector2( 307, 1025 )
-script = ExtResource( 19 )
 
 [node name="Pinthus2" parent="Gameplay/YSort" index="13" instance=ExtResource( 14 )]
 position = Vector2( 177, 1113 )
-script = ExtResource( 19 )
 
 [node name="Pinthus3" parent="Gameplay/YSort" index="14" instance=ExtResource( 14 )]
 position = Vector2( 303, 1204 )
-script = ExtResource( 19 )
 
 [node name="Pinthus4" parent="Gameplay/YSort" index="15" instance=ExtResource( 14 )]
 position = Vector2( 175, 1301 )
-script = ExtResource( 19 )
 
 [node name="Pinthus5" parent="Gameplay/YSort" index="16" instance=ExtResource( 14 )]
 position = Vector2( 304, 1374 )
-script = ExtResource( 19 )
 
 [node name="GreenSlime" parent="Gameplay/YSort" index="17" instance=ExtResource( 13 )]
 position = Vector2( 552, 982 )
 collision_layer = 1
 collision_mask = 1
-script = ExtResource( 19 )
 
 [node name="GreenSlime2" parent="Gameplay/YSort" index="18" instance=ExtResource( 13 )]
 position = Vector2( 709, 1034 )
 collision_layer = 1
 collision_mask = 1
-script = ExtResource( 19 )
 
 [node name="GreenSlime3" parent="Gameplay/YSort" index="19" instance=ExtResource( 13 )]
 position = Vector2( 866, 977 )
 collision_layer = 1
 collision_mask = 1
-script = ExtResource( 19 )
 
 [node name="GreenSlime4" parent="Gameplay/YSort" index="20" instance=ExtResource( 13 )]
 position = Vector2( 674, 967 )
 collision_layer = 1
 collision_mask = 1
-script = ExtResource( 19 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Gameplay/YSort" index="21"]
 position = Vector2( 402, 1730 )
 frames = SubResource( 51 )
 animation = "New Anim"
-frame = 4
+frame = 1
 playing = true
 
 [node name="Dummy" parent="Gameplay/YSort" index="22" instance=ExtResource( 15 )]

@@ -5,10 +5,11 @@ onready var play_button: Button = $CenterContainer/VBoxContainer/PlayButton
 
 onready var hover: AudioStreamPlayer = $Hover
 
-func _ready():
+func _ready() -> void:
   if OS.has_feature("HTML5"):
     $CenterContainer/VBoxContainer/QuitButton.queue_free()
 
+# ???
 func _on_OptionButton_pressed() -> void:
   pass
 
@@ -18,7 +19,7 @@ func _on_PlayButton_pressed() -> void:
   var pop: AudioStreamPlayer = $Pop
   pop.play()
 
-func _on_test_pressed():
+func _on_test_pressed() -> void:
   Game.change_scene(
     "res://levels/firing_range/firing_range.tscn",
     {
@@ -26,7 +27,7 @@ func _on_test_pressed():
     }
   )
 
-func _on_QuitButton_pressed():
+func _on_QuitButton_pressed() -> void:
   var quit: AudioStreamPlayer = $Quit
   quit.play()
   var transitions = get_node_or_null("/root/Transitions")

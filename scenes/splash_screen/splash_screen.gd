@@ -7,6 +7,10 @@ extends Node2D
 # Posei ended up being the one who have to work with it
 # Damn
 
+# The third time i have to look at this
+# Damn
+# Fuck past posei
+
 # warnings-disable
 # ^ this'll do :KoroneEye:
 

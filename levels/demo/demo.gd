@@ -4,7 +4,7 @@ onready var ambience = $Ambience
 onready var animation_cutscene = $Cutscene/AnimationPlayer
 onready var nom_c = $Cutscene/Nom
 
-func _ready():
+func _ready() -> void:
   GameSignal.emit_signal("level_loaded", spawn.global_position, ysort)
   pass
 
@@ -25,7 +25,7 @@ func _ready():
   #yield(tween.tween_property($Cutscene/ColorRect, "modulate", Color.transparent, 5), "finished")
   #animation_cutscene.play("wake_up")
   
-func _on_AnimationPlayer_animation_finished(anim_name:String):
+func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
   if anim_name == "wake_up":
     animation_cutscene.play("idle")
     yield(get_tree().create_timer(0.3), "timeout")
@@ -38,7 +38,7 @@ func _on_AnimationPlayer_animation_finished(anim_name:String):
     dialog.connect("dialogic_signal", self, "dialog_listener")
   
 
-func dialog_listener(arg: String):
+func dialog_listener(arg: String) -> void:
   if arg == "end":
     animation_bar.play("out")
     gameplay.visible = true
@@ -53,8 +53,8 @@ func dialog_listener(arg: String):
     GlobalCamera.camera2D.smoothing_enabled = true 
 
 
-func _on_Area2D_body_entered(_body:Node):
+func _on_Area2D_body_entered(_body: Node) -> void:
   get_tree().create_tween().tween_property($Gameplay/YSort/MovementLabel, "percent_visible", 1.0, 2)
 
-func _on_Area2D2_body_entered(_body:Node):
+func _on_Area2D2_body_entered(_body:Node) -> void:
   get_tree().create_tween().tween_property($Gameplay/YSort/DashLabel, "percent_visible", 1.0, 2)
