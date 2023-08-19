@@ -12,7 +12,7 @@ var timeline_name: String
 var preview: bool = false
 
 var noSkipMode: bool = false
-var autoPlayMode: bool = false
+var autoPlayMode: bool = false setget _set_autoPlayMode
 var autoWaitTime : float = 2.0
 
 enum state {
@@ -63,6 +63,7 @@ var audio_data = {}
 
 # References
 var button_container = null
+var current_portrait = null
 
 ## -----------------------------------------------------------------------------
 ## 						SCENES
@@ -82,11 +83,14 @@ signal event_end(type)
 signal text_complete(text_data)
 # Timeline end/start
 signal timeline_start(timeline_name)
+signal timeline_changed(old_timeline_name, new_timeline_name)
 signal timeline_end(timeline_name)
 # Custom user signal
 signal dialogic_signal(value)
 # Utility
 signal letter_displayed(lastLetter)
+signal auto_advance_toggled()
+signal portrait_changed(portrait_path)
 
 
 ## -----------------------------------------------------------------------------
@@ -448,6 +452,7 @@ func _process(delta):
 # checks for the "input_next" action
 func _input(event: InputEvent) -> void:
 	if not Engine.is_editor_hint() and event.is_action_pressed(Dialogic.get_action_button()) and autoPlayMode:
+		emit_signal("auto_advance_toggled", false)
 		autoPlayMode = false
 		return
 	
@@ -502,10 +507,15 @@ func _on_text_completed():
 		
 		var waiting_until_options_enabled = float(settings.get_value('input', 'delay_after_options', 0.1))
 		$OptionsDelayedInput.start(waiting_until_options_enabled)
-
+		
+		var show_choices = current_theme.get_value('disabled_choices', 'show', false)
 		for o in current_event['options']:
-			if _should_add_choice_button(o):
-				add_choice_button(o)
+			var is_valid_choice = _should_add_choice_button(o)
+			if show_choices:
+				var choice_button = add_choice_button(o)
+				choice_button.disabled = !is_valid_choice
+			elif is_valid_choice:
+					add_choice_button(o)
 		
 		# Auto focus
 		$DialogicTimer.start(0.1); yield($DialogicTimer, "timeout")
@@ -678,6 +688,10 @@ func event_handler(event: Dictionary):
 			## PLEASE UPDATE THIS! BUT HOW? 
 			emit_signal("event_start", "action", event)
 			set_state(state.WAITING)
+			
+			#Animations safe for custom portraits with no animation-wait
+			var safeAnimations = ['1-fade_in.gd', '[No Animation]']
+			
 			if event['character'] == '':# No character found on the event. Skip.
 				_load_next_event()
 			else:
@@ -708,8 +722,9 @@ func event_handler(event: Dictionary):
 					# z_index
 					$Portraits.move_child(p, get_portrait_z_index_point(event.get('z_index', 0)))
 					p.z_index = event.get('z_index', 0)
+					emit_signal("portrait_changed", p)
 					
-					if event.get('animation_wait', false):
+					if (p.get('custom_instance') != null or event.get('animation_wait', false)) and !(event.get('animation', '[No Animation]') in safeAnimations):
 						yield(p, 'animation_finished')
 					
 			
@@ -726,7 +741,7 @@ func event_handler(event: Dictionary):
 							if is_instance_valid(p) and p.character_data['file'] == event['character']:
 								event = insert_animation_data(event, 'leave', 'fade_out_down.gd')
 								p.animate(event.get('animation', 'instant_out.gd'), event.get('animation_length', 1), 1, true)
-								if event.get('animation_wait', false):
+								if (p.get('custom_instance') != null or event.get('animation_wait', false)) and event.get('animation', 'instant_out.gd') != "instant_out.gd":
 									yield(p, 'animation_finished')
 				
 				# UPDATE MODE -------------------------------------------
@@ -754,9 +769,14 @@ func event_handler(event: Dictionary):
 									$Portraits.move_child(portrait, get_portrait_z_index_point(event.get('z_index', 0)))
 									portrait.z_index = event.get('z_index', 0)
 								
-								portrait.animate(event.get('animation', '[No Animation]'), event.get('animation_length', 1), event.get('animation_repeat', 1))
+								# Covers edge case of changing timeline with custom portraits causing infinite yields
+								if event.get('animation') == '[Default]':
+									event = insert_animation_data(event, 'join', 'fade_in_up.gd')
 								
-								if event.get('animation_wait', false) and event.get('animation', '[No Animation]') != "[No Animation]":
+								portrait.animate(event.get('animation', '[No Animation]'), event.get('animation_length', 1), event.get('animation_repeat', 1))
+								emit_signal("portrait_changed", portrait)
+								
+								if (portrait.get('custom_instance') != null or event.get('animation_wait', false) == true) and event.get('animation', '[No Animation]') != "[No Animation]":
 									yield(portrait, 'animation_finished')
 				set_state(state.READY)
 				_load_next_event()
@@ -1028,6 +1048,8 @@ func event_handler(event: Dictionary):
 				
 func change_timeline(timeline):
 	dialog_script = set_current_dialog(timeline)
+	emit_signal("timeline_changed", timeline_name, dialog_script['metadata']['name'])
+	timeline_name = dialog_script['metadata']['name']
 	_init_dialog()
 
 
@@ -1296,12 +1318,15 @@ func grab_portrait_focus(character_data, event: Dictionary = {}) -> bool:
 		if portrait.character_data.get("file", "something") == character_data.get("file", "none"):
 			exists = true
 			portrait.focus()
+			emit_signal("portrait_changed", portrait)
 			if event.has('portrait'):
 				portrait.set_portrait(get_portrait_name(event))
 				if settings.get_value('dialog', 'recenter_portrait', true):
 					portrait.move_to_position(portrait.direction)
 		else:
 			portrait.focusout(Color(current_theme.get_value('animation', 'dim_color', '#ff808080')))
+	if !exists:
+		emit_signal("portrait_changed", null)
 	return exists
 
 # returns true if the a portrait for that character already exists
@@ -1558,6 +1583,14 @@ func resume_state_from_info(state_info):
 			dialog_script['events'][event_index]['answered'] = true
 
 	_load_event_at_index(state_info['event_idx'])
+
+## -----
+## 	Setter/Getter
+## -----
+func _set_autoPlayMode(newValue : bool):
+	emit_signal("auto_advance_toggled", newValue)
+	autoPlayMode = newValue
+	
 
 
 ## -----------------------------------------------------------------------------
