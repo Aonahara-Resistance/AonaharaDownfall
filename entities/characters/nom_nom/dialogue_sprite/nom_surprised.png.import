@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/nom-angry.png-1a657c861feb4101a06d277e59f52e20.stex"
+path="res://.import/nom_surprised.png-160676b6ee6b6aed08b7b9d8ba3265fc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/characters/nom_nom/dialogue_sprite/nom-angry.png"
-dest_files=[ "res://.import/nom-angry.png-1a657c861feb4101a06d277e59f52e20.stex" ]
+source_file="res://entities/characters/nom_nom/dialogue_sprite/nom_surprised.png"
+dest_files=[ "res://.import/nom_surprised.png-160676b6ee6b6aed08b7b9d8ba3265fc.stex" ]
 
 [params]
 

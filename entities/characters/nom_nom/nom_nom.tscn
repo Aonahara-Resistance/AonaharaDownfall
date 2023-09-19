@@ -9,7 +9,7 @@
 [ext_resource path="res://entities/characters/nom_nom/sprites/nom_head.png" type="Texture" id=7]
 [ext_resource path="res://objects/weapons/swords/cum_stained_sword/cum_stained_sword.tscn" type="PackedScene" id=8]
 [ext_resource path="res://entities/characters/nom_nom/skills/get_excited/get_excited.tscn" type="PackedScene" id=9]
-[ext_resource path="res://entities/characters/nom_nom/dialogue_sprite/nom-neutral.png" type="Texture" id=10]
+[ext_resource path="res://entities/characters/nom_nom/dialogue_sprite/nom_neutral.png" type="Texture" id=10]
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 3 )

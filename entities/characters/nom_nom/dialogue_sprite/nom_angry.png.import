@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/nom-sad.png-4843364e4083e04e48c35d40ad7a4379.stex"
+path="res://.import/nom_angry.png-4b34f30bb1b0cfeab67c770b668c0ebc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/characters/nom_nom/dialogue_sprite/nom-sad.png"
-dest_files=[ "res://.import/nom-sad.png-4843364e4083e04e48c35d40ad7a4379.stex" ]
+source_file="res://entities/characters/nom_nom/dialogue_sprite/nom_angry.png"
+dest_files=[ "res://.import/nom_angry.png-4b34f30bb1b0cfeab67c770b668c0ebc.stex" ]
 
 [params]
 

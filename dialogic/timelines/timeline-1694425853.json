@@ -1,0 +1,51 @@
+{
+	"events": [
+		{
+			"animation": "[Default]",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1694426221.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "nom_sad",
+			"portrait_definition": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"character": "character-1694426221.json",
+			"event_id": "dialogic_001",
+			"portrait": "(Don't change)",
+			"text": "Where is this?"
+		},
+		{
+			"character": "character-1694426221.json",
+			"event_id": "dialogic_001",
+			"portrait": "(Don't change)",
+			"text": "I thought I already boarded the train..."
+		},
+		{
+			"character": "character-1694426221.json",
+			"event_id": "dialogic_001",
+			"portrait": "nom_happy",
+			"text": "It's one of those thing you read that make you scream ayo chat is this real in a room alone and then forget about it the next morning"
+		},
+		{
+			"emit_signal": "end",
+			"event_id": "dialogic_040"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.5",
+		"file": "timeline-1694425853.json",
+		"name": "opening"
+	}
+}
