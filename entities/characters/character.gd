@@ -6,6 +6,8 @@ onready var animation_tree: AnimationTree = $AnimationTree
 onready var animation_mode = animation_tree.get("paramaters/playback")
 
 onready var sprite: Sprite = $Sprite
+onready var hand_r: Sprite = $Sprite/HandSpriteR
+onready var hand_l: Sprite = $Sprite/HandSpriteL
 
 onready var weapon: Node2D = $Weapon
 onready var dash: Dash = $Dash
@@ -30,6 +32,7 @@ onready var heavy_cooldown_indicator_timer: Timer = $HeavyCooldownI/FadeoutTimer
 export var character_name: String
 export var character_icon: Resource
 export var mirrored_sprite: bool = true
+export var is_right_handed: bool = true
 
 var is_alive: bool = true
 var inf_stamina: bool = false
@@ -269,8 +272,14 @@ func get_is_in_battle() -> bool:
 func set_is_in_battle(new_state) -> void:
   if new_state == true:
     battle_timer.start()
+    weapon.modulate = Color(1,1,1,1)
+    hand_r.modulate = Color(1,1,1,0)
+    hand_l.modulate = Color(1,1,1,0)
+  else:
+    get_tree().create_tween().tween_property(weapon, "modulate", Color(1,1,1,0), 0.5).set_trans(Tween.TRANS_SINE)
+    get_tree().create_tween().tween_property(hand_r, "modulate", Color(1,1,1,1), 0.5).set_trans(Tween.TRANS_SINE)
+    get_tree().create_tween().tween_property(hand_l, "modulate", Color(1,1,1,1), 0.5).set_trans(Tween.TRANS_SINE)
   is_in_battle = new_state
-  emit_signal("battle_state_changed")
 
 func listen_knockback(delta) -> void:
   if get_attribute("receives_knockback"):
@@ -447,6 +456,7 @@ func _flip_character_sprite(mouse_direction):
       sprite.scale.x *= -1
     elif mouse_direction.x > 0 and sign(sprite.scale.x) != sign(mouse_direction.x):
       sprite.scale.x *= -1
+
 
 func _control_weapon_direction(mouse_direction):
   weapon.rotation = mouse_direction.angle()

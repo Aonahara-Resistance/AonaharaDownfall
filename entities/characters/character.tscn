@@ -93,6 +93,7 @@ script = ExtResource( 3 )
 
 [node name="Weapon" type="Node2D" parent="."]
 visible = false
+modulate = Color( 1, 1, 1, 0 )
 z_index = 1
 
 [node name="Modifiers" type="Node2D" parent="."]
@@ -110,6 +111,14 @@ position = Vector2( -0.0215137, -0.161684 )
 scale = Vector2( 1, 0.923644 )
 offset = Vector2( 0.0215137, 0.175049 )
 hframes = 6
+
+[node name="HandSpriteL" type="Sprite" parent="Sprite"]
+position = Vector2( 0.0215137, 0.17505 )
+scale = Vector2( 1, 1.08267 )
+
+[node name="HandSpriteR" type="Sprite" parent="Sprite"]
+position = Vector2( 0.0215137, 0.17505 )
+scale = Vector2( 1, 1.08267 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://entities/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/characters/emuwaa/sprites/emu_spritesheet.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://entities/characters/emuwaa/skills/big_destructive_summon_meteor/big_destructive_summon_meteor.tscn" type="PackedScene" id=8]
 [ext_resource path="res://common/blessings/devil_blessing/devil_blessing.tscn" type="PackedScene" id=9]
 [ext_resource path="res://entities/characters/emuwaa/dialogue_sprite/emu-neutral0.png" type="Texture" id=10]
+[ext_resource path="res://assets/characters/hand.png" type="Texture" id=11]
 
 [sub_resource type="AtlasTexture" id=60]
 atlas = ExtResource( 2 )
@@ -45,6 +46,30 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite/HandSpriteL:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2.978, 7.744 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite/HandSpriteR:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -5.022, 7.744 ) ]
 }
 
 [sub_resource type="Animation" id=55]
@@ -108,6 +133,30 @@ tracks/1/keys = {
 "update": 1,
 "values": [ Vector2( 0, 0 ), Vector2( 0, -1 ), Vector2( 0, 0 ), Vector2( 0, 1 ), Vector2( 0, 0 ), Vector2( 0, -1 ), Vector2( 0, 0 ), Vector2( 0, 1 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite/HandSpriteL:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( -2.97849, 7.74407 ), Vector2( -2.97849, 6.66087 ), Vector2( -2.97849, 7.74407 ), Vector2( -2.97849, 7.74407 ), Vector2( -2.97849, 7.74407 ), Vector2( -2.97849, 6.66087 ), Vector2( -2.97849, 7.74407 ), Vector2( -2.97849, 7.74407 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite/HandSpriteR:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 5.02151, 7.74407 ), Vector2( 5.02151, 6.66087 ), Vector2( 5.02151, 7.74407 ), Vector2( 5.02151, 7.74407 ), Vector2( 5.02151, 7.74407 ), Vector2( 5.02151, 6.66087 ), Vector2( 5.02151, 7.74407 ), Vector2( 5.02151, 7.74407 ) ]
+}
 
 [sub_resource type="Animation" id=12]
 resource_name = "idle_left"
@@ -136,6 +185,30 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( 0, 0 ), Vector2( 0, -1 ), Vector2( 0, 0 ), Vector2( 0, 1 ), Vector2( 0, 0 ), Vector2( 0, -1 ), Vector2( 0, 0 ), Vector2( 0, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite/HandSpriteL:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 2.978, 7.744 ), Vector2( 2.978, 6.661 ), Vector2( 2.978, 7.744 ), Vector2( 2.978, 7.744 ), Vector2( 2.978, 7.744 ), Vector2( 2.978, 6.661 ), Vector2( 2.978, 7.744 ), Vector2( 2.978, 7.744 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite/HandSpriteR:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( -5.022, 7.744 ), Vector2( -5.022, 6.661 ), Vector2( -5.022, 7.744 ), Vector2( -5.022, 7.744 ), Vector2( -5.022, 7.744 ), Vector2( -5.022, 6.661 ), Vector2( -5.022, 7.744 ), Vector2( -5.022, 7.744 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -342,6 +415,15 @@ scale = Vector2( 1, 1 )
 texture = ExtResource( 2 )
 hframes = 8
 vframes = 6
+
+[node name="HandSpriteL" parent="Sprite" index="0"]
+position = Vector2( 2.978, 7.744 )
+texture = ExtResource( 11 )
+
+[node name="HandSpriteR" parent="Sprite" index="1"]
+position = Vector2( -5.022, 7.744 )
+z_index = -2
+texture = ExtResource( 11 )
 
 [node name="CollisionShape2D" parent="." index="11"]
 position = Vector2( -0.331211, 9.14386 )

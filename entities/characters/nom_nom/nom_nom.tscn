@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://entities/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/characters/nom_nom/nom_nom.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://objects/weapons/swords/cum_stained_sword/cum_stained_sword.tscn" type="PackedScene" id=8]
 [ext_resource path="res://entities/characters/nom_nom/skills/get_excited/get_excited.tscn" type="PackedScene" id=9]
 [ext_resource path="res://entities/characters/nom_nom/dialogue_sprite/nom_neutral.png" type="Texture" id=10]
+[ext_resource path="res://assets/characters/hand.png" type="Texture" id=11]
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 3 )
@@ -35,6 +36,30 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 0 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite/HandSpriteL:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -4.97849, 7.74407 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite/HandSpriteR:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 8.02151, 7.74407 ) ]
+}
 
 [sub_resource type="Animation" id=8]
 length = 0.8
@@ -51,6 +76,30 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite/HandSpriteL:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( -2.97849, 7.74407 ), Vector2( -2.97849, 6.66087 ), Vector2( -2.97849, 7.74407 ), Vector2( -2.97849, 6.66087 ), Vector2( -2.97849, 7.74407 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite/HandSpriteR:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 5.02151, 7.74407 ), Vector2( 5.02151, 6.66087 ), Vector2( 5.02151, 7.74407 ), Vector2( 5.02151, 6.66087 ), Vector2( 5.02151, 7.74407 ) ]
+}
 
 [sub_resource type="Animation" id=9]
 length = 0.6
@@ -66,6 +115,30 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 9, 10, 11, 12, 13, 14, 15 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite/HandSpriteL:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( -1.97849, 6.66087 ), Vector2( -2.97849, 7.74407 ), Vector2( -2.97849, 8.82727 ), Vector2( -2.97849, 7.74407 ), Vector2( -3.97849, 6.66087 ), Vector2( -2.97849, 7.74407 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite/HandSpriteR:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 3.02151, 6.66087 ), Vector2( 4.022, 7.744 ), Vector2( 4.02151, 8.82727 ), Vector2( 4.02151, 7.74407 ), Vector2( 5.02151, 6.66087 ), Vector2( 5.02151, 7.74407 ) ]
 }
 
 [sub_resource type="AnimationNodeStateMachine" id=11]
@@ -104,7 +177,6 @@ character_path = NodePath("../..")
 cooldown_duration = 30.0
 
 [node name="Weapon" parent="." index="5"]
-visible = true
 position = Vector2( 0.297298, -0.322042 )
 
 [node name="CumStainedSword" parent="Weapon" index="0" instance=ExtResource( 8 )]
@@ -130,6 +202,15 @@ texture = ExtResource( 3 )
 hframes = 8
 vframes = 4
 
+[node name="HandSpriteL" parent="Sprite" index="0"]
+position = Vector2( -4.97849, 7.74407 )
+texture = ExtResource( 11 )
+
+[node name="HandSpriteR" parent="Sprite" index="1"]
+position = Vector2( 8.02151, 7.74407 )
+z_index = -1
+texture = ExtResource( 11 )
+
 [node name="CollisionShape2D" parent="." index="11"]
 position = Vector2( 0.520279, 8.45346 )
 shape = SubResource( 6 )
@@ -146,11 +227,20 @@ anims/move = SubResource( 9 )
 [node name="Camera2D" parent="." index="16"]
 scale = Vector2( 0.99061, 0.991114 )
 
+[node name="InteractionComponent" parent="." index="17"]
+visible = false
+
 [node name="AnimationTree" parent="." index="18"]
 tree_root = SubResource( 11 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 12 )
+
+[node name="MoneyMagnet" parent="." index="23"]
+visible = false
+
+[node name="MoneyPickup" parent="." index="24"]
+visible = false
 
 [editable path="Blinker"]
 [editable path="Dash"]

@@ -10,6 +10,8 @@ script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="WeaponContainer"]
 
+[node name="Hand" type="Sprite" parent="WeaponContainer"]
+
 [node name="WeaponHitbox" parent="WeaponContainer" instance=ExtResource( 1 )]
 collision_layer = 2
 collision_mask = 20

@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://objects/weapons/swords/sword.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/weapons/swords/cum_stained_sword/cum_stained_sword.gd" type="Script" id=2]
 [ext_resource path="res://objects/weapons/staves/parseids_staff/rock_shard/rock_shard.tscn" type="PackedScene" id=3]
 [ext_resource path="res://objects/weapons/swords/cum_stained_sword/sprites/cum_stained_sword.png" type="Texture" id=4]
+[ext_resource path="res://assets/characters/hand.png" type="Texture" id=5]
 
 [sub_resource type="Shader" id=8]
 code = "shader_type canvas_item;
@@ -250,7 +251,10 @@ offset = Vector2( -8.5743, 0.0859971 )
 flip_h = true
 flip_v = true
 
-[node name="WeaponHitbox" parent="WeaponContainer" index="1"]
+[node name="Hand" parent="WeaponContainer" index="1"]
+texture = ExtResource( 5 )
+
+[node name="WeaponHitbox" parent="WeaponContainer" index="2"]
 collision_mask = 4
 monitoring = true
 
