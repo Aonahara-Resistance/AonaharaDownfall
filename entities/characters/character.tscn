@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://common/collisions/hurtbox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://common/dash/dash.tscn" type="PackedScene" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://entities/characters/character.gd" type="Script" id=4]
 [ext_resource path="res://common/shaders/whiten/whiten.gdshader" type="Shader" id=5]
 [ext_resource path="res://common/collisions/blinker.tscn" type="PackedScene" id=6]
-[ext_resource path="res://common/interactions/interaction_component.tscn" type="PackedScene" id=7]
 [ext_resource path="res://common/dash/dust_single.png" type="Texture" id=8]
 [ext_resource path="res://ui/combat/h_attack_empty.png" type="Texture" id=9]
 [ext_resource path="res://ui/combat/h_attack_filled.png" type="Texture" id=10]
@@ -15,9 +14,6 @@
 shader = ExtResource( 5 )
 shader_param/whiten = false
 shader_param/mix_weight = 0.6
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 9.44617, 19.4942 )
 
 [sub_resource type="AnimationRootNode" id=3]
 
@@ -143,13 +139,6 @@ scale = Vector2( 0.990656, 1 )
 smoothing_enabled = true
 smoothing_speed = 10.0
 
-[node name="InteractionComponent" parent="." instance=ExtResource( 7 )]
-interaction_parent = NodePath("..")
-
-[node name="CollisionShape2D" parent="InteractionComponent" index="0"]
-position = Vector2( 9.42474, -0.420448 )
-shape = SubResource( 2 )
-
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 3 )
 
@@ -214,4 +203,3 @@ shape = SubResource( 11 )
 [editable path="Blinker"]
 [editable path="Dash"]
 [editable path="Hurtbox"]
-[editable path="InteractionComponent"]

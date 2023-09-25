@@ -1,8 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://scenes/warp/warp_interaction.gd" type="Script" id=1]
 [ext_resource path="res://scenes/warp/warp.gd" type="Script" id=2]
-[ext_resource path="res://common/interactions/intraction_component_ui.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=35]
 extents = Vector2( 24.6757, 14.5397 )
@@ -15,15 +13,3 @@ script = ExtResource( 2 )
 [node name="WarpArea" type="CollisionShape2D" parent="."]
 position = Vector2( 2.71411, 7.26512 )
 shape = SubResource( 35 )
-
-[node name="Interaction" type="Node" parent="."]
-script = ExtResource( 1 )
-ui_component_path = NodePath("../InteractionComponentUI")
-
-[node name="InteractionComponentUI" parent="." instance=ExtResource( 4 )]
-margin_left = -33.0
-margin_top = -9.0
-margin_right = 95.0004
-margin_bottom = 7.00002
-rect_scale = Vector2( 0.5, 0.5 )
-interaction_component_nodepath = NodePath(".")
