@@ -17,7 +17,6 @@ onready var blinker: Blinker = $Blinker
 onready var hurtbox: CollisionShape2D = $Hurtbox/CollisionShape2D
 onready var sprite_shader_material: ShaderMaterial = sprite.material
 onready var battle_timer: Timer = $BattleTimer
-onready var interaction_component: InteractionComponent = $InteractionComponent
 onready var skills: Node = $Skills
 onready var skill_one: Skill = $Skills.get_child(0)
 onready var skill_two: Skill = $Skills.get_child(1)
@@ -293,7 +292,10 @@ func _on_Hurtbox_area_entered(hitbox) -> void:
   if hitbox.has_method("get_hitbox_damage"):
     _take_damage(hitbox.get_hitbox_damage())
     blinker.start_blinking(sprite)
+
+    ## Basically I work at from soft now
     _enable_iframes(1.0)
+
     _whiten_sprite(0.3)
     Shake.shake(1.0, 0.2, 1)
 
@@ -440,15 +442,9 @@ func get_input_direction() -> Vector2:
 
 func sprite_control() -> void:
   var mouse_direction: Vector2 = get_mouse_direction()
-  _flip_interaction_detection(mouse_direction)
   _control_weapon_direction(mouse_direction)
   _flip_character_sprite(mouse_direction)
 
-func _flip_interaction_detection(mouse_direction):
-  if mouse_direction.x < 0 and sign(interaction_component.scale.x) != sign(mouse_direction.x):
-    interaction_component.scale.x *= -1
-  elif mouse_direction.x > 0 and sign(interaction_component.scale.x) != sign(mouse_direction.x):
-    interaction_component.scale.x *= -1
 
 func _flip_character_sprite(mouse_direction):
   if mirrored_sprite:

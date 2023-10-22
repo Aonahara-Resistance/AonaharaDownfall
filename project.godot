@@ -39,11 +39,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ui/manage_party/party_item.gd"
 }, {
-"base": "InteractableItem",
-"class": "ConsumableItem",
-"language": "GDScript",
-"path": "res://common/interactions/consumable_item.gd"
-}, {
 "base": "Sword",
 "class": "CumStainedSword",
 "language": "GDScript",
@@ -246,7 +241,6 @@ _global_script_class_icons={
 "Character": "",
 "CharacterAttributes": "",
 "CharacterItem": "",
-"ConsumableItem": "",
 "CumStainedSword": "",
 "DTS": "",
 "Dash": "",
