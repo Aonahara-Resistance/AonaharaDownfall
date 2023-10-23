@@ -102,7 +102,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id=9]
-length = 0.6
+length = 0.4
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -123,10 +123,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( -1.97849, 6.66087 ), Vector2( -2.97849, 7.74407 ), Vector2( -2.97849, 8.82727 ), Vector2( -2.97849, 7.74407 ), Vector2( -3.97849, 6.66087 ), Vector2( -2.97849, 7.74407 ) ]
+"values": [ Vector2( -2.978, 7.744 ), Vector2( -2.978, 6.6608 ), Vector2( -2.978, 7.744 ), Vector2( -2.978, 8.8272 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprite/HandSpriteR:position")
@@ -135,10 +135,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( 3.02151, 6.66087 ), Vector2( 4.022, 7.744 ), Vector2( 4.02151, 8.82727 ), Vector2( 4.02151, 7.74407 ), Vector2( 5.02151, 6.66087 ), Vector2( 5.02151, 7.74407 ) ]
+"values": [ Vector2( 5.022, 8.8272 ), Vector2( 5.022, 7.744 ), Vector2( 5.022, 6.6608 ), Vector2( 5.022, 7.744 ) ]
 }
 
 [sub_resource type="AnimationNodeStateMachine" id=11]
@@ -227,22 +227,18 @@ anims/move = SubResource( 9 )
 [node name="Camera2D" parent="." index="16"]
 scale = Vector2( 0.99061, 0.991114 )
 
-[node name="InteractionComponent" parent="." index="17"]
-visible = false
-
-[node name="AnimationTree" parent="." index="18"]
+[node name="AnimationTree" parent="." index="17"]
 tree_root = SubResource( 11 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 12 )
 
-[node name="MoneyMagnet" parent="." index="23"]
+[node name="MoneyMagnet" parent="." index="22"]
 visible = false
 
-[node name="MoneyPickup" parent="." index="24"]
+[node name="MoneyPickup" parent="." index="23"]
 visible = false
 
 [editable path="Blinker"]
 [editable path="Dash"]
 [editable path="Hurtbox"]
-[editable path="InteractionComponent"]
