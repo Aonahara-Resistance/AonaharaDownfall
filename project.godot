@@ -140,6 +140,11 @@ _global_script_classes=[ {
 "path": "res://common/collisions/hitbox.gd"
 }, {
 "base": "Node2D",
+"class": "Interactable",
+"language": "GDScript",
+"path": "res://common/interactions/interactable.gd"
+}, {
+"base": "Node2D",
 "class": "Level",
 "language": "GDScript",
 "path": "res://levels/level.gd"
@@ -261,6 +266,7 @@ _global_script_class_icons={
 "Family": "",
 "HistoryRow": "",
 "Hitbox": "",
+"Interactable": "",
 "Level": "",
 "Modifier": "",
 "ModifierIndicator": "",
