@@ -109,9 +109,6 @@ margin_bottom = 39.3249
 rect_pivot_offset = Vector2( -133.064, 140.675 )
 texture = ExtResource( 1 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TextureRect7" type="TextureRect" parent="bg"]
 margin_left = -263.581
