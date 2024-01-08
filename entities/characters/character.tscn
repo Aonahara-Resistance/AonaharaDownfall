@@ -173,10 +173,12 @@ margin_left = -5.98217
 margin_top = -22.0
 margin_right = 6.01783
 margin_bottom = -10.0
+step = 0.1
 texture_under = ExtResource( 9 )
 texture_progress = ExtResource( 10 )
 
 [node name="FadeoutTimer" type="Timer" parent="HeavyCooldownI"]
+wait_time = 0.2
 one_shot = true
 
 [node name="MoneyMagnet" type="Area2D" parent="."]

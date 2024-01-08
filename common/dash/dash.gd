@@ -61,12 +61,12 @@ func can_dash() -> bool:
     return false
   return true
 
-func start_timers():
+func start_timers() -> void:
   cooldown_timer.start()
   duration_timer.start()
   ghost_timer.start()
 
-func create_trails(direction: Vector2):
+func create_trails(direction: Vector2) -> void:
   dust_burst.set_rotation((direction * -1).angle())
   dust_trail.restart()
   dust_trail.set_emitting(true)
