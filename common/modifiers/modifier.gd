@@ -18,7 +18,7 @@ var is_active
 signal modifier_ended
 
 
-func _ready():
+func _ready() -> void:
   is_active = true
   duration_timer.set_wait_time(duration)
   duration_timer.start()
@@ -36,7 +36,7 @@ func modify_stateless(res):
 func modify_stateful(_host):
   pass
 
-func reset_duration():
+func reset_duration() -> void:
   print("reset timer")
   GameSignal.emit_signal("modifier_reset")
   duration_timer.start()
@@ -44,7 +44,7 @@ func reset_duration():
 func get_modifier_type() -> int:
   return type
 
-func _on_Duration_timeout():
+func _on_Duration_timeout() -> void:
   if effect != null:
     instanced_effect.get_parent().remove_child(instanced_effect)
     instanced_effect.queue_free()

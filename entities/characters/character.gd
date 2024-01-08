@@ -497,6 +497,6 @@ func _on_modifier_ended() -> void:
   GameSignal.emit_signal("modifier_ended", self)
 
 func _on_FadeoutTimer_timeout():
-  get_tree().create_tween().tween_property(heavy_cooldown_indicator, "modulate", Color.transparent, 0.5).set_trans(Tween.TRANS_SINE)
+  get_tree().create_tween().tween_property(heavy_cooldown_indicator, "modulate", Color.transparent, 0.15).set_trans(Tween.TRANS_SINE)
 
 

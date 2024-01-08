@@ -443,7 +443,7 @@ anims/idle_left = SubResource( 12 )
 anims/move = SubResource( 5 )
 anims/move_left = SubResource( 11 )
 
-[node name="AnimationTree" parent="." index="18"]
+[node name="AnimationTree" parent="." index="17"]
 tree_root = SubResource( 16 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
@@ -452,10 +452,9 @@ parameters/casting/blend_position = 0.163293
 parameters/idle/blend_position = -0.00264549
 parameters/walk/blend_position = -0.0198367
 
-[node name="HeavyCooldownI" parent="." index="22"]
+[node name="HeavyCooldownI" parent="." index="21"]
 material = SubResource( 61 )
 
 [editable path="Blinker"]
 [editable path="Dash"]
 [editable path="Hurtbox"]
-[editable path="InteractionComponent"]
