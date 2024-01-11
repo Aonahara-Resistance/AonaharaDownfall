@@ -136,6 +136,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [ true ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2, 2 ) ]
+}
 
 [sub_resource type="Animation" id=2]
 length = 0.8
@@ -175,9 +187,9 @@ tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
+"transitions": PoolRealArray( 0.517632, 1.1487 ),
 "update": 0,
-"values": [ -68.1, -1510.97 ]
+"values": [ -68.1, 644.056 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("WeaponContainer/WeaponHitbox/CollisionShape2D:disabled")
@@ -190,6 +202,35 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "start_heavy"
+}, {
+"args": [  ],
+"method": "end_heavy"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2, 2 ), Vector2( 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -233,14 +274,15 @@ tracks/2/keys = {
 
 [node name="CumStainedSword" instance=ExtResource( 1 )]
 position = Vector2( 9.22342, 3.89646 )
+scale = Vector2( 2, 2 )
 script = ExtResource( 2 )
-damage = 50
+damage = 20
 heavy_cooldown_time = 3.0
 cum_projectile = ExtResource( 3 )
 
 [node name="WeaponContainer" parent="." index="0"]
 position = Vector2( -0.00150087, -0.00423738 )
-rotation = -1.18857
+rotation = 11.2409
 
 [node name="Sprite" parent="WeaponContainer" index="0"]
 material = SubResource( 9 )
@@ -265,7 +307,6 @@ shape = SubResource( 7 )
 disabled = true
 
 [node name="EffectSprite" parent="." index="1"]
-visible = false
 position = Vector2( 25.468, 12.4358 )
 rotation = 0.667016
 scale = Vector2( 3, 3 )
