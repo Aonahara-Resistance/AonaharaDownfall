@@ -105,7 +105,9 @@ func chase(delta) -> void:
     emit_signal("target_disengaged")
 
 func pounce() -> void:
-  yield(get_tree().create_tween().tween_method(self, "set_position", global_position,  target.global_position + Vector2(50,50) * velocity.normalized(), 0.5).set_trans(Tween.TRANS_CIRC),"finished")
+  yield(get_tree().create_tween().tween_property(self, "scale", Vector2(1.3,1.3), 0.2).set_trans(Tween.TRANS_EXPO),"finished")
+  yield(get_tree().create_tween().tween_property(self, "scale", Vector2(1,1), 0.2).set_trans(Tween.TRANS_EXPO),"finished")
+  yield(get_tree().create_tween().tween_method(self, "set_position", global_position,  target.global_position + Vector2(10,10) * velocity.normalized(), 0.5).set_trans(Tween.TRANS_QUART),"finished")
   emit_signal("attack_finished")
 
 func set_position(new_position: Vector2):
@@ -114,7 +116,6 @@ func set_position(new_position: Vector2):
 
 func patrol(delta):
   var steering: Vector2 = Vector2.ZERO
-
   steering += arrival_steering() * 60 * delta
   velocity += steering * 60 * delta
   velocity = velocity.clamped(get_attribute("max_speed"))
