@@ -7,7 +7,7 @@
 [ext_resource path="res://assets/characters/shadow.png" type="Texture" id=5]
 [ext_resource path="res://entities/characters/nom_nom/skills/scrilspeokr/scrilspeokr.tscn" type="PackedScene" id=6]
 [ext_resource path="res://entities/characters/nom_nom/sprites/nom_head.png" type="Texture" id=7]
-[ext_resource path="res://objects/weapons/swords/cum_stained_sword/cum_stained_sword.tscn" type="PackedScene" id=8]
+[ext_resource path="res://objects/weapons/staves/parseids_staff/parseids_staff.tscn" type="PackedScene" id=8]
 [ext_resource path="res://entities/characters/nom_nom/skills/get_excited/get_excited.tscn" type="PackedScene" id=9]
 [ext_resource path="res://entities/characters/nom_nom/dialogue_sprite/nom_neutral.png" type="Texture" id=10]
 [ext_resource path="res://assets/characters/hand.png" type="Texture" id=11]
@@ -184,7 +184,7 @@ cooldown_duration = 30.0
 [node name="Weapon" parent="." index="5"]
 position = Vector2( 0.297298, -0.322042 )
 
-[node name="CumStainedSword" parent="Weapon" index="0" instance=ExtResource( 8 )]
+[node name="ParseidsStaff" parent="Weapon" index="0" instance=ExtResource( 8 )]
 
 [node name="Vfx" parent="." index="7"]
 position = Vector2( 0.286123, 10.7679 )

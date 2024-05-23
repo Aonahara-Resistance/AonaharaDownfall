@@ -56,4 +56,4 @@ signal modifier_ticked
 signal money_picked_up(value)
 signal money_changed(value)
 
-
+signal death_restart_button_pressed

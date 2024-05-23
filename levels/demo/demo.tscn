@@ -1827,6 +1827,7 @@ collision_mask = 1
 position = Vector2( 402, 1730 )
 frames = SubResource( 51 )
 animation = "New Anim"
+frame = 5
 playing = true
 
 [node name="Dummy" parent="Gameplay/YSort" index="29" instance=ExtResource( 15 )]
@@ -1906,8 +1907,11 @@ position = Vector2( 724, 264 )
 [node name="DestructibleLuggage11" parent="Gameplay/YSort" index="53" instance=ExtResource( 18 )]
 position = Vector2( 724, 264 )
 
+[node name="Checkpoint" parent="Gameplay" index="4"]
+position = Vector2( 147, 106 )
+
 [node name="Spawn" parent="Gameplay" index="6"]
-position = Vector2( 149, 104 )
+position = Vector2( 131, 107 )
 
 [node name="BGM" parent="Gameplay" index="7"]
 stream = ExtResource( 11 )

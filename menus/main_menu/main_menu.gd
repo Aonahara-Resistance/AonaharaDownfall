@@ -38,7 +38,6 @@ func _on_QuitButton_pressed() -> void:
   get_tree().quit()
 
 
-
 func _on_QuitButton_focus_entered():
   hover.play()
 
