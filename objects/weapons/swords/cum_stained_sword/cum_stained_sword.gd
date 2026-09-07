@@ -12,8 +12,8 @@ func delete_oncoming_projectile(projectile) -> void:
     var shader: ShaderMaterial = sprite.material
     shader.set_shader_param("intensity", 30)
     
-func light_attack() -> void:
-  .light_attack()
+func _swing() -> void:
+  ._swing()
   if cum_charge == cum_threshold:
     release_cum()
     cum_charge = 0

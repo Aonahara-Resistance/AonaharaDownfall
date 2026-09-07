@@ -99,6 +99,8 @@ var active_attributes: Dictionary = {
 
 var velocity: Vector2 = Vector2.ZERO
 var knockback: Vector2 = Vector2.ZERO
+var lunge: Vector2 = Vector2.ZERO
+var _tilt_tween: SceneTreeTween
 var is_in_control: bool = false
 var is_focus: bool = false
 var is_in_battle: bool = false setget set_is_in_battle, get_is_in_battle
@@ -251,6 +253,9 @@ func move(delta: float) -> void:
   velocity = velocity.clamped(get_attribute("max_speed"))
 
 func _on_Dash_started() -> void:
+  var w = equiped_weapon()
+  if w != null && w.has_method("cancel_attack"):
+    w.cancel_attack()
   _whiten_sprite(dash_duration)
   _enable_iframes(dash_duration)
 
@@ -279,6 +284,32 @@ func set_is_in_battle(new_state) -> void:
     get_tree().create_tween().tween_property(hand_r, "modulate", Color(1,1,1,1), 0.5).set_trans(Tween.TRANS_SINE)
     get_tree().create_tween().tween_property(hand_l, "modulate", Color(1,1,1,1), 0.5).set_trans(Tween.TRANS_SINE)
   is_in_battle = new_state
+
+# Own velocity channel, like knockback, so it bypasses max_speed and the player
+# keeps steering authority through it.
+# Body English on the swing. Rotation only: sprite.scale.x is owned by
+# _flip_character_sprite and must not be touched here.
+func tilt_body(degrees: float) -> void:
+  if _tilt_tween != null && _tilt_tween.is_valid():
+    _tilt_tween.kill()
+  _tilt_tween = get_tree().create_tween()
+  if degrees == 0.0:
+    _tilt_tween.tween_property(sprite, "rotation_degrees", 0.0, 0.08)
+    return
+  _tilt_tween.tween_property(sprite, "rotation_degrees", degrees, 0.06)
+  _tilt_tween.tween_interval(0.08)
+  _tilt_tween.tween_property(sprite, "rotation_degrees", 0.0, 0.14)
+
+
+func listen_lunge(delta) -> void:
+  if lunge != Vector2.ZERO:
+    lunge = lunge.move_toward(Vector2.ZERO, 1400 * delta)
+    lunge = move_and_slide(lunge)
+
+
+func apply_lunge(direction: Vector2, strength: float) -> void:
+  lunge = direction.normalized() * strength
+
 
 func listen_knockback(delta) -> void:
   if get_attribute("receives_knockback"):
@@ -435,10 +466,16 @@ func get_input_direction() -> Vector2:
   input_direction.x = (int(movement_key["right"]) - int(movement_key["left"]))
   input_direction.y = (int(movement_key["down"]) - int(movement_key["up"]))
   input_direction = input_direction.normalized()
-  if is_in_control:
+  if is_in_control && !_is_attacking():
     return input_direction
   else:
     return Vector2.ZERO
+
+
+# Movement ceases during an attack. Dash is the only out, and it cancels.
+func _is_attacking() -> bool:
+  var w = equiped_weapon()
+  return w != null && w.has_method("is_committing") && w.is_committing()
 
 func sprite_control() -> void:
   var mouse_direction: Vector2 = get_mouse_direction()
