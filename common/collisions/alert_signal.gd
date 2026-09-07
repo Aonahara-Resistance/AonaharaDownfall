@@ -23,5 +23,4 @@ func _on_Receiver_area_entered(area) -> void:
     return
   animation.play("alert")
   parent.target = area.get_parent().target
-  print("alerted")
   emit_signal("alerted")

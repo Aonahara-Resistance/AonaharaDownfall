@@ -6,7 +6,7 @@ onready var nom_c = $Cutscene/Nom
 
 func _ready() -> void:
   pass
-  #Uncomment for debuggig without waiting for loading
+  # Uncomment for debuggig without waiting for loading
   GameSignal.emit_signal("level_loaded", spawn.global_position, ysort)
 
   # Run Starting Cutscene:

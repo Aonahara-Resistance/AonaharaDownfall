@@ -12,6 +12,7 @@ func _state_logic(delta) -> void:
 	parent.move(delta)
 	parent.sprite_control()
 	parent.listen_knockback(delta)
+	parent.listen_lunge(delta)
 
 func _unhandled_input(event):
 	if parent.is_in_control:
@@ -21,6 +22,7 @@ func _unhandled_input(event):
 			parent.listen_to_party_change(event)
 			parent.listen_to_input_direction(event)
 			parent.sprite_control()
+			parent.listen_to_dash(event)
 		if state == states.move:
 			parent.listen_to_skills(event)
 			parent.listen_to_attacks(event)

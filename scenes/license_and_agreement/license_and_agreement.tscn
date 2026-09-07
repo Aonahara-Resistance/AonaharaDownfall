@@ -7,8 +7,8 @@
 [ext_resource path="res://assets/particle_textures/star_texture.png" type="Texture" id=5]
 [ext_resource path="res://ui/sfx/alerts_notification/Success7a.wav" type="AudioStream" id=7]
 
-[sub_resource type="DynamicFont" id=1]
-size = 11
+[sub_resource type="DynamicFont" id=21]
+size = 7
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 1 )
@@ -64,7 +64,7 @@ color_ramp = SubResource( 8 )
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-focus_next = NodePath("NinePatchRect/MarginContainer/VBoxContainer2/Button")
+focus_next = NodePath("NinePatchRect/MarginContainer/VBoxContainer2/MarginContainer/Button")
 script = ExtResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -73,7 +73,6 @@ anchor_bottom = 1.0
 color = Color( 0.027451, 0.0313726, 0.0431373, 1 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 margin_left = 13.0
 margin_top = 17.0
 margin_right = 308.0
@@ -98,42 +97,57 @@ alignment = 1
 [node name="MarginContainer" type="MarginContainer" parent="NinePatchRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 25.0
-margin_right = -25.0
 mouse_filter = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="NinePatchRect/MarginContainer"]
-margin_right = 245.0
+margin_right = 295.0
 margin_bottom = 146.0
 mouse_filter = 2
+custom_constants/separation = 16
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer2"]
-margin_top = 23.0
-margin_right = 245.0
-margin_bottom = 111.0
-custom_fonts/font = SubResource( 1 )
+[node name="LabelMargin" type="MarginContainer" parent="NinePatchRect/MarginContainer/VBoxContainer2"]
+margin_top = 13.0
+margin_right = 295.0
+margin_bottom = 109.0
+custom_constants/margin_right = 8
+custom_constants/margin_left = 8
+
+[node name="Label" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer2/LabelMargin"]
+margin_left = 8.0
+margin_right = 287.0
+margin_bottom = 96.0
+custom_fonts/font = SubResource( 21 )
 text = "By Clicking Agree I acknowledge that:
 
-- Anything present in this version is subject to change
-- The story present in this version is not canon
-- Distribution of this version is prohibited 
-- This is a work of fiction
-"
+- This game is a work of fiction. Although it may feature characters or events inspired by real people 
+or situationsany resemblance to actual persons, or actual events is purely \"coincidental\".
+- The content of this game, including all dialogue, actions, and scenarios, 
+is intended for entertainment purposes only and should not be interpreted as factual or representative of reality.
+- The views, opinions, and statements expressed within the game are those of the fictional characters 
+and do not reflect the views, opinions, or beliefs of any associated individuals or entities.
+
+tl;dr this is a parody and should be treated as such"
 autowrap = true
-percent_visible = 0.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="NinePatchRect/MarginContainer/VBoxContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect/MarginContainer/VBoxContainer2"]
+margin_top = 125.0
+margin_right = 295.0
+margin_bottom = 132.0
+custom_constants/margin_right = 24
+custom_constants/margin_left = 24
+
+[node name="Button" type="Button" parent="NinePatchRect/MarginContainer/VBoxContainer2/MarginContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 115.0
-margin_right = 245.0
-margin_bottom = 122.0
+margin_left = 24.0
+margin_right = 271.0
+margin_bottom = 7.0
 focus_mode = 1
 theme = SubResource( 16 )
 text = "Agree"
@@ -154,6 +168,5 @@ stream = ExtResource( 4 )
 [node name="Click" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 
-[connection signal="focus_entered" from="NinePatchRect/MarginContainer/VBoxContainer2/Button" to="." method="_on_Button_focus_entered"]
-[connection signal="mouse_entered" from="NinePatchRect/MarginContainer/VBoxContainer2/Button" to="." method="_on_Button_mouse_entered"]
-[connection signal="pressed" from="NinePatchRect/MarginContainer/VBoxContainer2/Button" to="." method="_on_Button_pressed"]
+[connection signal="mouse_entered" from="NinePatchRect/MarginContainer/VBoxContainer2/MarginContainer/Button" to="." method="_on_Button_mouse_entered"]
+[connection signal="pressed" from="NinePatchRect/MarginContainer/VBoxContainer2/MarginContainer/Button" to="." method="_on_Button_pressed"]
