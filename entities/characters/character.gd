@@ -15,6 +15,7 @@ onready var stamina_timer: Timer = $StaminaTimer
 onready var camera: Camera2D = $Camera2D
 onready var blinker: Blinker = $Blinker
 onready var hurtbox: CollisionShape2D = $Hurtbox/CollisionShape2D
+onready var collision: CollisionShape2D = $CollisionShape2D
 onready var sprite_shader_material: ShaderMaterial = sprite.material
 onready var battle_timer: Timer = $BattleTimer
 onready var skills: Node = $Skills
@@ -164,7 +165,6 @@ func _process(delta):
 ## -----------------------------------------------------------------------------
 
 func listen_to_input_direction(event) -> void:
-
   if event.is_action_pressed("up"):
     movement_key["up"] = true
   if event.is_action_pressed("down"):
@@ -511,6 +511,23 @@ func _whiten_sprite(duration: float):
 func _connect_signals():
   dash.connect("dash_started", self, "_on_Dash_started")
   equiped_weapon().connect("heavy_attack_released", self, "_on_heavy_attack_released")
+  if equiped_weapon().has_method("release_cum"):
+    equiped_weapon().connect("cum_sword_spin_started", self, "_on_cum_spin_started")
+    equiped_weapon().connect("cum_sword_spin_ended", self, "_on_cum_spin_ended")
+
+
+func _on_cum_spin_started():
+  set_attribute("acceleration", get_attribute("acceleration") + 100)
+  set_attribute("max_speed", get_attribute("max_speed") + 100)
+  set_attribute("friction", get_attribute("friction") - 0.1)
+  _enable_iframes(1)
+
+func _on_cum_spin_ended():
+  set_attribute("acceleration", get_attribute("acceleration") - 100)
+  set_attribute("max_speed", get_attribute("max_speed") - 100)
+  set_attribute("friction", get_attribute("friction") + 0.1)
+
+    
 
 func _on_heavy_attack_released():
   heavy_cooldown_indicator.value = 0

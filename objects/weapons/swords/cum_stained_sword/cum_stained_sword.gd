@@ -5,6 +5,10 @@ export var cum_projectile: PackedScene
 var cum_charge: int
 var cum_threshold: int = 5
 
+
+signal cum_sword_spin_started
+signal cum_sword_spin_ended
+
 func delete_oncoming_projectile(projectile) -> void:
   .delete_oncoming_projectile(projectile)
   cum_charge += 1
@@ -27,3 +31,10 @@ func release_cum() -> void:
   var shader: ShaderMaterial = sprite.material
   shader.set_shader_param("intensity", 0)
 
+
+func start_heavy() -> void:
+  emit_signal("cum_sword_spin_started")
+
+
+func end_heavy() -> void:
+  emit_signal("cum_sword_spin_ended")
