@@ -37,15 +37,11 @@ func is_party_empty() -> bool:
     return true
 
 func switch_to_available_member() -> void:
-  var death_count: int = 0
   for i in range(party_members.size()):
     if party_members[i].is_alive:
       change_party_member(i)
-    else:
-      death_count = death_count + 1
-  print(death_count)
-  if death_count == party_members.size():
-    GameSignal.emit_signal("died")
+      return
+  GameSignal.emit_signal("died")
 
 func clear_party_members() -> void:
   party_members = []
@@ -153,9 +149,14 @@ func _on_party_member_change_requested(index) -> void:
   if party_members.size() > index:
     change_party_member(index)
 
-func _on_party_member_died() -> void:
-  tactical_character_hiding(current_character())
+func _on_party_member_died(character) -> void:
+  var was_current: bool = character == current_character()
+  tactical_character_hiding(character)
+  if !was_current:
+    return
   switch_to_available_member()
+  if current_character().is_alive:
+    current_character()._enable_iframes(1.0)
 
 func _on_skill_one_pressed() -> void:
   current_character().skill_one.activate_skill()

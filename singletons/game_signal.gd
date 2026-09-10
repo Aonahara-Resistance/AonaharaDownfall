@@ -20,7 +20,7 @@ signal death_continue_button_pressed
 
 signal party_member_change_requested(index)
 signal party_member_changed(character)
-signal party_member_died
+signal party_member_died(character)
 signal party_spawned(active_character, party_members, reserve_member)
 
 signal skill_one_pressed

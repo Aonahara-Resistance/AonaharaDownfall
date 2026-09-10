@@ -372,15 +372,17 @@ func _take_damage(damage: int) -> void:
 func _enable_iframes(duration: float) -> void:
   hurtbox.set_deferred("disabled", true)
   yield(get_tree().create_timer(duration), "timeout")
-  hurtbox.disabled = false
+  hurtbox.disabled = !is_in_control
 
 func _die_check(current_hp: int) -> void:
   if current_hp <= 0:
     die()
 
 func die() -> void:
+  if !is_alive:
+    return
   is_alive = false
-  GameSignal.emit_signal("party_member_died")
+  GameSignal.emit_signal("party_member_died", self)
 
 func reset_stats() -> void:
   set_attribute("hp", attributes.stateless_attributes.max_hp)
@@ -552,5 +554,4 @@ func _on_modifier_ended() -> void:
 
 func _on_FadeoutTimer_timeout():
   get_tree().create_tween().tween_property(heavy_cooldown_indicator, "modulate", Color.transparent, 0.15).set_trans(Tween.TRANS_SINE)
-
 
