@@ -1827,7 +1827,7 @@ collision_mask = 1
 position = Vector2( 402, 1730 )
 frames = SubResource( 51 )
 animation = "New Anim"
-frame = 5
+frame = 3
 playing = true
 
 [node name="Dummy" parent="Gameplay/YSort" index="29" instance=ExtResource( 15 )]
@@ -1916,6 +1916,7 @@ position = Vector2( 131, 107 )
 [node name="BGM" parent="Gameplay" index="7"]
 stream = ExtResource( 11 )
 volume_db = -23.636
+autoplay = true
 
 [node name="Light2D" type="Light2D" parent="Gameplay/Lights" index="0"]
 position = Vector2( 7, 8 )
@@ -2202,7 +2203,7 @@ energy = 0.8
 [node name="Ambience" type="AudioStreamPlayer" parent="." index="3"]
 pause_mode = 2
 stream = ExtResource( 4 )
-volume_db = -10.0
+volume_db = -14.0
 autoplay = true
 
 [node name="CheatPanel" parent="." index="5" instance=ExtResource( 17 )]
