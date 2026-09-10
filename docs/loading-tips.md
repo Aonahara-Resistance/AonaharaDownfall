@@ -51,9 +51,3 @@ Deity souls, shrine blessings, and the normal/elite/boss tier split.
 - Deity souls can be used to enchance your weapon.
 - Bosses have different phases wherein their attack pattern changes.
 - You can learn more about a character through the character page.
-
-## Unresolved editorial thread (from the sheet's margin)
-
-- Is this a loading screen? | maybe we should split these into categories
-- When the tips are sus | Memes | and actually helpfull
-- Not getting hit by the enemy is a great strategy to survive | then do like a 50 50 split or 25 75 split so some of these are actually helpful kekw
