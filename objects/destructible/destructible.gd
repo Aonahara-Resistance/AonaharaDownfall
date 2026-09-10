@@ -17,12 +17,6 @@ var money_sounds = [
   load("res://objects/drops/coin_2.wav"),
   load("res://objects/drops/coin_3.wav"),
   load("res://objects/drops/coin_4.wav"),
-  load("res://objects/drops/coin_5.wav"),
-  load("res://objects/drops/coin_6.wav"),
-  load("res://objects/drops/coin_7.wav"),
-  load("res://objects/drops/coin_8.wav"),
-  load("res://objects/drops/coin_9.wav"),
-  load("res://objects/drops/coin_10.wav"),
 ]
 
 func _on_Destructible_area_entered(area:Area2D):
@@ -38,8 +32,6 @@ func _on_Destructible_area_entered(area:Area2D):
     collision_shape.set_deferred("disabled", true)
     Shake.shake(0.2, 0.2, 1)
 
-    # Play random audio
-
     # Drop Money
     var dropped_count = randi() % money_drop_end + money_drop_start
     for _i in range(dropped_count):
@@ -50,14 +42,13 @@ func _on_Destructible_area_entered(area:Area2D):
       instance.global_position = global_position
       get_tree().create_tween().tween_property(instance, "global_position", Vector2(global_position.x + rand_range(-30,30), global_position.y + rand_range(-30,30)), 0.2).set_trans(Tween.TRANS_BACK)
 
-      var sfx = AudioStreamPlayer2D.new()
-      sfx.stream = money_sounds[0]
-      sfx.connect("finished", sfx, "queue_free")
-      sfx.global_position = global_position
-      sfx.autoplay = false
-      get_tree().root.add_child(sfx) 
-      sfx.play()
+    var sfx = AudioStreamPlayer2D.new()
+    sfx.stream = money_sounds[randi() % money_sounds.size()]
+    sfx.connect("finished", sfx, "queue_free")
+    sfx.global_position = global_position
+    sfx.autoplay = false
+    get_tree().root.add_child(sfx) 
+    sfx.play()
 
 func _on_Sound_finished():
   queue_free()
-
