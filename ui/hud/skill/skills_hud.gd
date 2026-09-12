@@ -13,6 +13,13 @@ onready var skill_two_timer: Timer = $SkillTwoTimer
 onready var skill_one_hover_timer: Timer = $SkillOneHoverTimer
 onready var skill_two_hover_timer: Timer = $SkillTwoHoverTimer
 
+# Fixed width so the autowrap labels have a stable wrap point; the panel only
+# grows downwards from there.
+# ponytail: assumes the wrapped text fits the 180px-tall viewport. Add a max
+# height with a scroll container if descriptions ever get longer.
+const TOOLTIP_WIDTH := 110.0
+const TOOLTIP_PADDING := 5.0
+
 var skill_one_tooltip
 var skill_two_tooltip
 
@@ -108,14 +115,30 @@ func _on_Skill1_mouse_entered():
 
 
 func _on_SkillOneHoverTimer_timeout():
-  skill_one_tooltip.rect.rect_position = get_global_mouse_position() - skill_one_tooltip.rect.rect_size
-  var content_size = skill_one_tooltip.vbox.get_combined_minimum_size()
-  skill_one_tooltip.rect.rect_min_size  = Vector2(content_size + Vector2(10,10))
-  skill_one_tooltip.rect.visible = true
+  _show_tooltip(skill_one_tooltip)
 
 func _on_SkillTwoHoverTimer_timeout():
-  skill_two_tooltip.rect.rect_position = get_global_mouse_position() - skill_two_tooltip.rect.rect_size
-  var content_size = skill_two_tooltip.vbox.get_combined_minimum_size()
-  skill_two_tooltip.rect.rect_min_size  = Vector2(content_size + Vector2(10,10))
-  skill_two_tooltip.rect.visible = true
+  _show_tooltip(skill_two_tooltip)
+
+func _show_tooltip(tooltip) -> void:
+  tooltip.rect.rect_min_size = Vector2(TOOLTIP_WIDTH, 0)
+  tooltip.rect.rect_size = Vector2(TOOLTIP_WIDTH, 0)
+  _place_tooltip(tooltip)
+  tooltip.rect.visible = true
+  yield(get_tree(), "idle_frame")
+  _place_tooltip(tooltip)
+
+func _place_tooltip(tooltip) -> void:
+  var size := Vector2(
+    TOOLTIP_WIDTH,
+    tooltip.vbox.get_combined_minimum_size().y + TOOLTIP_PADDING * 2
+  )
+  tooltip.rect.rect_min_size = size
+  tooltip.rect.rect_size = size
+  var screen: Vector2 = get_viewport().get_visible_rect().size
+  var pos: Vector2 = get_global_mouse_position() - size
+  tooltip.rect.rect_position = Vector2(
+    clamp(pos.x, 0, max(0, screen.x - size.x)),
+    clamp(pos.y, 0, max(0, screen.y - size.y))
+  )
 
