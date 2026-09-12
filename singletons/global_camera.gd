@@ -3,7 +3,10 @@ extends Node2D
 onready var camera2D: Camera2D = $Camera2D
 var camera_target_offset = Vector2.ZERO
 var camera_speed = 1
-func _process(_delta):
+# Physics cock, not the render cock: the body it follows moves in
+# _physics_process, and a camera gliding between physics ticks is what makes the
+# player wobble against the background on a monitor faster than physics_fps.
+func _physics_process(_delta):
   # Experimental: 
   # var mouse_position = get_viewport().get_mouse_position()
   # camera_target_offset = (mouse_position - get_viewport_rect().size / 2.0) / 0.2

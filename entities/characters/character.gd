@@ -156,7 +156,7 @@ func _process(delta):
     footstep_timer.wait_time = 0.27
 
   if heavy_cooldown_indicator.value == equiped_weapon().heavy_cooldown_time * 60:
-    heavy_cooldown_indicator.material.set_shader_param("shine_progress", heavy_cooldown_indicator.material.get_shader_param("shine_progress") + 0.1)
+    heavy_cooldown_indicator.material.set_shader_param("shine_progress", heavy_cooldown_indicator.material.get_shader_param("shine_progress") + 6 * delta)
 
   heavy_cooldown_indicator.value += 1 * delta * 60
 
@@ -249,7 +249,9 @@ func move(delta: float) -> void:
   var input_direction: Vector2 = get_input_direction()
   velocity = move_and_slide(velocity)
   velocity += (get_attribute("acceleration") * input_direction * delta * 60)
-  velocity = lerp(velocity, Vector2.ZERO, get_attribute("friction"))
+  velocity = lerp(
+    velocity, Vector2.ZERO, 1.0 - pow(1.0 - get_attribute("friction"), delta * 60)
+  )
   velocity = velocity.clamped(get_attribute("max_speed"))
 
 func _on_Dash_started() -> void:

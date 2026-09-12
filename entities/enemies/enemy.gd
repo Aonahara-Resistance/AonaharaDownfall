@@ -138,7 +138,7 @@ func arrival_steering() -> Vector2:
   return desired_velocity - velocity
 
 func scan_target():
-  player_detector.rotation += 10
+  player_detector.rotation += 600 * get_physics_process_delta_time()
   for detector in player_detector.get_children():
     var collider = detector.get_collider()
     if collider is Character:
@@ -147,7 +147,7 @@ func scan_target():
         alert_signal.alert()
 
 func scan_range():
-  range_detector.rotation += 10
+  range_detector.rotation += 600 * get_physics_process_delta_time()
   for detector in range_detector.get_children():
     var collider = detector.get_collider()
     if collider is Character:

@@ -12,11 +12,11 @@ var pillars: Array = []
 var staff_shake = 0
 
 
-func _process(_delta):
+func _process(delta):
   if charge_particle.emitting:
     shake_staff(2)
   else:
-    stop_shaking()
+    stop_shaking(delta)
   
 
 func summon_pillar():
@@ -39,6 +39,6 @@ func shake_staff(shake_intensity) -> void:
   staff_shake = shake_intensity
   weapon_container.position = Vector2(randf(), randf()) * shake_intensity
 
-func stop_shaking() -> void:
-  var new_shake = lerp(staff_shake, 0, 0.1)
+func stop_shaking(delta) -> void:
+  var new_shake = lerp(staff_shake, 0, 1.0 - pow(0.9, delta * 60))
   staff_shake = new_shake

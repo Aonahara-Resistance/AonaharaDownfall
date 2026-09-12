@@ -34,12 +34,7 @@ func update_modifier_indicator(character) -> void:
   for modifier in character.get_modifiers():
     var buff_item_instance = buff_indicator.instance()
     buff_item_instance.set_texture(modifier.buff_icon)
-    buff_item_instance.get_node("CooldownIndicator").max_value = modifier.duration * 60
-    buff_item_instance.get_node("CooldownIndicator").value = (
-      modifier.duration * 60
-      - modifier.get_node("Duration").time_left * 60
-    )
-    print(modifier.get_node("Duration").time_left)
+    buff_item_instance.duration_timer = modifier.get_node("Duration")
     modifier_container.add_child(buff_item_instance)
 
 func show_death_screen():
