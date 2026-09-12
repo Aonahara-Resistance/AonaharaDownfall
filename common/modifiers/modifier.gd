@@ -37,8 +37,6 @@ func modify_stateful(_host):
   pass
 
 func reset_duration() -> void:
-  print("reset timer")
-  GameSignal.emit_signal("modifier_reset")
   duration_timer.start()
 
 func get_modifier_type() -> int:

@@ -294,6 +294,10 @@ func set_attribute(attribute: String, new_value):
   modifier_tick()
 
 func apply_modifier(new_modifier: Modifier) -> void:
+  for modifier in get_modifiers():
+    if modifier.buff_name == new_modifier.buff_name:
+      modifier.reset_duration()
+      return
   modifiers.add_child(new_modifier)
   modifier_tick()
   new_modifier.modify_stateful(self)
@@ -305,7 +309,8 @@ func modifier_tick() -> void:
   var res: Dictionary = attributes.stateless_attributes.duplicate()
   var modifier_list: Array = get_modifiers()
   for modifier in modifier_list:
-    res = modifier.modify_stateless(res)
+    if modifier.is_active:
+      res = modifier.modify_stateless(res)
   active_attributes = {
     "hp": attributes.stateful_attributes.hp,
     "max_hp": res.max_hp,

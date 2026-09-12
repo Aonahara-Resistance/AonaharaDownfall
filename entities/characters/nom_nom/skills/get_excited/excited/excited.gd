@@ -11,7 +11,10 @@ func modify_stateless(res):
 	res["max_speed"] += extra_max_speed
 	res["max_hp"] += extra_max_hp
 	res["base_damage"] += extra_damage
-	res["extra_hp"] += extra_hp
 	return res
+
+func modify_stateful(host):
+	host.set_attribute("hp", int(min(host.get_attribute("hp") + extra_hp, host.get_attribute("max_hp"))))
+	GameSignal.emit_signal("health_changed", host)
 
 

@@ -45,7 +45,6 @@ export var stamina: int
 export var stamina_regen: float
 export var acceleration: int
 export var max_hp: int
-export var extra_hp: int
 export var max_speed: int
 export var max_stamina: int
 export var base_damage: int
@@ -128,7 +127,6 @@ func _ready() -> void:
       stamina,
       stamina_regen,
       max_hp,
-      extra_hp,
       max_speed,
       max_stamina,
       base_damage,
@@ -420,6 +418,7 @@ func apply_modifier(new_modifier: Modifier) -> void:
   for modifier in modifier_list:
     if modifier.buff_name == new_modifier.buff_name:
       modifier.reset_duration()
+      GameSignal.emit_signal("modifier_reset", self)
       return
   new_modifier.connect("modifier_ended", self, "_on_modifier_ended")
   modifiers.add_child(new_modifier)
@@ -430,7 +429,8 @@ func apply_modifier(new_modifier: Modifier) -> void:
 func reset_modifier() -> void:
   var modifier_list: Array = get_modifiers()
   for modifier in modifier_list:
-    modifier.get_parent().remove_child(modifier)
+    modifier.is_active = false
+    modifier.queue_free()
   GameSignal.emit_signal("modifier_reset", self)
 
 func get_modifiers() -> Array:
@@ -443,7 +443,7 @@ func modifier_tick() -> void:
     if modifier.is_active:
       res = modifier.modify_stateless(res)
   active_attributes = {
-    "hp": attributes.stateful_attributes.hp + res.extra_hp,
+    "hp": attributes.stateful_attributes.hp,
     "stamina": attributes.stateful_attributes.stamina,
     "stamina_regen": res.stamina_regen,
     "acceleration": res.acceleration,
@@ -536,6 +536,10 @@ func _on_HeavyCooldownI_value_changed(value:float) -> void:
 
 func _on_modifier_ended() -> void:
   modifier_tick()
+  # A buff that raised max_hp just expired; don't leave hp above the new cap.
+  if get_attribute("hp") > get_attribute("max_hp"):
+    set_attribute("hp", get_attribute("max_hp"))
+    GameSignal.emit_signal("health_changed", self)
   GameSignal.emit_signal("modifier_ended", self)
 
 func _on_FadeoutTimer_timeout():
