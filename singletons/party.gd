@@ -110,7 +110,7 @@ func tactical_character_hiding(character) -> void:
   character.get_node("StateLabel"),
   character.get_node("HeavyCooldownI"),
   ]
-  character.get_node("Hurtbox/CollisionShape2D").set_deferred("disabled", true)
+  character.set_hurtbox_active(false)
   character.get_node("CollisionShape2D").set_deferred("disabled", true)
   for sprite in sprites:
     sprite.set_visible(false)
@@ -124,7 +124,7 @@ func tactical_character_showing(character) -> void:
   #character.get_node("StateLabel"),
   character.get_node("HeavyCooldownI"),
   ]
-  character.get_node("Hurtbox/CollisionShape2D").set_deferred("disabled", false)
+  character.set_hurtbox_active(true)
   character.get_node("CollisionShape2D").set_deferred("disabled", false)
   for sprite in sprites:
     sprite.set_visible(true)

@@ -102,6 +102,8 @@ var knockback: Vector2 = Vector2.ZERO
 var lunge: Vector2 = Vector2.ZERO
 var _tilt_tween: SceneTreeTween
 var is_in_control: bool = false
+var _iframes_until: float = 0.0
+var _iframes_gen: int = 0
 var is_focus: bool = false
 var is_in_battle: bool = false setget set_is_in_battle, get_is_in_battle
 var movement_key: Dictionary = {"up": false, "down": false, "left": false, "right": false}
@@ -369,10 +371,32 @@ func _take_damage(damage: int) -> void:
   _die_check(get_attribute("hp"))
   GameSignal.emit_signal("health_changed", self)
 
+func _iframes_pending() -> bool:
+  return OS.get_ticks_msec() / 1000.0 < _iframes_until
+
+# Every write to the hurtbox goes through here 
+# so a oparyt swap can't cut an
+# i-frame window short. 
+# PARTY MUSTt calls this instead of reaching into the node.
+func set_hurtbox_active(active: bool) -> void:
+  hurtbox.set_deferred("disabled", !active || _iframes_pending())
+
+# Longest window wins. 
+# what bout linux
+# idk bruh
 func _enable_iframes(duration: float) -> void:
+  var ends_at: float = OS.get_ticks_msec() / 1000.0 + duration
+  if ends_at <= _iframes_until:
+    return
+  _iframes_until = ends_at
+  _iframes_gen += 1
+  var gen: int = _iframes_gen
   hurtbox.set_deferred("disabled", true)
   yield(get_tree().create_timer(duration), "timeout")
-  hurtbox.disabled = !is_in_control
+  if gen != _iframes_gen:
+    return
+  _iframes_until = 0.0
+  set_hurtbox_active(is_in_control)
 
 func _die_check(current_hp: int) -> void:
   if current_hp <= 0:
