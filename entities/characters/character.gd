@@ -515,23 +515,7 @@ func _whiten_sprite(duration: float):
 func _connect_signals():
   dash.connect("dash_started", self, "_on_Dash_started")
   equiped_weapon().connect("heavy_attack_released", self, "_on_heavy_attack_released")
-  if equiped_weapon().has_method("release_cum"):
-    equiped_weapon().connect("cum_sword_spin_started", self, "_on_cum_spin_started")
-    equiped_weapon().connect("cum_sword_spin_ended", self, "_on_cum_spin_ended")
 
-
-func _on_cum_spin_started():
-  set_attribute("acceleration", get_attribute("acceleration") + 100)
-  set_attribute("max_speed", get_attribute("max_speed") + 100)
-  set_attribute("friction", get_attribute("friction") - 0.1)
-  _enable_iframes(1)
-
-func _on_cum_spin_ended():
-  set_attribute("acceleration", get_attribute("acceleration") - 100)
-  set_attribute("max_speed", get_attribute("max_speed") - 100)
-  set_attribute("friction", get_attribute("friction") + 0.1)
-
-    
 
 func _on_heavy_attack_released():
   heavy_cooldown_indicator.value = 0
