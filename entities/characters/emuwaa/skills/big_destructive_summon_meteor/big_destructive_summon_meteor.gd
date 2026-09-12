@@ -64,6 +64,3 @@ func _on_CastTimer_timeout():
   active_meteor.global_position = spawning_circle.global_position
   active_meteor.global_position += Vector2(307.173, -265.675)
   animation.play("fade")
-
-func _on_CooldownTimer_timeout():
-  current_cooldown_indicator = cooldown_indicator

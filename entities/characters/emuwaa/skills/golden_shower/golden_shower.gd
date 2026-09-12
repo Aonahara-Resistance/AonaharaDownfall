@@ -74,6 +74,3 @@ func _on_DurationTimer_timeout() -> void:
   animation.play("end")
   aoe.set_visible(false)
   aoe_animation.play("RESET")
-
-func _on_CooldownTimer_timeout() -> void:
-  current_cooldown_indicator = cooldown_indicator

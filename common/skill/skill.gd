@@ -38,3 +38,7 @@ func activate_skill() -> void:
 
 func _on_CooldownTimer_timeout() -> void:
   current_cooldown_indicator = cooldown_indicator
+  # Timer stopped, so _process no longer emits: fire once more so the HUD hides
+  # the cooldown label and indicator.
+  if character.sprite.visible:
+    GameSignal.emit_signal("skill_cooldown_changed", character)
